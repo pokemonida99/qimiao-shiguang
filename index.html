@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>棲渺拾光 ‧ 燈下資料館</title>
+<meta name="description" content="《黃泉燒肉店》四季的劇情線、人物誌、詞彙資料庫與關係圖。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================ tokens ============================ */
+:root{
+  --ink:#06080E; --ink2:#0B0F1A; --ink3:#11162355;
+  --paper:#EFE7DA; --muted:rgba(239,231,218,.58); --faint:rgba(239,231,218,.34);
+  --amber:#E9A85C; --amber-hi:#F7DCAE; --amber-dim:rgba(233,168,92,.16);
+  --sakura:#E9A2B4; --jade:#7FD6C1; --blood:#C05A5A;
+  --line:rgba(233,168,92,.18); --line-soft:rgba(239,231,218,.10);
+  --panel:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  --serif:"Noto Serif TC","Songti TC","PingFang TC",serif;
+  --sans:"Noto Sans TC","PingFang TC","Heiti TC",system-ui,sans-serif;
+  --r:16px; --nav-h:60px; --head-h:56px;
+  --wrap:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink); color:var(--paper); font-family:var(--sans);
+  font-weight:300; line-height:1.85; letter-spacing:.02em;
+  overflow-x:hidden; padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));
+}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:var(--amber);text-decoration:none}
+::selection{background:rgba(233,168,92,.3)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+
+/* ============================ backdrop ============================ */
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(70% 45% at 82% 6%, rgba(60,42,86,.55), transparent 70%),
+    radial-gradient(60% 40% at 12% 88%, rgba(233,168,92,.13), transparent 72%),
+    radial-gradient(90% 60% at 50% 40%, rgba(16,22,40,.9), transparent 80%),
+    linear-gradient(180deg,#080B14 0%,#06080E 55%,#08060B 100%);}
+.bg::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.42'/></svg>");}
+.petals{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.petal{position:absolute;top:-6vh;width:9px;height:9px;border-radius:60% 0 60% 0;
+  background:linear-gradient(140deg,rgba(233,162,180,.55),rgba(233,168,92,.25));
+  animation:fall linear infinite;opacity:0}
+@keyframes fall{
+  0%{transform:translate3d(0,-8vh,0) rotate(0deg);opacity:0}
+  8%{opacity:.7} 92%{opacity:.5}
+  100%{transform:translate3d(9vw,108vh,0) rotate(420deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.petal{display:none}*{animation-duration:.001s!important;transition-duration:.001s!important}}
+
+/* ============================ chrome ============================ */
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:18px}
+header.top{position:sticky;top:0;z-index:60;height:var(--head-h);
+  display:flex;align-items:center;gap:12px;
+  background:rgba(6,8,14,.72);backdrop-filter:blur(14px) saturate(1.2);
+  border-bottom:1px solid var(--line-soft)}
+.brand{display:flex;align-items:baseline;gap:9px;font-family:var(--serif);font-weight:700;
+  font-size:17px;letter-spacing:.16em;color:var(--amber-hi);white-space:nowrap}
+.brand small{font-family:var(--sans);font-weight:300;font-size:10px;letter-spacing:.24em;color:var(--faint)}
+.top .sp{flex:1}
+.iconbtn{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+  border:1px solid var(--line-soft);color:var(--muted);transition:.2s}
+.iconbtn:hover,.iconbtn:active{color:var(--amber-hi);border-color:var(--line);background:rgba(233,168,92,.07)}
+.iconbtn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+nav.desk{display:none}
+@media(min-width:820px){
+  body{padding-bottom:0}
+  nav.desk{display:flex;gap:2px;align-items:center}
+  nav.desk button{font-size:13.5px;letter-spacing:.14em;padding:9px 15px;border-radius:10px;color:var(--muted);transition:.2s;font-family:var(--serif);font-weight:600}
+  nav.desk button:hover{color:var(--paper);background:rgba(255,255,255,.05)}
+  nav.desk button[aria-current="true"]{color:var(--amber-hi);background:var(--amber-dim)}
+}
+nav.tab{position:fixed;left:0;right:0;bottom:0;z-index:60;height:calc(var(--nav-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:rgba(6,8,14,.9);backdrop-filter:blur(16px);border-top:1px solid var(--line-soft)}
+@media(min-width:820px){nav.tab{display:none}}
+nav.tab button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  font-size:10.5px;letter-spacing:.1em;color:var(--faint);font-family:var(--serif);font-weight:600;transition:.18s}
+nav.tab button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+nav.tab button[aria-current="true"]{color:var(--amber-hi)}
+nav.tab button[aria-current="true"] svg{filter:drop-shadow(0 0 6px rgba(233,168,92,.55))}
+
+/* ============================ common bits ============================ */
+.page{display:none;animation:rise .5s cubic-bezier(.2,.7,.3,1)}
+.page.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+section{padding-block:44px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.sec-head h2{font-family:var(--serif);font-weight:700;text-wrap:balance;font-size:clamp(21px,5vw,27px);letter-spacing:.1em;white-space:nowrap}
+.sec-head .en{font-size:10px;letter-spacing:.3em;color:var(--faint);text-transform:uppercase;white-space:nowrap;padding-top:6px}
+.sec-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.lede{color:var(--muted);font-size:15px;max-width:60ch}
+.card{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;position:relative}
+.card::before{content:"";position:absolute;top:0;left:14px;right:14px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line),transparent)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;letter-spacing:.08em;
+  padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--amber);
+  background:rgba(233,168,92,.07);white-space:nowrap}
+.chip.dim{color:var(--faint);border-color:var(--line-soft);background:rgba(255,255,255,.03)}
+.chip.pink{color:var(--sakura);border-color:rgba(233,162,180,.28);background:rgba(233,162,180,.08)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.vert{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.28em}
+.orn{display:block;width:100%;height:16px;margin-block:6px;
+  background:radial-gradient(circle at 50% 50%,var(--line) 1.4px,transparent 1.6px) 50%/13px 13px repeat-x;opacity:.75}
+
+/* seal / spoiler */
+.seal{position:relative}
+.seal[data-locked="1"] > *{filter:blur(7px) saturate(.4);opacity:.5;pointer-events:none;user-select:none}
+.seal[data-locked="1"]::after{content:attr(data-seal);position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--serif);font-size:12.5px;letter-spacing:.2em;color:var(--amber);
+  background:rgba(6,8,14,.28);border:1px dashed var(--line);border-radius:10px;cursor:pointer}
+
+/* ============================ hero ============================ */
+.hero{position:relative;min-height:min(92svh,760px);display:flex;align-items:flex-end;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:#06080E}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:70% 42%;opacity:.82}
+.hero-img::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,8,14,.86) 0%,rgba(6,8,14,.12) 28%,rgba(6,8,14,.62) 60%,#06080E 98%),
+             linear-gradient(90deg,rgba(6,8,14,.86),rgba(6,8,14,.05) 62%)}
+.hero-in{position:relative;padding-block:0 44px;width:100%}
+.hero-kicker{display:flex;align-items:center;gap:10px;color:var(--amber);font-size:11px;letter-spacing:.34em;margin-bottom:16px}
+.hero-kicker::before{content:"";width:26px;height:1px;background:var(--amber);opacity:.7}
+.hero h1{font-family:var(--serif);font-weight:900;text-wrap:balance;line-height:1.12;letter-spacing:.06em;
+  font-size:clamp(38px,12.5vw,84px);
+  text-shadow:0 0 46px rgba(233,168,92,.24),0 2px 24px rgba(0,0,0,.7)}
+.hero h1 span{color:var(--amber-hi)}
+.hero .sub{margin-top:14px;font-family:var(--serif);font-size:clamp(14px,3.8vw,19px);letter-spacing:.24em;color:var(--paper);opacity:.9}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.hero-cta{margin-top:26px;display:flex;flex-wrap:wrap;gap:11px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;
+  font-family:var(--serif);font-weight:600;font-size:14px;letter-spacing:.12em;transition:.22s}
+.btn.primary{background:linear-gradient(135deg,#F0B96E,#D98C43);color:#20140A;
+  box-shadow:0 10px 30px -12px rgba(233,168,92,.85)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(233,168,92,.95)}
+.btn.ghost{border:1px solid var(--line);color:var(--paper)}
+.btn.ghost:hover{background:rgba(233,168,92,.1);border-color:var(--amber)}
+.scrollcue{display:flex;align-items:center;gap:9px;margin-top:26px;font-size:10.5px;letter-spacing:.28em;color:var(--faint)}
+.scrollcue i{display:block;width:1px;height:26px;background:linear-gradient(180deg,var(--amber),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.25;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+.hero-strip{position:absolute;right:16px;top:0;bottom:120px;display:none;align-items:center}
+@media(min-width:720px){.hero-strip{display:flex}}
+.hero-strip span{font-family:var(--serif);font-size:14px;letter-spacing:.42em;color:rgba(239,231,218,.5);
+  writing-mode:vertical-rl;text-orientation:upright}
+
+/* lantern rule */
+.lantern-rule{display:flex;align-items:center;gap:14px;color:var(--amber);opacity:.8;margin:6px 0 22px}
+.lantern-rule::before,.lantern-rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+.lantern-rule i{display:block;width:9px;height:12px;border-radius:46% 46% 40% 40%;background:radial-gradient(circle at 50% 35%,#FFD9A0,#E9A85C);
+  box-shadow:0 0 14px rgba(233,168,92,.7)}
+
+/* ============================ world pillars ============================ */
+.pillars{display:grid;gap:14px}
+@media(min-width:700px){.pillars{grid-template-columns:1fr 1fr}}
+.pillar{padding:22px 20px}
+.pillar h3{font-family:var(--serif);font-size:18px;font-weight:700;letter-spacing:.08em;margin-bottom:9px;color:var(--amber-hi)}
+.pillar p{font-size:14.5px;color:var(--muted)}
+.pillar .no{font-family:var(--serif);font-size:11px;letter-spacing:.3em;color:var(--faint);display:block;margin-bottom:12px}
+
+/* ============================ season cards ============================ */
+.seasons{display:grid;gap:16px}
+@media(min-width:760px){.seasons{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1020px){.seasons{grid-template-columns:repeat(4,1fr)}}
+.season{position:relative;display:block;text-align:left;min-height:260px;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line-soft);transition:.28s}
+.season:hover{border-color:var(--line);transform:translateY(-3px)}
+.season img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;transition:.5s}
+.season:hover img{opacity:.66;transform:scale(1.05)}
+.season .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,14,.25),rgba(6,8,14,.9))}
+.season .in{position:relative;padding:20px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;min-height:260px}
+.season .kanji{position:absolute;top:16px;right:18px;font-family:var(--serif);font-weight:900;font-size:40px;
+  color:rgba(239,231,218,.16);letter-spacing:.1em;writing-mode:vertical-rl}
+.season .no{font-size:10.5px;letter-spacing:.34em;color:var(--amber)}
+.season h3{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:.08em;margin:6px 0 8px}
+.season p{font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ============================ story page ============================ */
+.seg{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:22px}
+.seg::-webkit-scrollbar{display:none}
+.seg button{padding:9px 16px;border-radius:999px;border:1px solid var(--line-soft);
+  font-family:var(--serif);font-weight:600;font-size:13px;letter-spacing:.1em;color:var(--muted);white-space:nowrap;transition:.2s}
+.seg button[aria-current="true"]{color:var(--amber-hi);border-color:var(--amber);background:var(--amber-dim)}
+
+.sbanner{position:relative;border-radius:var(--r);overflow:hidden;margin-bottom:22px;min-height:230px;display:flex;align-items:flex-end}
+.sbanner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.46}
+.sbanner .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,14,.35),rgba(6,8,14,.94))}
+.sbanner .in{position:relative;padding:22px 20px}
+.sbanner .kanji{font-family:var(--serif);font-weight:900;font-size:clamp(40px,13vw,64px);letter-spacing:.14em;
+  color:var(--amber-hi);text-shadow:0 0 40px rgba(233,168,92,.35);line-height:1}
+.sbanner h2{font-family:var(--serif);font-size:20px;letter-spacing:.12em;margin-top:10px;text-wrap:balance}
+.sbanner .ll{margin-top:12px;font-size:14.5px;color:var(--muted);max-width:60ch}
+.sq{margin:18px 0;padding:16px 18px;border-left:2px solid var(--amber);background:rgba(233,168,92,.05);
+  font-family:var(--serif);font-size:16px;letter-spacing:.06em;color:var(--amber-hi)}
+
+.known{list-style:none;display:grid;gap:11px;max-width:64ch}
+.known li{position:relative;padding-left:26px;font-size:14.5px;color:var(--paper)}
+.known li::before{content:"";position:absolute;left:4px;top:12px;width:7px;height:9px;border-radius:46% 46% 40% 40%;
+  background:radial-gradient(circle at 50% 35%,#FFD9A0,#E9A85C);box-shadow:0 0 9px rgba(233,168,92,.6)}
+.tl{list-style:none;position:relative;margin-top:18px;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:1px;
+  background:linear-gradient(180deg,transparent,var(--line),var(--line),transparent)}
+.tl li{position:relative;padding-bottom:16px}
+.tl li::before{content:"";position:absolute;left:-23px;top:16px;width:9px;height:12px;border-radius:46% 46% 40% 40%;
+  background:radial-gradient(circle at 50% 35%,#FFD9A0,#E9A85C);box-shadow:0 0 12px rgba(233,168,92,.7)}
+.tl .ep-c{padding:16px 16px}
+.tl .ep-no{font-family:var(--serif);font-size:11px;letter-spacing:.24em;color:var(--amber)}
+.tl .ep-t{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:.06em;margin:5px 0 8px;text-wrap:balance}
+.tl .ep-p{font-size:14px;color:var(--muted);max-width:60ch}
+.tl .ep-f{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.tl .ep-f a{font-size:11.5px;letter-spacing:.08em;color:var(--amber)}
+.epbox{margin-top:24px;padding:24px 20px;border:1px dashed var(--line);border-radius:var(--r);text-align:center;background:rgba(255,255,255,.02)}
+.epbox .k{font-family:var(--serif);font-size:17px;letter-spacing:.14em;color:var(--amber-hi)}
+.epbox p{margin-top:9px;font-size:13.5px;color:var(--muted);max-width:46ch;margin-inline:auto}
+.bar{height:5px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin:16px auto 0;max-width:280px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#E9A85C,#F7DCAE);border-radius:99px}
+
+/* ============================ characters ============================ */
+.cgrid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){.cgrid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:980px){.cgrid{grid-template-columns:repeat(4,1fr)}}
+.cc{position:relative;border-radius:14px;overflow:hidden;text-align:left;border:1px solid var(--line-soft);
+  aspect-ratio:3/4.1;transition:.3s;background:#0B0F1A}
+.cc:hover{transform:translateY(-4px);border-color:var(--line);box-shadow:0 20px 44px -22px rgba(0,0,0,.9)}
+.cc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%;opacity:.86;transition:.55s}
+.cc:hover img{transform:scale(1.06);opacity:1}
+.cc .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,14,.05) 30%,rgba(6,8,14,.92))}
+.cc .acc{position:absolute;left:0;right:0;top:0;height:2px;background:var(--acc,var(--amber));opacity:.85}
+.cc .in{position:absolute;left:0;right:0;bottom:0;padding:14px 13px}
+.cc .role{font-size:10px;letter-spacing:.2em;color:var(--acc,var(--amber))}
+.cc h3{font-family:var(--serif);font-weight:700;font-size:clamp(19px,5.2vw,23px);letter-spacing:.14em;margin:5px 0 4px;
+  text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.cc .one{font-size:11.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.6}
+.cc.noart{background:linear-gradient(160deg,#141A28,#080B13)}
+.cc .ghost{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:900;
+  font-size:64px;letter-spacing:.1em;color:rgba(239,231,218,.07);writing-mode:vertical-rl;text-orientation:upright}
+.cc .ghost::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 38%,var(--acc,#E9A85C),transparent 72%);opacity:.11}
+.cc .pend{position:absolute;top:10px;right:10px;font-size:9.5px;letter-spacing:.16em;padding:3px 8px;border-radius:99px;
+  border:1px dashed var(--line);color:var(--faint);background:rgba(6,8,14,.6)}
+
+/* character sheet */
+.sheet{position:fixed;inset:0;z-index:90;background:var(--ink);overflow-y:auto;overscroll-behavior:contain;
+  display:none;animation:sheetin .38s cubic-bezier(.2,.75,.3,1)}
+.sheet.on{display:block}
+@keyframes sheetin{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.sheet-close{position:fixed;top:calc(10px + env(safe-area-inset-top));right:14px;z-index:95;
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(6,8,14,.78);border:1px solid var(--line);backdrop-filter:blur(10px);color:var(--paper)}
+.sheet-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round}
+.ch-hero.noart{background:linear-gradient(160deg,#141A28,#080B13)}
+.ch-hero .ghost{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:900;
+  font-size:clamp(90px,26vw,180px);color:rgba(239,231,218,.06);writing-mode:vertical-rl;text-orientation:upright}
+.ch-hero{position:relative;aspect-ratio:4/4.4;max-height:66svh;overflow:hidden}
+@media(min-width:820px){.ch-hero{aspect-ratio:16/8;max-height:none}}
+.ch-hero img{width:100%;height:100%;object-fit:cover;object-position:50% 26%}
+.ch-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,14,.55) 0%,transparent 26%,rgba(6,8,14,.35) 62%,var(--ink) 99%)}
+.ch-name{position:absolute;right:20px;bottom:26px;text-align:right}
+.ch-name .vn{font-family:var(--serif);font-weight:900;font-size:clamp(34px,9vw,52px);letter-spacing:.16em;
+  writing-mode:vertical-rl;text-orientation:upright;text-shadow:0 3px 26px rgba(0,0,0,.85);
+  border-right:2px solid var(--acc,var(--amber));padding-right:14px;margin-left:auto}
+.ch-role{position:absolute;left:20px;bottom:30px}
+.ch-role .r{font-size:11px;letter-spacing:.26em;color:var(--acc,var(--amber))}
+.ch-role .rd{font-size:10px;letter-spacing:.24em;color:var(--faint);margin-top:6px}
+.ch-body{padding-block:24px 90px}
+.ch-one{font-family:var(--serif);font-size:clamp(18px,5vw,25px);font-weight:600;line-height:1.7;letter-spacing:.06em;
+  color:var(--amber-hi);margin-bottom:22px}
+.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-soft);
+  border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;margin-bottom:26px}
+@media(min-width:700px){.fields{grid-template-columns:repeat(4,1fr)}}
+.fields div{background:#0A0E17;padding:14px 14px}
+.fields .k{font-size:10px;letter-spacing:.22em;color:var(--faint);margin-bottom:6px}
+.fields .v{font-family:var(--serif);font-size:14.5px;letter-spacing:.06em}
+.blk{margin-bottom:28px}
+.blk h4{font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--amber);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px}
+.blk h4::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-soft),transparent)}
+.blk p{font-size:15px;color:var(--paper);opacity:.9;max-width:64ch}
+.blk .origin li,.blk .qline{max-width:64ch}
+.ch-one{max-width:30ch}
+.origin{display:grid;gap:12px}
+.origin li{list-style:none;position:relative;padding:14px 16px 14px 42px;border-radius:12px;
+  background:rgba(255,255,255,.03);border:1px solid var(--line-soft);font-size:14px;color:var(--muted)}
+.origin li::before{content:counter(o);counter-increment:o;position:absolute;left:15px;top:13px;
+  font-family:var(--serif);font-size:12px;color:var(--amber);opacity:.8}
+.origin{counter-reset:o}
+.byline{margin-top:10px;font-size:11.5px;letter-spacing:.16em;color:var(--faint);text-align:right}
+.qline{font-family:var(--serif);font-size:17px;line-height:2;letter-spacing:.06em;color:var(--amber-hi);
+  padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:rgba(233,168,92,.05)}
+.gal{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
+.gal::-webkit-scrollbar{display:none}
+.gal img{width:150px;aspect-ratio:3/4;object-fit:cover;border-radius:10px;border:1px solid var(--line-soft);flex:none;cursor:zoom-in}
+.chnav{display:flex;justify-content:space-between;gap:10px;margin-top:30px}
+
+/* ============================ graph ============================ */
+.graphwrap{position:relative;border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;
+  background:radial-gradient(60% 60% at 50% 45%,rgba(233,168,92,.07),transparent 70%),#080B13}
+#graph{display:block;width:100%;height:clamp(470px,68svh,660px);touch-action:none;cursor:grab}
+#graph.drag{cursor:grabbing}
+.legend{display:flex;flex-wrap:wrap;gap:12px;padding:12px 14px;border-top:1px solid var(--line-soft);font-size:11.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:2px;border-radius:2px;display:block}
+.gnode text{font-family:var(--serif);font-weight:700;letter-spacing:.1em;fill:#EFE7DA;paint-order:stroke;
+  stroke:#06080E;stroke-width:4px;stroke-linejoin:round}
+.gnode{cursor:pointer}
+.gnode.dim{opacity:.22}
+.gedge.dim{opacity:.07}
+.gtip{position:absolute;left:12px;right:12px;bottom:12px;padding:14px 16px;border-radius:12px;
+  background:rgba(8,11,19,.94);border:1px solid var(--line);backdrop-filter:blur(10px);display:none}
+.gtip.on{display:block}
+.gtip h4{font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin-bottom:4px}
+.gtip p{font-size:12.5px;color:var(--muted)}
+.gtip .go{margin-top:10px}
+
+/* ============================ glossary ============================ */
+.searchbar{position:sticky;top:calc(var(--head-h) - 1px);z-index:40;padding-block:14px 12px;background:var(--ink);box-shadow:0 14px 18px -14px var(--ink)}
+.sfield{display:flex;align-items:center;gap:10px;padding:11px 15px;border-radius:12px;
+  border:1px solid var(--line-soft);background:rgba(255,255,255,.04)}
+.sfield input{flex:1;background:none;border:0;color:var(--paper);font-family:var(--sans);font-size:15px;outline:none}
+.sfield input::placeholder{color:var(--faint)}
+.sfield svg{width:17px;height:17px;stroke:var(--faint);fill:none;stroke-width:1.7}
+.tgrid{display:grid;gap:12px}
+@media(min-width:760px){.tgrid{grid-template-columns:1fr 1fr}}
+.term{padding:18px 18px;text-align:left;scroll-margin-top:calc(var(--head-h) + 80px);transition:.25s}
+.term.hit{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber-dim),0 0 34px -12px rgba(233,168,92,.8)}
+.term .tw{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:.1em;color:var(--amber-hi)}
+.term .tr{font-size:10.5px;letter-spacing:.2em;color:var(--faint);margin-top:3px}
+.term .td{margin-top:10px;font-size:14px;color:var(--muted)}
+.term .tl{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.term .tl button{font-size:11px;letter-spacing:.06em;padding:3px 9px;border-radius:99px;
+  border:1px solid var(--line-soft);color:var(--faint)}
+.term .tl button:hover{color:var(--amber);border-color:var(--line)}
+.count{font-size:12px;letter-spacing:.16em;color:var(--faint);margin-bottom:14px}
+
+/* ============================ notes / quotes / works ============================ */
+.notes{display:grid;gap:14px}
+@media(min-width:900px){.notes{grid-template-columns:1fr 1fr}}
+.note{display:flex;gap:0;overflow:hidden}
+.note .txt{padding:20px 18px;flex:1;min-width:0}
+.note .th{font-family:var(--serif);font-size:16px;font-weight:700;letter-spacing:.06em;color:var(--amber-hi);margin-bottom:9px}
+.note p{font-size:13.5px;color:var(--muted)}
+.note img{width:112px;object-fit:cover;flex:none;opacity:.8;cursor:zoom-in}
+.note .sb{font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px}
+.qgrid{display:grid;gap:14px}
+@media(min-width:700px){.qgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.qgrid{grid-template-columns:repeat(3,1fr)}}
+.qc{padding:24px 20px;display:flex;flex-direction:column;gap:14px;justify-content:space-between;min-height:170px}
+.qc .qt{font-family:var(--serif);font-size:17px;line-height:2;letter-spacing:.05em}
+.qc .qf{font-size:11px;letter-spacing:.2em;color:var(--amber);opacity:.85}
+.qc.hasimg{padding:0;min-height:0}
+.qc.hasimg img{width:100%;cursor:zoom-in}
+.works{display:grid;gap:14px}
+@media(min-width:760px){.works{grid-template-columns:1fr 1fr}}
+.work{display:flex;gap:14px;padding:16px;align-items:center}
+.work img{width:78px;height:96px;object-fit:cover;border-radius:10px;flex:none}
+.work .ph{width:78px;height:96px;border-radius:10px;flex:none;border:1px dashed var(--line);display:grid;place-items:center;
+  font-family:var(--serif);font-size:11px;letter-spacing:.14em;color:var(--faint)}
+.work h4{font-family:var(--serif);font-size:17px;letter-spacing:.1em;margin-bottom:6px}
+.work p{font-size:13px;color:var(--muted)}
+.chan{padding:20px 18px}
+.chan h4{font-family:var(--serif);font-size:18px;letter-spacing:.12em;margin-bottom:3px}
+.chan .h{font-size:11.5px;letter-spacing:.14em;color:var(--amber);margin-bottom:12px}
+.chan ul{list-style:none;display:grid;gap:9px;margin-top:12px}
+.chan li{font-size:13px;color:var(--muted);padding-left:16px;position:relative}
+.chan li::before{content:"—";position:absolute;left:0;color:var(--line);color:var(--amber);opacity:.6}
+
+/* ============================ overlays ============================ */
+.ov-panel{position:fixed;inset:0;z-index:100;background:rgba(4,6,11,.9);backdrop-filter:blur(8px);
+  display:none;align-items:flex-start;justify-content:center;padding:0}
+.ov-panel.on{display:flex}
+.ov-in{width:100%;max-width:640px;margin-top:calc(var(--head-h) + 10px);background:#0A0E17;
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;max-height:76svh;display:flex;flex-direction:column}
+.ov-hd{padding:14px 16px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:10px}
+.ov-bd{overflow-y:auto;padding:10px 8px 18px}
+.res{display:block;width:100%;text-align:left;padding:12px 14px;border-radius:11px;transition:.16s}
+.res:hover{background:rgba(233,168,92,.08)}
+.res .rt{font-family:var(--serif);font-size:15.5px;letter-spacing:.06em}
+.res .rk{font-size:10.5px;letter-spacing:.18em;color:var(--amber);margin-bottom:3px}
+.res .rd{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.empty{padding:34px 18px;text-align:center;color:var(--faint);font-size:13px}
+.setrow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;border-bottom:1px solid var(--line-soft)}
+.setrow:last-child{border-bottom:0}
+.setrow .st{font-family:var(--serif);font-size:15px;letter-spacing:.08em}
+.setrow .sd{font-size:11.5px;color:var(--faint);margin-top:3px;max-width:34ch}
+.pill{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.pill button{padding:6px 12px;border-radius:99px;border:1px solid var(--line-soft);font-size:12px;color:var(--muted)}
+.pill button[aria-pressed="true"]{color:var(--amber-hi);border-color:var(--amber);background:var(--amber-dim)}
+.lb{position:fixed;inset:0;z-index:110;background:rgba(4,6,11,.95);display:none;align-items:center;justify-content:center;padding:20px}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:92svh;border-radius:10px;object-fit:contain}
+
+footer{padding:40px 0 60px;border-top:1px solid var(--line-soft);margin-top:30px}
+footer p{font-size:12px;color:var(--faint);line-height:2}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap" style="display:flex;align-items:center;gap:14px;width:100%">
+    <button class="brand" onclick="go('home')">棲渺拾光<small>QIMIAO</small></button>
+    <nav class="desk" id="navDesk"></nav>
+    <span class="sp"></span>
+    <button class="iconbtn" id="btnSearch" aria-label="搜尋">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="iconbtn" id="btnSet" aria-label="閱讀設定">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="17" cy="18" r="2.4"/></svg></button>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<nav class="tab" id="navTab"></nav>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <button class="sheet-close" id="sheetClose" aria-label="關閉"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div id="sheetBody"></div>
+</div>
+
+<div class="ov-panel" id="ovSearch">
+  <div class="ov-in">
+    <div class="ov-hd">
+      <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--faint);fill:none;stroke-width:1.7"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" placeholder="搜尋人物、詞彙、季度、雜談…" autocomplete="off" style="flex:1;background:none;border:0;color:var(--paper);font-size:15.5px;outline:none">
+      <button class="iconbtn" data-close="ovSearch" aria-label="關閉"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ov-bd" id="qres"></div>
+  </div>
+</div>
+
+<div class="ov-panel" id="ovSet">
+  <div class="ov-in">
+    <div class="ov-hd"><strong style="font-family:var(--serif);letter-spacing:.14em;flex:1">閱讀設定</strong>
+      <button class="iconbtn" data-close="ovSet" aria-label="關閉"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="ov-bd" style="padding:0">
+      <div class="setrow">
+        <div><div class="st">我看到第幾季了</div><div class="sd">超過進度的角色與劇情會先封起來，點一下才顯示。</div></div>
+        <div class="pill" id="pgPill"></div>
+      </div>
+      <div class="setrow">
+        <div><div class="st">防雷模式</div><div class="sd">關掉就直接顯示全部內容，適合已經追完的人。</div></div>
+        <div class="pill" id="spPill">
+          <button data-sp="1">開</button><button data-sp="0">關</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lb" id="lb"><img id="lbImg" alt=""></div>
+<script src="data.js"></script>
+<script>
+(function(){
+"use strict";
+var S = window.SITE;
+var $ = function(s,r){return (r||document).querySelector(s)};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var esc = function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+
+/* ---------------------------------------------------------- state */
+var LS = "qimiao.v1";
+var state = {page:"home", season:"s1", cmode:"list", progress:4, spoiler:1, term:""};
+try{ var raw = localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(typeof o.progress==="number") state.progress=o.progress; if(typeof o.spoiler==="number") state.spoiler=o.spoiler; } }catch(e){}
+function save(){ try{ localStorage.setItem(LS, JSON.stringify({progress:state.progress, spoiler:state.spoiler})); }catch(e){} }
+function locked(seasonNo){ return !!(state.spoiler && seasonNo && seasonNo > state.progress); }
+function sealAttr(seasonNo){
+  if(!locked(seasonNo)) return "";
+  return ' class="seal" data-locked="1" data-seal="第 '+seasonNo+' 季內容 ‧ 點擊顯示"';
+}
+function seasonNoOf(ids){
+  if(!ids||!ids.length) return 0;
+  return Math.max.apply(null, ids.map(function(id){ var s=byId(S.seasons,id); return s?s.no:0; }));
+}
+function byId(arr,id){ for(var i=0;i<arr.length;i++) if(arr[i].id===id) return arr[i]; return null; }
+
+/* ---------------------------------------------------------- nav */
+var NAV = [
+  {id:"home",  label:"首頁", icon:'<path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/>'},
+  {id:"story", label:"劇情", icon:'<path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8 13h7M8 16h5"/>'},
+  {id:"chars", label:"人物", icon:'<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c1.4-4 4-6 7-6s5.6 2 7 6"/>'},
+  {id:"terms", label:"詞彙", icon:'<path d="M5 5h6a3 3 0 0 1 3 3v11a2.5 2.5 0 0 0-2.5-2.5H5z"/><path d="M19 5h-2a3 3 0 0 0-3 3v11a2.5 2.5 0 0 1 2.5-2.5H19z"/>'},
+  {id:"more",  label:"幕後", icon:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>'}
+];
+function paintNav(){
+  $("#navDesk").innerHTML = NAV.map(function(n){
+    return '<button data-go="'+n.id+'" aria-current="'+(state.page===n.id)+'">'+n.label+'</button>';
+  }).join("");
+  $("#navTab").innerHTML = NAV.map(function(n){
+    return '<button data-go="'+n.id+'" aria-current="'+(state.page===n.id)+'">'+
+      '<svg viewBox="0 0 24 24">'+n.icon+'</svg>'+n.label+'</button>';
+  }).join("");
+}
+
+/* ---------------------------------------------------------- bits */
+function img(src, cls, alt){
+  if(!src) return '<div class="'+(cls||"")+'" style="background:linear-gradient(150deg,#151A28,#0A0E17)"></div>';
+  return '<img class="'+(cls||"")+'" src="'+src+'" alt="'+esc(alt||"")+'" loading="lazy">';
+}
+function secHead(h,en){ return '<div class="sec-head"><h2>'+h+'</h2><span class="en">'+en+'</span></div>'; }
+function lantern(){ return '<div class="lantern-rule"><i></i></div>'; }
+
+/* ---------------------------------------------------------- home */
+var STEPS = [
+  {n:"其一", h:"這是什麼", p:"台灣頻道《棲渺拾光》製作的 AI 短劇《黃泉燒肉店》。四季七十餘集，講一家開在陰間的燒肉店——招牌上寫著「照顧你生前的遺憾」。"},
+  {n:"其二", h:"從哪裡開始", p:"第一季是一集一個獨立故事，任何一集都能進得去；想按順序就從 EP1 開始。二、三季開始有貫穿的主線，建議照著季度看。（本站建議）"},
+  {n:"其三", h:"主題怎麼走", p:"第一季主調是「遺憾」，第二季主軸換成「犧牲」，第三季用一場絕境開局讓觀眾陪角色逆襲。三個字看完就懂全劇的體溫。"},
+  {n:"其四", h:"記住三個地方", p:"燒肉店（把沒說完的話補完）、三途川與奈何橋（喝了孟婆湯就忘光）、送別橋（有些再見是為了讓彼此更安心地前行）。"}
+];
+function pageHome(){
+  var s3 = S.seasons;
+  return ''+
+  '<div class="hero">'+
+    '<div class="hero-img">'+img(S.works[0].art,"","黃泉燒肉店")+'</div>'+
+    '<div class="hero-strip"><span>'+esc(S.meta.tagline)+'</span></div>'+
+    '<div class="hero-in"><div class="wrap">'+
+      '<div class="hero-kicker">'+esc(S.meta.channel)+' ‧ 燈下資料館</div>'+
+      '<h1>黃泉<span>燒肉店</span></h1>'+
+      '<div class="sub">照 顧 你 生 前 的 遺 憾</div>'+
+      '<div class="meta chips"><span class="chip">四季 ‧ 七十餘集</span><span class="chip dim">AI 短劇</span><span class="chip pink">悲劇 ‧ 療癒</span></div>'+
+      '<div class="hero-cta">'+
+        '<button class="btn primary" data-newbie="1">我是新觀眾，三分鐘看懂</button>'+
+        '<button class="btn ghost" data-go="chars">直接看人物誌</button>'+
+      '</div>'+
+      '<div class="scrollcue"><i></i>往下走進店裡</div>'+
+    '</div></div>'+
+  '</div>'+
+
+  '<div class="wrap">'+
+    '<section id="quick">'+
+      secHead("三分鐘看懂","START HERE")+
+      '<div class="pillars">'+ STEPS.map(function(s){
+        return '<article class="card pillar"><span class="no">'+s.n+'</span><h3>'+s.h+'</h3><p>'+s.p+'</p></article>';
+      }).join("") +'</div>'+
+    '</section>'+
+
+    '<section>'+
+      secHead("世界觀","THE WORLD")+
+      '<p class="lede" style="font-family:var(--serif);font-size:19px;color:var(--amber-hi);letter-spacing:.06em">'+esc(S.world.title)+'</p>'+
+      '<p class="lede" style="margin-top:8px">'+esc(S.world.lede)+'</p>'+
+      lantern()+
+      '<div class="pillars">'+ S.world.pillars.map(function(p){
+        return '<article class="card pillar"><h3>'+esc(p.h)+'</h3><p>'+esc(p.p)+'</p></article>';
+      }).join("") +'</div>'+
+    '</section>'+
+
+    '<section>'+
+      secHead("四季","SEASONS")+
+      '<div class="seasons">'+ s3.map(seasonCard).join("") +'</div>'+
+    '</section>'+
+
+    '<section>'+
+      secHead("語錄","WORDS")+
+      '<div class="qgrid">'+ S.quotes.slice(0,6).map(quoteCard).join("") +'</div>'+
+    '</section>'+
+    foot()+
+  '</div>';
+}
+function seasonCard(s){
+  var lk = locked(s.no);
+  return '<button class="season" data-season="'+s.id+'">'+
+    img(s.art,"", s.title)+'<div class="ov"></div>'+
+    '<div class="in">'+
+      '<div class="kanji">'+esc(s.kanji)+'</div>'+
+      '<div class="no">SEASON '+s.no+'</div>'+
+      '<h3>'+esc(s.title)+'</h3>'+
+      (s.status==="pending"
+        ? '<p style="color:var(--faint)">資料建檔中</p>'
+        : '<p'+(lk?' style="filter:blur(5px);opacity:.55"':'')+'>'+esc(s.logline)+'</p>')+
+    '</div></button>';
+}
+function quoteCard(q){
+  if(q.img) return '<figure class="card qc hasimg">'+img(q.img,"","")+'</figure>';
+  return '<figure class="card qc"><blockquote class="qt">「'+esc(q.text)+'」</blockquote><figcaption class="qf">'+esc(q.from)+'</figcaption></figure>';
+}
+
+/* ---------------------------------------------------------- story */
+function epTimeline(s){
+  var lk = locked(s.no);
+  return '<h3 style="font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--amber);margin:30px 0 4px">分集</h3>'+
+  '<ol class="tl">'+ s.episodes.map(function(e){
+    return '<li><article class="card ep-c">'+
+      '<div class="ep-no">EP '+esc(e.no)+'</div>'+
+      (e.title? '<div class="ep-t">'+esc(e.title)+'</div>':'')+
+      (e.one? (lk? '<div class="seal" data-locked="1" data-seal="第 '+s.no+' 季內容 ‧ 點擊顯示"><p class="ep-p">'+esc(e.one)+'</p></div>'
+                 : '<p class="ep-p">'+esc(e.one)+'</p>') : '')+
+      ((e.tags&&e.tags.length)||e.url
+        ? '<div class="ep-f">'+ (e.tags||[]).map(function(t){return '<span class="chip dim">'+esc(t)+'</span>'}).join("")+
+          (e.url? '<a href="'+esc(e.url)+'" target="_blank" rel="noopener">看這一集 ↗</a>':'')+'</div>'
+        : '')+
+    '</article></li>';
+  }).join("") +'</ol>';
+}
+function pageStory(){
+  var s = byId(S.seasons, state.season) || S.seasons[0];
+  var lk = locked(s.no);
+  var body;
+  if(s.status==="pending"){
+    body = '<div class="epbox"><div class="k">尚未開始建檔</div><p>第四季的主題、主線與集數還沒收錄。有官方資訊時補進 data.js 就會出現在這裡。</p></div>';
+  }else{
+    body = ''+
+      (s.quote?'<div class="sq">「'+esc(s.quote)+'」</div>':'')+
+      '<h3 style="font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--amber);margin:26px 0 14px">已確認情報</h3>'+
+      '<ul class="known">'+ s.known.map(function(k){return '<li>'+esc(k)+'</li>';}).join("") +'</ul>'+
+      ((s.spoilerKnown&&s.spoilerKnown.length)
+        ? '<div style="margin-top:12px"'+(state.spoiler?' class="seal" data-locked="1" data-seal="含結局劇透 ‧ 點擊顯示"':'')+'>'+
+            '<ul class="known">'+ s.spoilerKnown.map(function(k){return '<li>'+esc(k)+'</li>';}).join("") +'</ul></div>'
+        : "")+
+      (s.note? '<div class="card" style="padding:20px 18px;margin-top:22px"><div class="sb" style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">作者說</div><p style="font-size:14px;color:var(--muted)">'+esc(s.note)+'</p></div>':"")+
+      (s.episodes.length? epTimeline(s) : "")+
+      (s.episodeCount && s.episodes.length>=s.episodeCount ? "" :
+      '<div class="epbox">'+
+        '<div class="k">'+(s.episodes.length? '分集還沒收齊':'分集資料建檔中')+'</div>'+
+        '<p>'+(s.episodeCount? '本季共 '+s.episodeCount+' 集，':'本季集數待確認，')+'目前收錄 '+s.episodes.length+' 集分集大綱。把每集的標題與一句話梗概填進 data.js 的 episodes，這裡就會長出完整時間軸。</p>'+
+        '<div class="bar"><i style="width:'+(s.episodeCount? Math.max(2,Math.round(s.episodes.length/s.episodeCount*100)):2)+'%"></i></div>'+
+      '</div>');
+  }
+  return '<div class="wrap"><section>'+
+    secHead("劇情線","STORY")+
+    '<div class="seg">'+ S.seasons.map(function(x){
+      return '<button data-season="'+x.id+'" aria-current="'+(x.id===s.id)+'">'+esc(x.title)+'</button>';
+    }).join("") +'</div>'+
+    '<div class="sbanner">'+img(s.art,"",s.title)+'<div class="ov"></div><div class="in">'+
+      '<div class="kanji">'+esc(s.kanji)+'</div>'+
+      '<h2>'+esc(s.title)+' ‧ '+esc(s.subtitle)+'</h2>'+
+      (s.logline? '<p class="ll"'+(lk?' style="filter:blur(6px);opacity:.55"':'')+'>'+esc(s.logline)+'</p>':'')+
+    '</div></div>'+
+    body+
+  '</section>'+foot()+'</div>';
+}
+
+/* ---------------------------------------------------------- characters */
+function pageChars(){
+  return '<div class="wrap"><section>'+
+    secHead("人物誌","CHARACTERS")+
+    '<div class="seg">'+
+      '<button data-cmode="list" aria-current="'+(state.cmode==="list")+'">角色卡</button>'+
+      '<button data-cmode="graph" aria-current="'+(state.cmode==="graph")+'">關係圖</button>'+
+    '</div>'+
+    (state.cmode==="list"
+      ? '<div class="cgrid">'+ S.characters.map(charCard).join("") +'</div>'
+      : graphMarkup())+
+  '</section>'+foot()+'</div>';
+}
+function charCard(c){
+  var no = seasonNoOf(c.seasons), lk = locked(no);
+  return '<button class="cc'+(c.art?"":" noart")+'" data-char="'+c.id+'" style="--acc:'+c.accent+'">'+
+    (c.art? img(c.art,"",c.name) : '<div class="ghost">'+esc(c.name.charAt(0))+'</div>')+
+    '<div class="ov"></div><div class="acc"></div>'+
+    (c.status!=="canon"?'<span class="pend">檔案未完整</span>':'')+
+    '<div class="in">'+
+      '<div class="role">'+esc(c.role)+'</div>'+
+      '<h3>'+esc(c.name)+'</h3>'+
+      '<div class="one"'+(lk?' style="filter:blur(4px)"':'')+'>'+esc(c.oneLine)+'</div>'+
+    '</div></button>';
+}
+
+function charSheet(c){
+  var no = seasonNoOf(c.seasons);
+  var idx = S.characters.indexOf(c);
+  var prev = S.characters[(idx-1+S.characters.length)%S.characters.length];
+  var next = S.characters[(idx+1)%S.characters.length];
+  var rels = S.relations.filter(function(r){return r.a===c.id||r.b===c.id});
+  var terms = (c.relatedTerms||[]).map(function(t){return byId(S.glossary,t)}).filter(Boolean);
+  var lk = locked(no);
+  function sealed(inner, note){
+    if(!lk) return inner;
+    return '<div class="seal" data-locked="1" data-seal="'+(note||("第 "+no+" 季內容 ‧ 點擊顯示"))+'">'+inner+'</div>';
+  }
+  return ''+
+  '<div class="ch-hero'+(c.art?"":" noart")+'" style="--acc:'+c.accent+'">'+
+    (c.art? img(c.art,"",c.name) : '<div class="ghost">'+esc(c.name.charAt(0))+'</div>')+'<div class="ov"></div>'+
+    '<div class="ch-role"><div class="r">'+esc(c.role)+'</div><div class="rd">'+esc(c.reading||"")+'</div></div>'+
+    '<div class="ch-name"><div class="vn">'+esc(c.name)+'</div></div>'+
+  '</div>'+
+  '<div class="wrap ch-body" style="--acc:'+c.accent+'">'+
+    sealed('<p class="ch-one">「'+esc(c.oneLine)+'」</p>')+
+    (c.fields&&c.fields.length? '<div class="fields">'+c.fields.map(function(f){
+        var v = (f.spoiler && state.spoiler) ? '<span style="filter:blur(5px)">'+esc(f.v)+'</span>' : esc(f.v);
+        return '<div><div class="k">'+esc(f.k)+'</div><div class="v">'+v+'</div></div>';
+      }).join("")+'</div>':'')+
+    (c.look? '<div class="blk"><h4>外觀</h4><p>'+esc(c.look)+'</p></div>':'')+
+    (c.about? '<div class="blk"><h4>這個人是誰</h4>'+sealed('<p>'+esc(c.about)+'</p>')+'</div>':'')+
+    (c.origin&&c.origin.length? '<div class="blk"><h4>設定由來</h4><ul class="origin">'+
+        c.origin.map(function(o){return '<li>'+esc(o)+'</li>'}).join("")+
+      '</ul><div class="byline">'+esc(c.originNote||"——作者")+'</div></div>':'')+
+    (c.quotes&&c.quotes.length? '<div class="blk"><h4>語錄</h4>'+
+        c.quotes.map(function(q){return '<blockquote class="qline">「'+esc(q)+'」</blockquote>'}).join("")+'</div>':'')+
+    (rels.length? '<div class="blk"><h4>關係</h4><div class="chips">'+rels.map(function(r){
+        var o = byId(S.characters, r.a===c.id?r.b:r.a); if(!o) return "";
+        return '<button class="chip'+(r.status!=="canon"?" dim":"")+'" data-char="'+o.id+'">'+esc(o.name)+' ‧ '+esc(r.label)+'</button>';
+      }).join("")+'</div></div>':'')+
+    (terms.length? '<div class="blk"><h4>相關詞彙</h4><div class="chips">'+terms.map(function(t){
+        return '<button class="chip dim" data-term="'+t.id+'">'+esc(t.term)+'</button>';
+      }).join("")+'</div></div>':'')+
+    (c.gallery&&c.gallery.length? '<div class="blk"><h4>畫面</h4><div class="gal">'+
+        c.gallery.map(function(g){return '<img src="'+g+'" alt="" loading="lazy" data-lb="'+g+'">'}).join("")+'</div></div>':'')+
+    '<div class="chnav">'+
+      '<button class="btn ghost" data-char="'+prev.id+'">← '+esc(prev.name)+'</button>'+
+      '<button class="btn ghost" data-char="'+next.id+'">'+esc(next.name)+' →</button>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ---------------------------------------------------------- graph */
+var GC = {love:"#E9A2B4", bond:"#7FD6C1", rival:"#C05A5A", divine:"#E9A85C", duty:"#8FA6C4"};
+var GLABEL = {love:"情感", bond:"羈絆", rival:"敵對", divine:"神緣", duty:"職務"};
+function graphMarkup(){
+  return '<div class="graphwrap"><svg id="graph" role="img" aria-label="人物關係圖"></svg>'+
+    '<div class="gtip" id="gtip"></div>'+
+    '<div class="legend">'+Object.keys(GC).map(function(k){
+      return '<span><i style="background:'+GC[k]+'"></i>'+GLABEL[k]+'</span>';
+    }).join("")+'<span><i style="background:repeating-linear-gradient(90deg,var(--faint) 0 4px,transparent 4px 7px)"></i>待確認</span></div>'+
+  '</div>'+
+  '<p class="lede" style="margin-top:14px;font-size:13px">拖曳可平移，滾輪或雙指縮放。點角色看關係，再點空白處復原。</p>';
+}
+var G = {nodes:[], edges:[], k:1, tx:0, ty:0, focus:null};
+function buildGraph(){
+  var svg = $("#graph"); if(!svg) return;
+  var box = svg.getBoundingClientRect();
+  var W = Math.round(box.width) || 700, H = Math.round(box.height) || 500;
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  var nodes = S.characters.map(function(c){return {id:c.id, c:c, x:0, y:0}});
+  var index = {}; nodes.forEach(function(n,i){index[n.id]=i});
+  var edges = S.relations.filter(function(r){return index[r.a]!=null && index[r.b]!=null})
+    .map(function(r){return {s:index[r.a], t:index[r.b], r:r}});
+
+  // ---- connected components get their own cluster, then we pack them ----
+  var adj = nodes.map(function(){return []});
+  edges.forEach(function(e){ adj[e.s].push(e.t); adj[e.t].push(e.s); });
+  var comp = new Array(nodes.length).fill(-1), comps = [];
+  nodes.forEach(function(n,i){
+    if(comp[i]>=0) return;
+    var id = comps.length, stack=[i], members=[];
+    comp[i]=id;
+    while(stack.length){ var k=stack.pop(); members.push(k);
+      adj[k].forEach(function(m){ if(comp[m]<0){ comp[m]=id; stack.push(m); } }); }
+    comps.push(members);
+  });
+  comps.sort(function(x,y){return y.length-x.length});
+
+  var L = 100;
+  function relax(members){
+    members.forEach(function(k,i){
+      var a2 = i/members.length*Math.PI*2 - Math.PI/2;
+      nodes[k].x = Math.cos(a2)*L*1.4; nodes[k].y = Math.sin(a2)*L*1.4;
+    });
+    var local = edges.filter(function(e){return members.indexOf(e.s)>=0});
+    for(var it=0; it<600; it++){
+      var fx={}, fy={};
+      members.forEach(function(k){fx[k]=0;fy[k]=0});
+      for(var i=0;i<members.length;i++) for(var j=i+1;j<members.length;j++){
+        var A=nodes[members[i]], B=nodes[members[j]];
+        var dx=B.x-A.x, dy=B.y-A.y, d=Math.max(8,Math.hypot(dx,dy));
+        var f=(L*L*3.2)/(d*d);
+        fx[members[i]]-=dx/d*f; fy[members[i]]-=dy/d*f;
+        fx[members[j]]+=dx/d*f; fy[members[j]]+=dy/d*f;
+      }
+      local.forEach(function(e){
+        var A=nodes[e.s], B=nodes[e.t];
+        var dx=B.x-A.x, dy=B.y-A.y, d=Math.max(1,Math.hypot(dx,dy));
+        var f=(d-L*1.5)*0.05;
+        fx[e.s]+=dx/d*f; fy[e.s]+=dy/d*f; fx[e.t]-=dx/d*f; fy[e.t]-=dy/d*f;
+      });
+      members.forEach(function(k){ nodes[k].x+=fx[k]*0.8; nodes[k].y+=fy[k]*0.8; });
+    }
+    for(var pass=0; pass<220; pass++){
+      var moved=false;
+      for(var i=0;i<members.length;i++) for(var j=i+1;j<members.length;j++){
+        var A=nodes[members[i]], B=nodes[members[j]];
+        var dx=B.x-A.x, dy=B.y-A.y, d=Math.hypot(dx,dy)||0.01;
+        if(d<L*1.05){ var pu=(L*1.05-d)/2/d; A.x-=dx*pu; A.y-=dy*pu; B.x+=dx*pu; B.y+=dy*pu; moved=true; }
+      }
+      if(!moved) break;
+    }
+  }
+  comps.forEach(relax);
+
+  // pack the clusters into bands
+  var vertical = H >= W*1.05;
+  var total = nodes.length, cursor = 0, minSepPx = 1e9;
+  var padX = W*0.10, padY = H*0.09;
+  var innerW = W - padX*2, innerH = H - padY*2, gap = vertical? H*0.045 : W*0.045;
+  var free = (vertical? innerH : innerW) - gap*(comps.length-1);
+  comps.forEach(function(members){
+    var share = free * (members.length/total);
+    var bx, by, bw, bh;
+    if(vertical){ bx=padX; bw=innerW; by=padY+cursor; bh=share; cursor+=share+gap; }
+    else { by=padY; bh=innerH; bx=padX+cursor; bw=share; cursor+=share+gap; }
+    var xs=members.map(function(k){return nodes[k].x}), ys=members.map(function(k){return nodes[k].y});
+    var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+    var y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
+    var spanX=Math.max(1,x1-x0), spanY=Math.max(1,y1-y0);
+    var sc = members.length===1 ? 1 : Math.min(bw/spanX, bh/spanY);
+    var offX = bx + (bw - spanX*sc)/2 - x0*sc;
+    var offY = by + (bh - spanY*sc)/2 - y0*sc;
+    members.forEach(function(k){ nodes[k].x = nodes[k].x*sc+offX; nodes[k].y = nodes[k].y*sc+offY; });
+    if(members.length>1) minSepPx = Math.min(minSepPx, L*1.05*sc);
+  });
+  if(minSepPx>1e8) minSepPx = Math.min(W,H)*0.22;
+
+  G.nodes = nodes; G.edges = edges; G.W = W; G.H = H;
+  G.r = Math.max(16, Math.min(34, minSepPx*0.38)); // keep haloes clear of each other
+  G.fs = Math.max(10, Math.min(13.5, G.r*0.62));
+  // keep names inside the frame
+  nodes.forEach(function(n){
+    var half = Math.max(G.r, n.c.name.length*G.fs*0.52);
+    n.x = Math.max(half+2, Math.min(W-half-2, n.x));
+    n.y = Math.max(G.r+6, Math.min(H-G.r-G.fs-8, n.y));
+  });
+  G.k=1; G.tx=0; G.ty=0; G.focus=null;
+  paintGraph();
+}
+function paintGraph(){
+  var svg = $("#graph"); if(!svg) return;
+  var r = G.r, f = G.focus;
+  var conn = {};
+  if(f!=null){ G.edges.forEach(function(e){ if(e.s===f||e.t===f){conn[e.s]=1;conn[e.t]=1;} }); }
+  var defs = '<defs>'+G.nodes.map(function(n){
+    return '<clipPath id="cp-'+n.id+'"><circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'"/></clipPath>';
+  }).join("")+'</defs>';
+  var eh = G.edges.map(function(e,i){
+    var a=G.nodes[e.s], b=G.nodes[e.t];
+    var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+    var dx=b.x-a.x, dy=b.y-a.y;
+    var cx=mx - dy*0.12, cy=my + dx*0.12;
+    var dim = (f!=null && e.s!==f && e.t!==f) ? " dim":"";
+    var col = GC[e.r.type]||"#E9A85C";
+    return '<g class="gedge'+dim+'">'+
+      '<path d="M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' Q'+cx.toFixed(1)+' '+cy.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1)+'" '+
+        'fill="none" stroke="'+col+'" stroke-width="'+(e.r.status==="canon"?1.9:1.3)+'" opacity=".62"'+
+        (e.r.status==="canon"?"":' stroke-dasharray="5 5"')+'/>'+
+      ((f!=null && (e.s===f||e.t===f))
+        ? '<text x="'+cx.toFixed(1)+'" y="'+(cy-6).toFixed(1)+'" text-anchor="middle" font-size="11" fill="'+col+'" style="paint-order:stroke;stroke:#06080E;stroke-width:4px">'+esc(e.r.label)+'</text>'
+        : "")+
+    '</g>';
+  }).join("");
+  var nh = G.nodes.map(function(n,i){
+    var dim = (f!=null && i!==f && !conn[i]) ? " dim":"";
+    var acc = n.c.accent||"#E9A85C";
+    return '<g class="gnode'+dim+'" data-i="'+i+'">'+
+      '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+(r+5)+'" fill="'+acc+'" opacity="'+(i===f?".28":".12")+'"/>'+
+      (n.c.art? '<image href="'+n.c.art+'" x="'+(n.x-r).toFixed(1)+'" y="'+(n.y-r).toFixed(1)+'" width="'+(r*2)+'" height="'+(r*2)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#cp-'+n.id+')"/>'
+        : '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'" fill="#141A28"/>'+'<text x="'+n.x.toFixed(1)+'" y="'+(n.y+7).toFixed(1)+'" text-anchor="middle" font-size="20" fill="'+acc+'" opacity=".5" stroke="none" style="font-family:var(--serif)">'+esc(n.c.name.charAt(0))+'</text>')+
+      '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'" fill="none" stroke="'+acc+'" stroke-width="'+(i===f?2.4:1.4)+'"/>'+
+      '<text x="'+n.x.toFixed(1)+'" y="'+(n.y+r+G.fs+4).toFixed(1)+'" text-anchor="middle" font-size="'+G.fs.toFixed(1)+'">'+esc(n.c.name)+'</text>'+
+    '</g>';
+  }).join("");
+  svg.innerHTML = defs+'<g id="gview" transform="translate('+G.tx+','+G.ty+') scale('+G.k+')">'+eh+nh+'</g>';
+}
+function graphFocus(i){
+  G.focus = (G.focus===i? null : i);
+  paintGraph();
+  var tip = $("#gtip"); if(!tip) return;
+  if(G.focus==null){ tip.className="gtip"; return; }
+  var c = G.nodes[G.focus].c;
+  var rels = S.relations.filter(function(r){return r.a===c.id||r.b===c.id}).map(function(r){
+    var o = byId(S.characters, r.a===c.id?r.b:r.a); return o? o.name+"（"+r.label+"）":"";
+  }).filter(Boolean).join("、");
+  tip.className="gtip on";
+  tip.innerHTML = '<h4>'+esc(c.name)+'</h4><p>'+esc(rels||"尚未建立關係")+'</p>'+
+    '<div class="go"><button class="btn ghost" data-char="'+c.id+'" style="padding:8px 16px;font-size:13px">前往人物頁</button></div>';
+}
+function bindGraph(){
+  var svg = $("#graph"); if(!svg || svg.__bound) return;
+  svg.__bound = 1;
+  var pts = {}, last=null, lastDist=0, moved=false;
+  svg.addEventListener("pointerdown", function(e){
+    svg.setPointerCapture(e.pointerId); pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    last={x:e.clientX,y:e.clientY}; moved=false; svg.classList.add("drag");
+  });
+  svg.addEventListener("pointermove", function(e){
+    if(!pts[e.pointerId]) return;
+    pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids = Object.keys(pts);
+    if(ids.length>=2){
+      var a=pts[ids[0]], b=pts[ids[1]];
+      var d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(lastDist){ var k=G.k*(d/lastDist); G.k=Math.max(.5,Math.min(2.6,k)); paintGraph(); }
+      lastDist=d; moved=true; return;
+    }
+    if(last){ var dx=e.clientX-last.x, dy=e.clientY-last.y;
+      if(Math.abs(dx)+Math.abs(dy)>2) moved=true;
+      G.tx+=dx; G.ty+=dy; last={x:e.clientX,y:e.clientY};
+      var v=$("#gview"); if(v) v.setAttribute("transform","translate("+G.tx+","+G.ty+") scale("+G.k+")");
+    }
+  });
+  function up(e){ delete pts[e.pointerId]; if(Object.keys(pts).length<2) lastDist=0; last=null; svg.classList.remove("drag");
+    if(!moved){
+      var g = e.target.closest ? e.target.closest(".gnode") : null;
+      if(g) graphFocus(+g.getAttribute("data-i"));
+      else { G.focus=null; paintGraph(); var t=$("#gtip"); if(t) t.className="gtip"; }
+    }
+  }
+  svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
+  svg.addEventListener("wheel", function(e){ e.preventDefault();
+    G.k = Math.max(.5, Math.min(2.6, G.k * (e.deltaY>0?0.92:1.08))); paintGraph();
+  }, {passive:false});
+}
+
+/* ---------------------------------------------------------- glossary */
+var CATS = [["all","全部"],["world","世界觀"],["place","場所"],["deity","神明"],["object","物件"],["theme","主題"],["meta","幕後"]];
+var gState = {cat:"all", q:""};
+function pageTerms(){
+  return '<div class="wrap"><section>'+
+    secHead("詞彙資料庫","LEXICON")+
+    '<div class="searchbar"><div class="sfield">'+
+      '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'+
+      '<input id="tq" placeholder="找一個詞…（例：奈何橋、北境、紅線）" value="'+esc(gState.q)+'" autocomplete="off">'+
+    '</div>'+
+    '<div class="seg" style="margin:12px 0 0">'+CATS.map(function(c){
+      return '<button data-cat="'+c[0]+'" aria-current="'+(gState.cat===c[0])+'">'+c[1]+'</button>';
+    }).join("")+'</div></div>'+
+    '<div id="termList"></div>'+
+  '</section>'+foot()+'</div>';
+}
+function paintTerms(){
+  var box = $("#termList"); if(!box) return;
+  var q = gState.q.trim().toLowerCase();
+  var list = S.glossary.filter(function(t){
+    if(gState.cat!=="all" && t.cat!==gState.cat) return false;
+    if(!q) return true;
+    return (t.term+" "+(t.read||"")+" "+t.def+" "+(t.tags||[]).join(" ")).toLowerCase().indexOf(q)>=0;
+  });
+  box.innerHTML = '<div class="count">共 '+list.length+' 條 ‧ 資料庫持續建檔中</div>'+
+    (list.length? '<div class="tgrid">'+list.map(termCard).join("")+'</div>'
+      : '<div class="empty">找不到「'+esc(gState.q)+'」。這個詞可能還沒收錄。</div>');
+}
+function termCard(t){
+  return '<article class="card term" id="t-'+t.id+'">'+
+    '<div class="tw">'+esc(t.term)+'</div>'+
+    (t.read? '<div class="tr">'+esc(t.read)+'</div>':'')+
+    '<p class="td">'+esc(t.def)+'</p>'+
+    '<div class="tl">'+
+      (t.tags||[]).map(function(x){return '<span class="chip dim">'+esc(x)+'</span>'}).join("")+
+      (t.link||[]).map(function(id){ var o=byId(S.glossary,id); return o? '<button data-term="'+o.id+'">→ '+esc(o.term)+'</button>':""; }).join("")+
+    '</div></article>';
+}
+function jumpTerm(id){
+  go("terms");
+  setTimeout(function(){
+    gState.cat="all"; gState.q=""; var i=$("#tq"); if(i) i.value="";
+    paintTerms();
+    var el = $("#t-"+id);
+    if(el){ el.scrollIntoView({behavior:"smooth",block:"center"}); el.classList.add("hit");
+      setTimeout(function(){el.classList.remove("hit")},2400); }
+  },60);
+}
+
+/* ---------------------------------------------------------- more */
+function pageMore(){
+  return '<div class="wrap">'+
+    '<section>'+secHead("製作雜談","BEHIND")+
+      '<p class="lede">以下全部是作者本人在 IG 上寫過的話，照原文收錄。</p>'+lantern()+
+      '<div class="notes">'+ S.notes.map(function(n){
+        var s = byId(S.seasons, n.season);
+        return '<article class="card note">'+
+          '<div class="txt"><div class="sb">'+(s?esc(s.title):"")+'</div>'+
+          '<div class="th">'+esc(n.title)+'</div><p>'+esc(n.body)+'</p></div>'+
+          (n.img? '<img src="'+n.img+'" alt="" loading="lazy" data-lb="'+n.img+'">':'')+
+        '</article>';
+      }).join("") +'</div>'+
+    '</section>'+
+    '<section>'+secHead("語錄牆","WORDS")+
+      '<div class="qgrid">'+ S.quotes.map(quoteCard).join("") +'</div>'+
+    '</section>'+
+    '<section>'+secHead("其他系列","OTHER WORKS")+
+      '<div class="works">'+ S.works.map(function(w){
+        return '<article class="card work">'+
+          (w.art? '<img src="'+w.art+'" alt="" loading="lazy">':'<div class="ph">未收錄</div>')+
+          '<div><h4>'+esc(w.title)+'</h4><p>'+esc(w.desc)+'</p></div>'+
+        '</article>';
+      }).join("") +'</div>'+
+    '</section>'+
+    '<section>'+secHead("兩個頻道","CHANNELS")+
+      '<div class="works">'+ S.channels.map(function(c){
+        return '<article class="card chan">'+
+          '<h4>'+esc(c.name)+'</h4><div class="h">'+esc(c.handle)+' ‧ '+esc(c.role)+'</div>'+
+          '<p style="font-size:13.5px;color:var(--muted)">'+esc(c.desc)+'</p>'+
+          '<ul>'+c.facts.map(function(f){return '<li>'+esc(f)+'</li>'}).join("")+'</ul>'+
+          '<div style="margin-top:14px"><a class="btn ghost" style="padding:9px 16px;font-size:13px" href="'+c.url+'" target="_blank" rel="noopener">前往 Instagram ↗</a></div>'+
+        '</article>';
+      }).join("") +'</div>'+
+    '</section>'+
+    '<section>'+secHead("關於本站","ABOUT")+
+      '<article class="card" style="padding:22px 20px">'+
+        '<p style="font-size:14.5px;color:var(--muted)">這是一個粉絲向的整理站。所有標為「已確認情報」的內容，都來自《棲渺拾光》官方 IG 的製作雜談與心得圖文；沒有出處的劇情一律不寫，寧可留白，也不編造。</p>'+
+        '<div class="orn"></div>'+
+        '<div class="sb" style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">資料來源</div>'+
+        '<ul style="list-style:none;display:grid;gap:9px">'+S.meta.sources.map(function(s){return '<li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--amber);opacity:.6">—</span>'+esc(s)+'</li>'}).join("")+'</ul>'+
+        '<div class="orn"></div>'+
+        '<div class="sb" style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">怎麼補資料</div>'+
+        '<p style="font-size:13.5px;color:var(--muted)">編輯同資料夾的 <code style="color:var(--amber)">data.js</code>：seasons 裡的 episodes 補分集、characters 補人物、glossary 補詞條、relations 補關係線。存檔重整就更新，不需要任何建置流程。</p>'+
+        '<p style="font-size:12px;color:var(--faint);margin-top:14px">最後更新：'+esc(S.meta.updated)+'</p>'+
+      '</article>'+
+    '</section>'+
+    foot()+
+  '</div>';
+}
+function foot(){
+  return '<footer><p>'+esc(S.meta.siteName)+' ‧ 非官方粉絲整理站<br>'+
+    '劇集《黃泉燒肉店》與所有角色、圖像著作權屬於 '+esc(S.meta.channel)+'（'+esc(S.meta.channelHandle)+'）。<br>'+
+    '本站只做整理與導覽，不做商業用途。</p></footer>';
+}
+
+/* ---------------------------------------------------------- render */
+function render(){
+  paintNav();
+  var m = $("#main"), html;
+  if(state.page==="story") html = pageStory();
+  else if(state.page==="chars") html = pageChars();
+  else if(state.page==="terms") html = pageTerms();
+  else if(state.page==="more") html = pageMore();
+  else html = pageHome();
+  m.innerHTML = '<div class="page on">'+html+'</div>';
+  if(state.page==="terms"){ paintTerms(); }
+  if(state.page==="chars" && state.cmode==="graph"){ buildGraph(); bindGraph(); }
+}
+function go(page, arg){
+  state.page = page;
+  if(page==="story" && arg) state.season = arg;
+  location.hash = page + (page==="story"&&state.season? "/"+state.season : "") + (page==="chars"&&state.cmode==="graph"?"/graph":"");
+  render(); window.scrollTo({top:0,behavior:"instant"});
+}
+function openChar(id){
+  var c = byId(S.characters,id); if(!c) return;
+  $("#sheetBody").innerHTML = charSheet(c);
+  $("#sheet").classList.add("on");
+  document.body.style.overflow="hidden";
+  $("#sheet").scrollTop = 0;
+}
+function closeSheet(){ $("#sheet").classList.remove("on"); document.body.style.overflow=""; }
+
+/* ---------------------------------------------------------- search */
+function searchAll(q){
+  q = q.trim().toLowerCase(); if(!q) return [];
+  var out = [];
+  S.characters.forEach(function(c){
+    if((c.name+" "+(c.reading||"")+" "+c.role+" "+c.oneLine+" "+(c.about||"")).toLowerCase().indexOf(q)>=0)
+      out.push({k:"人物", t:c.name, d:c.oneLine, act:function(){closeOv(); openChar(c.id)}});
+  });
+  S.glossary.forEach(function(t){
+    if((t.term+" "+(t.read||"")+" "+t.def).toLowerCase().indexOf(q)>=0)
+      out.push({k:"詞彙", t:t.term, d:t.def, act:function(){closeOv(); jumpTerm(t.id)}});
+  });
+  S.seasons.forEach(function(s){
+    if((s.title+" "+s.kanji+" "+(s.logline||"")+" "+(s.known||[]).join(" ")).toLowerCase().indexOf(q)>=0)
+      out.push({k:"季度", t:s.title+" ‧ "+s.kanji, d:s.logline||"資料建檔中", act:function(){closeOv(); go("story",s.id)}});
+  });
+  S.notes.forEach(function(n){
+    if((n.title+" "+n.body).toLowerCase().indexOf(q)>=0)
+      out.push({k:"雜談", t:n.title, d:n.body, act:function(){closeOv(); go("more")}});
+  });
+  return out.slice(0,30);
+}
+var qActs = [];
+function paintSearch(){
+  var q = $("#q").value, res = searchAll(q); qActs = res;
+  $("#qres").innerHTML = q.trim()===""
+    ? '<div class="empty">輸入關鍵字，會一次找人物、詞彙、季度與雜談。</div>'
+    : (res.length? res.map(function(r,i){
+        return '<button class="res" data-qi="'+i+'"><div class="rk">'+r.k+'</div><div class="rt">'+esc(r.t)+'</div><div class="rd">'+esc(r.d)+'</div></button>';
+      }).join("") : '<div class="empty">找不到「'+esc(q)+'」。</div>');
+}
+function closeOv(){ $$(".ov-panel").forEach(function(o){o.classList.remove("on")}); document.body.style.overflow=""; }
+
+/* ---------------------------------------------------------- settings */
+function paintSet(){
+  var labels = [[0,"還沒開始"],[1,"第一季"],[2,"第二季"],[3,"第三季"],[4,"全部"]];
+  $("#pgPill").innerHTML = labels.map(function(l){
+    return '<button data-pg="'+l[0]+'" aria-pressed="'+(state.progress===l[0])+'">'+l[1]+'</button>';
+  }).join("");
+  $$("#spPill button").forEach(function(b){ b.setAttribute("aria-pressed", String(+b.dataset.sp===state.spoiler)); });
+}
+
+/* ---------------------------------------------------------- events */
+document.addEventListener("click", function(e){
+  var t = e.target.closest("[data-go],[data-season],[data-char],[data-term],[data-cmode],[data-cat],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],.seal[data-locked]");
+  if(!t) return;
+  if(t.dataset.go){ closeSheet(); go(t.dataset.go); return; }
+  if(t.dataset.newbie){ state.progress=0; state.spoiler=1; save(); paintSet();
+    var el=$("#quick"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+  if(t.dataset.season){ closeSheet(); go("story", t.dataset.season); return; }
+  if(t.dataset.char){ openChar(t.dataset.char); return; }
+  if(t.dataset.term){ closeSheet(); jumpTerm(t.dataset.term); return; }
+  if(t.dataset.cmode){ state.cmode=t.dataset.cmode; go("chars"); return; }
+  if(t.dataset.cat){ gState.cat=t.dataset.cat;
+    $$("[data-cat]").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.cat===gState.cat))});
+    paintTerms(); return; }
+  if(t.dataset.lb){ $("#lbImg").src=t.dataset.lb; $("#lb").classList.add("on"); return; }
+  if(t.dataset.close){ closeOv(); return; }
+  if(t.dataset.qi!=null){ var a=qActs[+t.dataset.qi]; if(a) a.act(); return; }
+  if(t.dataset.pg!=null){ state.progress=+t.dataset.pg; save(); paintSet(); render(); return; }
+  if(t.dataset.sp!=null){ state.spoiler=+t.dataset.sp; save(); paintSet(); render(); return; }
+  if(t.classList.contains("seal")){ t.removeAttribute("data-locked"); return; }
+});
+$("#btnSearch").addEventListener("click", function(){
+  $("#ovSearch").classList.add("on"); document.body.style.overflow="hidden";
+  paintSearch(); setTimeout(function(){$("#q").focus()},60);
+});
+$("#btnSet").addEventListener("click", function(){ paintSet(); $("#ovSet").classList.add("on"); document.body.style.overflow="hidden"; });
+$("#q").addEventListener("input", paintSearch);
+$("#sheetClose").addEventListener("click", closeSheet);
+$("#lb").addEventListener("click", function(){ this.classList.remove("on"); });
+$$(".ov-panel").forEach(function(o){ o.addEventListener("click", function(e){ if(e.target===o) closeOv(); }); });
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape"){ closeSheet(); closeOv(); $("#lb").classList.remove("on"); }
+  if((e.key==="k"||e.key==="K") && (e.metaKey||e.ctrlKey)){ e.preventDefault(); $("#btnSearch").click(); }
+});
+document.addEventListener("input", function(e){
+  if(e.target && e.target.id==="tq"){ gState.q=e.target.value; paintTerms(); }
+});
+window.addEventListener("hashchange", function(){
+  var h = location.hash.replace(/^#/,"").split("/");
+  var p = h[0]||"home";
+  if(["home","story","chars","terms","more"].indexOf(p)<0) p="home";
+  state.page = p;
+  if(p==="story" && h[1]) state.season = h[1];
+  if(p==="chars") state.cmode = (h[1]==="graph"?"graph":"list");
+  render();
+});
+var _rt;
+window.addEventListener("resize", function(){
+  if(state.page!=="chars"||state.cmode!=="graph") return;
+  clearTimeout(_rt); _rt=setTimeout(function(){ buildGraph(); },220);
+});
+
+/* ---------------------------------------------------------- petals */
+(function(){
+  var box = $("#petals"), n = window.innerWidth<680?10:16, h="";
+  for(var i=0;i<n;i++){
+    var l = Math.random()*100, d = 16+Math.random()*20, dl = -Math.random()*30, sc=.6+Math.random()*.9;
+    h += '<span class="petal" style="left:'+l.toFixed(1)+'%;animation-duration:'+d.toFixed(1)+'s;animation-delay:'+dl.toFixed(1)+'s;transform:scale('+sc.toFixed(2)+')"></span>';
+  }
+  box.innerHTML = h;
+})();
+
+/* ---------------------------------------------------------- boot */
+(function(){
+  var h = location.hash.replace(/^#/,"").split("/");
+  var p = h[0]||"home";
+  if(["home","story","chars","terms","more"].indexOf(p)>=0){
+    state.page=p;
+    if(p==="story"&&h[1]) state.season=h[1];
+    if(p==="chars") state.cmode=(h[1]==="graph"?"graph":"list");
+  }
+  render();
+})();
+window.go = go;
+})();
+</script>
+</body>
+</html>
