@@ -982,6 +982,7 @@ function pageMore(){
         return '<article class="card chan">'+
           '<h4>'+esc(c.name)+'</h4><div class="h">'+esc(c.handle)+' ‧ '+esc(c.role)+'</div>'+
           '<p style="font-size:13.5px;color:var(--muted)">'+esc(c.desc)+'</p>'+
+          (c.bio? '<p style="font-family:var(--serif);font-size:14px;color:var(--amber-hi);margin-top:12px;padding-left:12px;border-left:2px solid var(--line)">'+esc(c.bio)+'</p>':'')+
           '<ul>'+c.facts.map(function(f){return '<li>'+esc(f)+'</li>'}).join("")+'</ul>'+
           '<div style="margin-top:14px"><a class="btn ghost" style="padding:9px 16px;font-size:13px" href="'+c.url+'" target="_blank" rel="noopener">前往 Instagram ↗</a></div>'+
         '</article>';
