@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>棲渺拾光 ‧ 燈下資料館</title>
-<meta name="description" content="《黃泉燒肉店》四季的劇情線、人物誌、詞彙資料庫與關係圖。">
+<meta name="description" content="《黃泉燒肉店》六季一百零四集的分集大綱、故事線、人物誌、詞彙資料庫與關係圖。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -396,6 +396,133 @@ section{padding-block:44px}
 
 footer{padding:40px 0 60px;border-top:1px solid var(--line-soft);margin-top:30px}
 footer p{font-size:12px;color:var(--faint);line-height:2}
+
+/* ============================ v2 additions ============================ */
+nav.tab{grid-template-columns:repeat(5,1fr)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;margin-top:26px;max-width:560px}
+.stats div{background:rgba(8,11,19,.78);padding:12px 10px;text-align:center}
+.stats b{display:block;font-family:var(--serif);font-size:clamp(20px,5.6vw,26px);color:var(--amber-hi);letter-spacing:.04em;line-height:1.2}
+.stats span{font-size:10.5px;letter-spacing:.16em;color:var(--faint)}
+
+/* season cards: 7 + extra */
+@media(min-width:1020px){.seasons{grid-template-columns:repeat(4,1fr)}}
+.season .rg{font-size:10.5px;letter-spacing:.18em;color:var(--faint);margin-top:2px}
+
+/* episode grid */
+.egrid{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:620px){.egrid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.egrid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1120px){.egrid{grid-template-columns:repeat(5,1fr)}}
+.epc{display:flex;flex-direction:column;text-align:left;border-radius:14px;overflow:hidden;border:1px solid var(--line-soft);
+  background:#0A0E17;transition:.25s;min-width:0}
+.epc:hover{border-color:var(--line);transform:translateY(-3px)}
+.epc .th{position:relative;aspect-ratio:3/4;overflow:hidden;background:#111622}
+.epc .th img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:.5s}
+.epc:hover .th img{transform:scale(1.05)}
+.epc .th::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,8,14,.85))}
+.epc .badge{position:absolute;left:9px;top:9px;z-index:1;font-family:var(--serif);font-size:11px;letter-spacing:.12em;
+  padding:3px 8px;border-radius:99px;background:rgba(6,8,14,.72);border:1px solid var(--line);color:var(--amber-hi)}
+.epc .gno{position:absolute;right:9px;bottom:8px;z-index:1;font-size:10px;letter-spacing:.14em;color:rgba(239,231,218,.7)}
+.epc .bd{padding:11px 12px 13px}
+.epc .t{font-family:var(--serif);font-weight:700;font-size:14.5px;letter-spacing:.04em;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.epc .p{margin-top:5px;font-size:11.5px;line-height:1.65;color:var(--faint);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.epc.lk .th img{filter:blur(10px) saturate(.4)}
+.epc.lk .p{filter:blur(4px)}
+.subhd{font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--amber);margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+.subhd::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-soft),transparent)}
+
+/* episode sheet */
+.ep-hero{position:relative;overflow:hidden;min-height:min(70svh,520px);display:flex;align-items:flex-end}
+.ep-hero .bgimg{position:absolute;inset:-30px;background-size:cover;background-position:center;filter:blur(28px) brightness(.45) saturate(1.2)}
+.ep-hero .in{position:relative;width:100%;display:flex;gap:20px;align-items:flex-end;padding-block:70px 26px}
+.ep-hero .poster{width:min(38vw,210px);aspect-ratio:9/16;object-fit:cover;border-radius:12px;border:1px solid var(--line);
+  box-shadow:0 26px 60px -24px #000;flex:none}
+.ep-hero .k{font-size:11px;letter-spacing:.26em;color:var(--amber)}
+.ep-hero h2{font-family:var(--serif);font-weight:900;font-size:clamp(22px,6vw,38px);letter-spacing:.06em;line-height:1.3;margin:8px 0 12px;text-wrap:balance}
+.ep-body{padding-block:22px 90px}
+.ep-sum{font-size:15.5px;line-height:2;color:var(--paper);max-width:66ch}
+.hl{display:grid;gap:10px;max-width:66ch}
+.hl blockquote{padding:13px 16px;border-left:2px solid var(--amber);background:rgba(233,168,92,.05);border-radius:0 10px 10px 0;
+  font-family:var(--serif);font-size:15.5px;letter-spacing:.04em;color:var(--amber-hi);line-height:1.85}
+.hl cite{display:block;font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.18em;color:var(--faint);margin-top:4px}
+.cast{display:flex;flex-wrap:wrap;gap:12px}
+.av{display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;text-align:center}
+.av .ph{width:58px;height:58px;border-radius:50%;overflow:hidden;border:1.5px solid var(--acc,var(--line));background:#141A28;
+  display:grid;place-items:center;font-family:var(--serif);font-size:20px;color:var(--faint)}
+.av .ph img{width:100%;height:100%;object-fit:cover}
+.av span{font-size:11.5px;letter-spacing:.04em;color:var(--muted);line-height:1.35}
+.av:hover span{color:var(--amber-hi)}
+.notesl{list-style:none;display:grid;gap:9px;max-width:66ch}
+.notesl li{font-size:13.5px;color:var(--muted);padding-left:16px;position:relative}
+.notesl li::before{content:"・";position:absolute;left:0;color:var(--amber)}
+
+/* arcs */
+.arcs{display:grid;gap:14px}
+@media(min-width:760px){.arcs{grid-template-columns:1fr 1fr}}
+.arc{display:flex;gap:0;text-align:left;overflow:hidden;border-radius:var(--r);border:1px solid var(--line-soft);background:var(--panel);transition:.25s;position:relative}
+.arc:hover{border-color:var(--line);transform:translateY(-2px)}
+.arc .faces{display:flex;flex-direction:column;width:84px;flex:none}
+.arc .faces img{width:84px;height:84px;object-fit:cover;flex:1;min-height:0}
+.arc .tx{padding:16px 16px;min-width:0}
+.arc .kj{font-family:var(--serif);font-size:11px;letter-spacing:.26em;color:var(--acc,var(--amber))}
+.arc h3{font-family:var(--serif);font-size:20px;letter-spacing:.1em;margin:4px 0 8px}
+.arc p{font-size:13px;color:var(--muted)}
+.arc .n{margin-top:10px;font-size:11px;letter-spacing:.14em;color:var(--faint)}
+.tl2{list-style:none;position:relative;padding-left:0;margin-top:10px;max-width:760px}
+.tl2 li{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.tl2 li:last-child{border-bottom:0}
+.tl2 img{width:72px;aspect-ratio:3/4;object-fit:cover;border-radius:8px;border:1px solid var(--line-soft)}
+.tl2 .e{font-family:var(--serif);font-size:11.5px;letter-spacing:.16em;color:var(--acc,var(--amber))}
+.tl2 .et{font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.04em;margin:2px 0 4px}
+.tl2 p{font-size:14px;color:var(--paper);opacity:.88;line-height:1.85}
+.tl2 button{text-align:left;width:100%}
+.backlink{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;letter-spacing:.14em;color:var(--muted);margin-bottom:16px}
+.backlink:hover{color:var(--amber-hi)}
+
+/* characters v2 */
+.cfilter{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.cgrid2{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
+@media(min-width:620px){.cgrid2{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:900px){.cgrid2{grid-template-columns:repeat(6,1fr)}}
+.cc2{text-align:center;padding:12px 8px 12px;border-radius:14px;border:1px solid var(--line-soft);background:var(--panel);transition:.22s;min-width:0}
+.cc2:hover{border-color:var(--line);transform:translateY(-2px)}
+.cc2 .ph{width:76%;aspect-ratio:1;margin:0 auto 9px;border-radius:50%;overflow:hidden;border:2px solid var(--acc,var(--line-soft));background:#141A28;
+  display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:var(--faint)}
+.cc2 .ph img{width:100%;height:100%;object-fit:cover}
+.cc2 h3{font-family:var(--serif);font-size:14.5px;letter-spacing:.06em;line-height:1.4;word-break:break-all}
+.cc2 .r{font-size:10.5px;color:var(--faint);margin-top:3px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc2.lk .ph img{filter:blur(8px) grayscale(.6)}
+.cc2.lk h3,.cc2.lk .r{filter:blur(4px)}
+.featured{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-bottom:8px}
+@media(min-width:700px){.featured{grid-template-columns:repeat(4,1fr)}}
+.fc{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px solid var(--line-soft);text-align:left;transition:.25s}
+.fc:hover{border-color:var(--line);transform:translateY(-3px)}
+.fc img{width:100%;height:100%;object-fit:cover}
+.fc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(6,8,14,.92))}
+.fc .in{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:12px}
+.fc h3{font-family:var(--serif);font-size:19px;letter-spacing:.12em}
+.fc p{font-size:11.5px;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fc .acc{position:absolute;left:0;right:0;top:0;height:2px;background:var(--acc,var(--amber));z-index:1}
+.fc.lk img{filter:blur(10px)} .fc.lk .in{filter:blur(5px)}
+.ch2-hero{display:flex;gap:20px;align-items:flex-end;padding:70px 0 10px}
+.ch2-hero .ph{width:min(34vw,170px);aspect-ratio:1;border-radius:50%;overflow:hidden;border:3px solid var(--acc,var(--amber));flex:none;
+  box-shadow:0 0 50px -10px var(--acc,var(--amber));background:#141A28;display:grid;place-items:center;font-family:var(--serif);font-size:56px;color:var(--faint)}
+.ch2-hero .ph img{width:100%;height:100%;object-fit:cover}
+.ch2-hero h2{font-family:var(--serif);font-weight:900;font-size:clamp(30px,8vw,48px);letter-spacing:.12em;line-height:1.2}
+.ch2-hero .aka{font-size:12.5px;color:var(--muted);margin-top:6px;letter-spacing:.06em}
+.ch2-hero .fac{font-size:10.5px;letter-spacing:.24em;color:var(--acc,var(--amber));margin-bottom:6px}
+.apps{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
+.apps::-webkit-scrollbar{display:none}
+.apps button{flex:none;width:88px;text-align:left}
+.apps img{width:88px;aspect-ratio:3/4;object-fit:cover;border-radius:8px;border:1px solid var(--line-soft)}
+.apps span{display:block;font-size:10.5px;letter-spacing:.06em;color:var(--muted);margin-top:4px;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.apps button.lk img{filter:blur(6px)}
+.srcnote{font-size:11.5px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.sbanner .rg2{font-size:11.5px;letter-spacing:.22em;color:var(--amber);margin-top:6px}
+.sfield.small{padding:9px 13px}
+.sfield.small input{font-size:14px}
 </style>
 </head>
 <body>
@@ -427,7 +554,7 @@ footer p{font-size:12px;color:var(--faint);line-height:2}
   <div class="ov-in">
     <div class="ov-hd">
       <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--faint);fill:none;stroke-width:1.7"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" placeholder="搜尋人物、詞彙、季度、雜談…" autocomplete="off" style="flex:1;background:none;border:0;color:var(--paper);font-size:15.5px;outline:none">
+      <input id="q" placeholder="搜尋劇集、人物、故事線、詞彙…" autocomplete="off" style="flex:1;background:none;border:0;color:var(--paper);font-size:15.5px;outline:none">
       <button class="iconbtn" data-close="ovSearch" aria-label="關閉"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="ov-bd" id="qres"></div>
@@ -440,7 +567,7 @@ footer p{font-size:12px;color:var(--faint);line-height:2}
       <button class="iconbtn" data-close="ovSet" aria-label="關閉"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="ov-bd" style="padding:0">
       <div class="setrow">
-        <div><div class="st">我看到第幾季了</div><div class="sd">超過進度的角色與劇情會先封起來，點一下才顯示。</div></div>
+        <div><div class="st">我看到第幾季了</div><div class="sd">超過進度的劇情、角色與詞彙會先封起來，點一下才顯示。</div></div>
         <div class="pill" id="pgPill"></div>
       </div>
       <div class="setrow">
@@ -454,38 +581,56 @@ footer p{font-size:12px;color:var(--faint);line-height:2}
 </div>
 
 <div class="lb" id="lb"><img id="lbImg" alt=""></div>
-<script src="data.js"></script>
+<script src="data.js?v=20261005"></script>
+<script src="episodes.js?v=20261005"></script>
 <script>
 (function(){
 "use strict";
-var S = window.SITE;
+var S = window.SITE, E = window.EPI;
 var $ = function(s,r){return (r||document).querySelector(s)};
 var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var esc = function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
 
+/* ---------------------------------------------------------- data index */
+var EP = {}, CH = {}, FAC = {}, MAXLV = 7;
+E.episodes.forEach(function(e,i){ e.i=i; EP[e.id]=e; });
+E.characters.forEach(function(c){ CH[c.name]=c; });
+S.factions.forEach(function(f){ f.members.forEach(function(n){ FAC[n]=f; }); });
+var GUESTS = {id:"guest", name:"客人與過客"};
+function facOf(n){ return FAC[n] || GUESTS; }
+function prof(n){ return S.profiles[n] || {}; }
+function acc(n){ return prof(n).accent || "#E9A85C"; }
+function epsOf(group){ return E.episodes.filter(function(e){return e.group===group}); }
+function seasonById(id){ for(var i=0;i<S.seasons.length;i++) if(S.seasons[i].id===id) return S.seasons[i]; return null; }
+function arcById(id){ for(var i=0;i<S.arcs.length;i++) if(S.arcs[i].id===id) return S.arcs[i]; return null; }
+function termById(id){ for(var i=0;i<S.glossary.length;i++) if(S.glossary[i].id===id) return S.glossary[i]; return null; }
+function epLabel(e){
+  if(e.arc==="月老外傳") return "月老外傳 "+e.local;
+  if(e.arc) return e.arc+" "+e.local;
+  return (e.special? "第"+e.season+"季番外 "+e.local : "第"+e.season+"季 第"+e.local+"集");
+}
+function epShort(e){ return e.no ? "EP"+e.no : (e.special? "番外" : e.arc||""); }
+
 /* ---------------------------------------------------------- state */
-var LS = "qimiao.v1";
-var state = {page:"home", season:"s1", cmode:"list", progress:4, spoiler:1, term:""};
-try{ var raw = localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(typeof o.progress==="number") state.progress=o.progress; if(typeof o.spoiler==="number") state.spoiler=o.spoiler; } }catch(e){}
+var LS = "qimiao.v2";
+var state = {page:"home", season:"s1", arc:null, cmode:"list", cfac:"main", cq:"", dtab:"terms", progress:MAXLV, spoiler:1};
+try{ var raw = localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw);
+  if(typeof o.progress==="number") state.progress=Math.min(MAXLV,o.progress);
+  if(typeof o.spoiler==="number") state.spoiler=o.spoiler; } }catch(e){}
 function save(){ try{ localStorage.setItem(LS, JSON.stringify({progress:state.progress, spoiler:state.spoiler})); }catch(e){} }
-function locked(seasonNo){ return !!(state.spoiler && seasonNo && seasonNo > state.progress); }
-function sealAttr(seasonNo){
-  if(!locked(seasonNo)) return "";
-  return ' class="seal" data-locked="1" data-seal="第 '+seasonNo+' 季內容 ‧ 點擊顯示"';
+function locked(lv){ return !!(state.spoiler && lv && lv > state.progress); }
+function sealWrap(lv, inner, note){
+  if(!locked(lv)) return inner;
+  return '<div class="seal" data-locked="1" data-seal="'+esc(note||("看到「"+S.meta.progressLabels[lv]+"」後解鎖 ‧ 點擊顯示"))+'">'+inner+'</div>';
 }
-function seasonNoOf(ids){
-  if(!ids||!ids.length) return 0;
-  return Math.max.apply(null, ids.map(function(id){ var s=byId(S.seasons,id); return s?s.no:0; }));
-}
-function byId(arr,id){ for(var i=0;i<arr.length;i++) if(arr[i].id===id) return arr[i]; return null; }
 
 /* ---------------------------------------------------------- nav */
 var NAV = [
   {id:"home",  label:"首頁", icon:'<path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/>'},
-  {id:"story", label:"劇情", icon:'<path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8 13h7M8 16h5"/>'},
+  {id:"story", label:"劇集", icon:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/>'},
+  {id:"arcs",  label:"故事線", icon:'<path d="M4 18c3-8 6 2 9-6s5-4 7-6"/><circle cx="4" cy="18" r="1.6"/><circle cx="20" cy="6" r="1.6"/>'},
   {id:"chars", label:"人物", icon:'<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c1.4-4 4-6 7-6s5.6 2 7 6"/>'},
-  {id:"terms", label:"詞彙", icon:'<path d="M5 5h6a3 3 0 0 1 3 3v11a2.5 2.5 0 0 0-2.5-2.5H5z"/><path d="M19 5h-2a3 3 0 0 0-3 3v11a2.5 2.5 0 0 1 2.5-2.5H19z"/>'},
-  {id:"more",  label:"幕後", icon:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>'}
+  {id:"data",  label:"資料", icon:'<path d="M5 5h6a3 3 0 0 1 3 3v11a2.5 2.5 0 0 0-2.5-2.5H5z"/><path d="M19 5h-2a3 3 0 0 0-3 3v11a2.5 2.5 0 0 1 2.5-2.5H19z"/>'}
 ];
 function paintNav(){
   $("#navDesk").innerHTML = NAV.map(function(n){
@@ -504,74 +649,84 @@ function img(src, cls, alt){
 }
 function secHead(h,en){ return '<div class="sec-head"><h2>'+h+'</h2><span class="en">'+en+'</span></div>'; }
 function lantern(){ return '<div class="lantern-rule"><i></i></div>'; }
+function avatar(n, size){
+  var c = CH[n]; var lk = c && locked(c.lv);
+  var inner = (c && c.img && !lk) ? '<img src="'+c.img+'" alt="" loading="lazy">' : esc(n.charAt(0));
+  return '<button class="av" data-char="'+esc(n)+'" style="--acc:'+acc(n)+'"><span class="ph">'+inner+'</span><span>'+esc(lk?"？？？":n)+'</span></button>';
+}
+function firstSentence(t, n){
+  var s = String(t||""); var m = (s.match(/^[^。！？]*[。！？]?/)||[s])[0];
+  return (m.length > (n||60) ? m.slice(0,n||60)+"…" : m);
+}
 
 /* ---------------------------------------------------------- home */
 var STEPS = [
-  {n:"其一", h:"這是什麼", p:"台灣頻道《棲渺拾光》製作的 AI 短劇《黃泉燒肉店》。四季七十餘集，講一家開在陰間的燒肉店——招牌上寫著「照顧你生前的遺憾」。"},
-  {n:"其二", h:"從哪裡開始", p:"第一季是一集一個獨立故事，任何一集都能進得去；想按順序就從 EP1 開始。二、三季開始有貫穿的主線，建議照著季度看。（本站建議）"},
-  {n:"其三", h:"主題怎麼走", p:"第一季主調是「遺憾」，第二季主軸換成「犧牲」，第三季用一場絕境開局讓觀眾陪角色逆襲。三個字看完就懂全劇的體溫。"},
-  {n:"其四", h:"記住三個地方", p:"燒肉店（把沒說完的話補完）、三途川與奈何橋（喝了孟婆湯就忘光）、送別橋（有些再見是為了讓彼此更安心地前行）。"}
+  {n:"其一", h:"這是什麼", p:"台灣頻道《棲渺拾光》製作的 AI 短劇。一家開在陰間的燒肉店，招牌上寫著「照顧你生前的遺憾」；每集一到兩分鐘，在 IG 上連載。"},
+  {n:"其二", h:"從哪裡開始", p:"第一季是單元劇，任何一集都進得去；想按順序就從 EP1 開始。第二季起有貫穿的主線，建議照季度看。月老外傳夾在第三、四季之間。（本站建議）"},
+  {n:"其三", h:"主題怎麼走", p:"第一季「遺憾」、第二季「犧牲」、第三季「恨之歌」，之後的故事走進魔界與另一個時空，第六季回到大寶身上。"},
+  {n:"其四", h:"怕被雷？", p:"右上角的「閱讀設定」可以選你看到第幾季，超過進度的劇情、角色和詞彙都會先封起來，點一下才顯示。"}
 ];
 function pageHome(){
-  var s3 = S.seasons;
+  var main = E.episodes.filter(function(e){return /^s\d|yl/.test(e.group)});
+  var lastEp = main.filter(function(e){return e.no}).slice(-1)[0];
   return ''+
   '<div class="hero">'+
-    '<div class="hero-img">'+img(S.works[0].art,"","黃泉燒肉店")+'</div>'+
+    '<div class="hero-img">'+img("assets/hero-shop.jpg","","黃泉燒肉店")+'</div>'+
     '<div class="hero-strip"><span>'+esc(S.meta.tagline)+'</span></div>'+
     '<div class="hero-in"><div class="wrap">'+
       '<div class="hero-kicker">'+esc(S.meta.channel)+' ‧ 燈下資料館</div>'+
       '<h1>黃泉<span>燒肉店</span></h1>'+
       '<div class="sub">照 顧 你 生 前 的 遺 憾</div>'+
-      '<div class="meta chips"><span class="chip">四季 ‧ 七十餘集</span><span class="chip dim">AI 短劇</span><span class="chip pink">悲劇 ‧ 療癒</span></div>'+
-      '<div class="hero-cta">'+
-        '<button class="btn primary" data-newbie="1">我是新觀眾，三分鐘看懂</button>'+
-        '<button class="btn ghost" data-go="chars">直接看人物誌</button>'+
+      '<div class="stats">'+
+        '<div><b>6</b><span>季</span></div>'+
+        '<div><b>'+lastEp.no+'</b><span>集</span></div>'+
+        '<div><b>'+E.characters.length+'</b><span>角色</span></div>'+
+        '<div><b>'+S.arcs.length+'</b><span>故事線</span></div>'+
       '</div>'+
-      '<div class="scrollcue"><i></i>往下走進店裡</div>'+
+      '<div class="hero-cta">'+
+        '<button class="btn primary" data-newbie="1">我是新觀眾，從頭開始</button>'+
+        '<button class="btn ghost" data-ep="'+lastEp.id+'">最新一集 ‧ EP'+lastEp.no+'</button>'+
+      '</div>'+
     '</div></div>'+
   '</div>'+
-
   '<div class="wrap">'+
-    '<section id="quick">'+
-      secHead("三分鐘看懂","START HERE")+
+    '<section id="quick">'+secHead("三分鐘看懂","START HERE")+
       '<div class="pillars">'+ STEPS.map(function(s){
         return '<article class="card pillar"><span class="no">'+s.n+'</span><h3>'+s.h+'</h3><p>'+s.p+'</p></article>';
       }).join("") +'</div>'+
     '</section>'+
-
-    '<section>'+
-      secHead("世界觀","THE WORLD")+
+    '<section>'+secHead("季度","SEASONS")+
+      '<div class="seasons">'+ S.seasons.map(seasonCard).join("") +'</div>'+
+    '</section>'+
+    '<section>'+secHead("故事線","STORYLINES")+
+      '<p class="lede">跨季的主線，按時間串起來。</p>'+lantern()+
+      '<div class="arcs">'+ S.arcs.slice(0,4).map(arcCard).join("") +'</div>'+
+      '<div style="margin-top:16px"><button class="btn ghost" data-go="arcs">全部故事線 →</button></div>'+
+    '</section>'+
+    '<section>'+secHead("世界觀","THE WORLD")+
       '<p class="lede" style="font-family:var(--serif);font-size:19px;color:var(--amber-hi);letter-spacing:.06em">'+esc(S.world.title)+'</p>'+
-      '<p class="lede" style="margin-top:8px">'+esc(S.world.lede)+'</p>'+
-      lantern()+
+      '<p class="lede" style="margin-top:8px">'+esc(S.world.lede)+'</p>'+lantern()+
       '<div class="pillars">'+ S.world.pillars.map(function(p){
         return '<article class="card pillar"><h3>'+esc(p.h)+'</h3><p>'+esc(p.p)+'</p></article>';
       }).join("") +'</div>'+
     '</section>'+
-
-    '<section>'+
-      secHead("四季","SEASONS")+
-      '<div class="seasons">'+ s3.map(seasonCard).join("") +'</div>'+
-    '</section>'+
-
-    '<section>'+
-      secHead("語錄","WORDS")+
+    '<section>'+secHead("語錄","WORDS")+
       '<div class="qgrid">'+ S.quotes.slice(0,6).map(quoteCard).join("") +'</div>'+
     '</section>'+
     foot()+
   '</div>';
 }
 function seasonCard(s){
-  var lk = locked(s.no);
+  var lk = locked(s.lv);
+  var n = epsOf(s.id).length;
   return '<button class="season" data-season="'+s.id+'">'+
     img(s.art,"", s.title)+'<div class="ov"></div>'+
     '<div class="in">'+
       '<div class="kanji">'+esc(s.kanji)+'</div>'+
-      '<div class="no">SEASON '+s.no+'</div>'+
+      '<div class="no">'+esc(s.range||"番外")+'</div>'+
       '<h3>'+esc(s.title)+'</h3>'+
-      (s.status==="pending"
-        ? '<p style="color:var(--faint)">資料建檔中</p>'
-        : '<p'+(lk?' style="filter:blur(5px);opacity:.55"':'')+'>'+esc(s.logline)+'</p>')+
+      '<p'+(lk?' style="filter:blur(5px);opacity:.55"':'')+'>'+esc(s.logline)+'</p>'+
+      '<div class="rg">'+n+' 支影片</div>'+
     '</div></button>';
 }
 function quoteCard(q){
@@ -580,129 +735,179 @@ function quoteCard(q){
 }
 
 /* ---------------------------------------------------------- story */
-function epTimeline(s){
-  var lk = locked(s.no);
-  return '<h3 style="font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--amber);margin:30px 0 4px">分集</h3>'+
-  '<ol class="tl">'+ s.episodes.map(function(e){
-    return '<li><article class="card ep-c">'+
-      '<div class="ep-no">EP '+esc(e.no)+'</div>'+
-      (e.title? '<div class="ep-t">'+esc(e.title)+'</div>':'')+
-      (e.one? (lk? '<div class="seal" data-locked="1" data-seal="第 '+s.no+' 季內容 ‧ 點擊顯示"><p class="ep-p">'+esc(e.one)+'</p></div>'
-                 : '<p class="ep-p">'+esc(e.one)+'</p>') : '')+
-      ((e.tags&&e.tags.length)||e.url
-        ? '<div class="ep-f">'+ (e.tags||[]).map(function(t){return '<span class="chip dim">'+esc(t)+'</span>'}).join("")+
-          (e.url? '<a href="'+esc(e.url)+'" target="_blank" rel="noopener">看這一集 ↗</a>':'')+'</div>'
-        : '')+
-    '</article></li>';
-  }).join("") +'</ol>';
+function epCard(e){
+  var lk = locked(e.lv);
+  return '<button class="epc'+(lk?" lk":"")+'" data-ep="'+e.id+'">'+
+    '<div class="th">'+img(e.thumb,"",e.title)+'<span class="badge">'+esc(e.id)+'</span>'+
+      (e.no?'<span class="gno">EP'+e.no+'</span>':'')+'</div>'+
+    '<div class="bd"><div class="t">'+esc(e.title)+'</div><div class="p">'+esc(firstSentence(e.summary,40))+'</div></div>'+
+  '</button>';
 }
 function pageStory(){
-  var s = byId(S.seasons, state.season) || S.seasons[0];
-  var lk = locked(s.no);
-  var body;
-  if(s.status==="pending"){
-    body = '<div class="epbox"><div class="k">尚未開始建檔</div><p>第四季的主題、主線與集數還沒收錄。有官方資訊時補進 data.js 就會出現在這裡。</p></div>';
-  }else{
-    body = ''+
-      (s.quote?'<div class="sq">「'+esc(s.quote)+'」</div>':'')+
-      '<h3 style="font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--amber);margin:26px 0 14px">已確認情報</h3>'+
-      '<ul class="known">'+ s.known.map(function(k){return '<li>'+esc(k)+'</li>';}).join("") +'</ul>'+
-      ((s.spoilerKnown&&s.spoilerKnown.length)
-        ? '<div style="margin-top:12px"'+(state.spoiler?' class="seal" data-locked="1" data-seal="含結局劇透 ‧ 點擊顯示"':'')+'>'+
-            '<ul class="known">'+ s.spoilerKnown.map(function(k){return '<li>'+esc(k)+'</li>';}).join("") +'</ul></div>'
-        : "")+
-      (s.note? '<div class="card" style="padding:20px 18px;margin-top:22px"><div class="sb" style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">作者說</div><p style="font-size:14px;color:var(--muted)">'+esc(s.note)+'</p></div>':"")+
-      (s.episodes.length? epTimeline(s) : "")+
-      (s.episodeCount && s.episodes.length>=s.episodeCount ? "" :
-      '<div class="epbox">'+
-        '<div class="k">'+(s.episodes.length? '分集還沒收齊':'分集資料建檔中')+'</div>'+
-        '<p>'+(s.episodeCount? '本季共 '+s.episodeCount+' 集，':'本季集數待確認，')+'目前收錄 '+s.episodes.length+' 集分集大綱。把每集的標題與一句話梗概填進 data.js 的 episodes，這裡就會長出完整時間軸。</p>'+
-        '<div class="bar"><i style="width:'+(s.episodeCount? Math.max(2,Math.round(s.episodes.length/s.episodeCount*100)):2)+'%"></i></div>'+
-      '</div>');
-  }
+  var s = seasonById(state.season) || S.seasons[0];
+  var lk = locked(s.lv);
+  var eps = epsOf(s.id);
+  var mains = eps.filter(function(e){return !e.special}), sps = eps.filter(function(e){return e.special});
   return '<div class="wrap"><section>'+
-    secHead("劇情線","STORY")+
+    secHead("劇集","EPISODES")+
     '<div class="seg">'+ S.seasons.map(function(x){
-      return '<button data-season="'+x.id+'" aria-current="'+(x.id===s.id)+'">'+esc(x.title)+'</button>';
+      return '<button data-season="'+x.id+'" aria-current="'+(x.id===s.id)+'">'+esc(x.title.split(" ‧ ")[0])+'</button>';
     }).join("") +'</div>'+
     '<div class="sbanner">'+img(s.art,"",s.title)+'<div class="ov"></div><div class="in">'+
       '<div class="kanji">'+esc(s.kanji)+'</div>'+
-      '<h2>'+esc(s.title)+' ‧ '+esc(s.subtitle)+'</h2>'+
-      (s.logline? '<p class="ll"'+(lk?' style="filter:blur(6px);opacity:.55"':'')+'>'+esc(s.logline)+'</p>':'')+
+      '<h2>'+esc(s.title)+'</h2>'+(s.range?'<div class="rg2">'+esc(s.range)+' ‧ '+eps.length+' 支影片</div>':'')+
+      '<p class="ll"'+(lk?' style="filter:blur(6px);opacity:.55"':'')+'>'+esc(s.logline)+'</p>'+
     '</div></div>'+
-    body+
+    (s.quote? sealWrap(s.lv,'<div class="sq">「'+esc(s.quote)+'」</div>'):'')+
+    (s.known&&s.known.length? '<div class="subhd">已確認情報</div><ul class="known">'+ s.known.map(function(k){return '<li>'+esc(k)+'</li>';}).join("") +'</ul>':'')+
+    (s.note? '<div class="card" style="padding:20px 18px;margin-top:22px"><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">作者說</div><p style="font-size:14px;color:var(--muted)">'+esc(s.note)+'</p></div>':"")+
+    '<div class="subhd">'+(s.id==="extra"?"影片":"分集")+' ‧ '+mains.length+'</div>'+
+    '<div class="egrid">'+ mains.map(epCard).join("") +'</div>'+
+    (sps.length? '<div class="subhd">番外 ‧ '+sps.length+'</div><div class="egrid">'+ sps.map(epCard).join("") +'</div>':'')+
+  '</section>'+foot()+'</div>';
+}
+function epSheet(e){
+  var lk = locked(e.lv);
+  var all = E.episodes.filter(function(x){return x.group===e.group});
+  var k = all.indexOf(e), prev = all[k-1], next = all[k+1];
+  var arcs = S.arcs.filter(function(a){return a.steps.some(function(s){return s.ep===e.id})});
+  var s = seasonById(e.group);
+  return ''+
+  '<div class="ep-hero"><div class="bgimg" style="background-image:url('+e.thumb+')"></div>'+
+    '<div class="wrap in">'+
+      (e.thumb? '<img class="poster" src="'+e.thumb+'" alt=""'+(lk?' style="filter:blur(10px)"':'')+'>':'')+
+      '<div style="min-width:0">'+
+        '<div class="k">'+esc(epLabel(e))+(e.no?' ‧ EP'+e.no:'')+'</div>'+
+        '<h2>'+esc(e.title)+'</h2>'+
+        '<div class="chips">'+(s?'<button class="chip" data-season="'+s.id+'">'+esc(s.title)+'</button>':'')+
+          (e.dur?'<span class="chip dim">'+Math.floor(e.dur/60)+':'+String(e.dur%60).padStart(2,"0")+'</span>':'')+
+          '<span class="chip dim">'+esc(e.id)+'</span></div>'+
+      '</div>'+
+    '</div></div>'+
+  '<div class="wrap ep-body">'+
+    '<div class="blk"><h4>故事大綱</h4>'+sealWrap(e.lv,'<p class="ep-sum">'+esc(e.summary)+'</p>')+'</div>'+
+    (e.hl.length? '<div class="blk"><h4>台詞摘錄</h4>'+sealWrap(e.lv,'<div class="hl">'+e.hl.map(function(h){
+        return '<blockquote>「'+esc(h[1])+'」<cite>'+esc(h[0])+'</cite></blockquote>';
+      }).join("")+'</div>')+'</div>':'')+
+    (e.cast.length? '<div class="blk"><h4>出場角色</h4><div class="cast">'+e.cast.filter(function(n){return CH[n]}).map(function(n){return avatar(n)}).join("")+'</div></div>':'')+
+    (arcs.length? '<div class="blk"><h4>收錄在故事線</h4><div class="chips">'+arcs.map(function(a){
+        return '<button class="chip" data-arc="'+a.id+'">'+esc(a.title)+'</button>';}).join("")+'</div></div>':'')+
+    (e.notes.length? '<div class="blk"><h4>整理備註</h4>'+sealWrap(e.lv,'<ul class="notesl">'+e.notes.map(function(n){return '<li>'+esc(n)+'</li>'}).join("")+'</ul>')+'</div>':'')+
+    '<div class="chnav">'+
+      (prev? '<button class="btn ghost" data-ep="'+prev.id+'">← '+esc(prev.id)+'</button>' : '<span></span>')+
+      (next? '<button class="btn ghost" data-ep="'+next.id+'">'+esc(next.id)+' →</button>' : '<span></span>')+
+    '</div>'+
+  '</div>';
+}
+
+/* ---------------------------------------------------------- arcs */
+function arcCard(a){
+  var lk = locked(a.lv);
+  var faces = a.who.slice(0,3).map(function(n){ var c=CH[n]; return c&&c.img? '<img src="'+c.img+'" alt="" loading="lazy"'+(locked(c.lv)?' style="filter:blur(8px)"':'')+'>':''; }).join("");
+  return '<button class="arc" data-arc="'+a.id+'" style="--acc:'+a.accent+'">'+
+    '<div class="faces">'+faces+'</div>'+
+    '<div class="tx"><div class="kj">'+esc(a.kanji)+'</div><h3>'+esc(a.title)+'</h3>'+
+      '<p'+(lk?' style="filter:blur(4px)"':'')+'>'+esc(a.lead)+'</p>'+
+      '<div class="n">'+a.steps.length+' 個節點 ‧ '+esc(a.who.slice(0,4).join("、"))+'</div></div>'+
+  '</button>';
+}
+function pageArcs(){
+  var a = state.arc && arcById(state.arc);
+  if(!a){
+    return '<div class="wrap"><section>'+secHead("故事線","STORYLINES")+
+      '<p class="lede">《黃泉燒肉店》的主線常常跨季：第一季埋的伏筆，可能到第六季才回收。這裡把幾條主要的線按劇中時間順序串起來，每一步都連到原本的那一集。</p>'+lantern()+
+      '<div class="arcs">'+ S.arcs.map(arcCard).join("") +'</div>'+
+    '</section>'+foot()+'</div>';
+  }
+  return '<div class="wrap"><section style="--acc:'+a.accent+'">'+
+    '<button class="backlink" data-arc="">← 全部故事線</button>'+
+    secHead(esc(a.title),esc(a.kanji))+
+    sealWrap(a.lv,'<p class="lede" style="font-family:var(--serif);font-size:17px;color:var(--amber-hi)">'+esc(a.lead)+'</p>')+
+    '<div class="cast" style="margin:18px 0 6px">'+a.who.map(function(n){return avatar(n)}).join("")+'</div>'+
+    '<ol class="tl2">'+a.steps.map(function(st){
+      var e = EP[st.ep]; var lk = locked(e.lv);
+      return '<li><button data-ep="'+e.id+'" style="display:contents">'+
+        '<img src="'+e.thumb+'" alt="" loading="lazy"'+(lk?' style="filter:blur(8px)"':'')+'>'+
+        '<div><div class="e">'+esc(e.id)+(e.no?' ‧ EP'+e.no:'')+'</div><div class="et">'+esc(e.title)+'</div>'+
+        (lk? '<p style="filter:blur(5px)">'+esc(st.t)+'</p>' : '<p>'+esc(st.t)+'</p>')+'</div></button></li>';
+    }).join("")+'</ol>'+
   '</section>'+foot()+'</div>';
 }
 
 /* ---------------------------------------------------------- characters */
+function charsFiltered(){
+  var q = state.cq.trim();
+  return E.characters.filter(function(c){
+    if(q) return (c.name+" "+c.aka.join(" ")+" "+c.role).indexOf(q)>=0;
+    if(state.cfac==="main") return !!prof(c.name).main;
+    if(state.cfac==="all") return true;
+    return facOf(c.name).id===state.cfac;
+  }).sort(function(a,b){ return (a.lv||9)-(b.lv||9) || b.eps.length-a.eps.length; });
+}
 function pageChars(){
+  var tabs = [["main","主要角色"],["all","全部"]].concat(S.factions.map(function(f){return [f.id,f.name]})).concat([["guest","客人與過客"]]);
   return '<div class="wrap"><section>'+
     secHead("人物誌","CHARACTERS")+
     '<div class="seg">'+
-      '<button data-cmode="list" aria-current="'+(state.cmode==="list")+'">角色卡</button>'+
+      '<button data-cmode="list" aria-current="'+(state.cmode==="list")+'">角色</button>'+
       '<button data-cmode="graph" aria-current="'+(state.cmode==="graph")+'">關係圖</button>'+
     '</div>'+
     (state.cmode==="list"
-      ? '<div class="cgrid">'+ S.characters.map(charCard).join("") +'</div>'
+      ? '<div class="cfilter"><div class="sfield small"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'+
+          '<input id="cq" placeholder="找角色…（名字或別名，例：阿赤、孟婆）" value="'+esc(state.cq)+'" autocomplete="off"></div>'+
+          '<div class="seg" style="margin:0">'+tabs.map(function(t){
+            return '<button data-cfac="'+t[0]+'" aria-current="'+(state.cfac===t[0])+'">'+t[1]+'</button>'; }).join("")+'</div></div>'+
+        '<div id="charList"></div>'
       : graphMarkup())+
   '</section>'+foot()+'</div>';
 }
-function charCard(c){
-  var no = seasonNoOf(c.seasons), lk = locked(no);
-  return '<button class="cc'+(c.art?"":" noart")+'" data-char="'+c.id+'" style="--acc:'+c.accent+'">'+
-    (c.art? img(c.art,"",c.name) : '<div class="ghost">'+esc(c.name.charAt(0))+'</div>')+
-    '<div class="ov"></div><div class="acc"></div>'+
-    (c.status!=="canon"?'<span class="pend">檔案未完整</span>':'')+
-    '<div class="in">'+
-      '<div class="role">'+esc(c.role)+'</div>'+
-      '<h3>'+esc(c.name)+'</h3>'+
-      '<div class="one"'+(lk?' style="filter:blur(4px)"':'')+'>'+esc(c.oneLine)+'</div>'+
-    '</div></button>';
-}
-
-function charSheet(c){
-  var no = seasonNoOf(c.seasons);
-  var idx = S.characters.indexOf(c);
-  var prev = S.characters[(idx-1+S.characters.length)%S.characters.length];
-  var next = S.characters[(idx+1)%S.characters.length];
-  var rels = S.relations.filter(function(r){return r.a===c.id||r.b===c.id});
-  var terms = (c.relatedTerms||[]).map(function(t){return byId(S.glossary,t)}).filter(Boolean);
-  var lk = locked(no);
-  function sealed(inner, note){
-    if(!lk) return inner;
-    return '<div class="seal" data-locked="1" data-seal="'+(note||("第 "+no+" 季內容 ‧ 點擊顯示"))+'">'+inner+'</div>';
+function paintChars(){
+  var box = $("#charList"); if(!box) return;
+  var list = charsFiltered();
+  if(state.cfac==="main" && !state.cq){
+    box.innerHTML = '<div class="featured">'+list.map(function(c){
+      var p = prof(c.name), lk = locked(c.lv);
+      return '<button class="fc'+(lk?" lk":"")+'" data-char="'+esc(c.name)+'" style="--acc:'+acc(c.name)+'">'+img(c.img,"",c.name)+'<div class="acc"></div>'+
+        '<div class="in"><h3>'+esc(c.name)+'</h3><p>'+esc(p.oneLine||c.role)+'</p></div></button>';
+    }).join("")+'</div>';
+    return;
   }
+  box.innerHTML = '<div class="count">'+list.length+' 位</div>'+(list.length?'<div class="cgrid2">'+list.map(function(c){
+    var lk = locked(c.lv);
+    return '<button class="cc2'+(lk?" lk":"")+'" data-char="'+esc(c.name)+'" style="--acc:'+acc(c.name)+'">'+
+      '<div class="ph">'+(c.img?'<img src="'+c.img+'" alt="" loading="lazy">':esc(c.name.charAt(0)))+'</div>'+
+      '<h3>'+esc(c.name)+'</h3><div class="r">'+esc(prof(c.name).oneLine||c.role)+'</div></button>';
+  }).join("")+'</div>':'<div class="empty">找不到這個角色。</div>');
+}
+function charSheet(c){
+  var p = prof(c.name), f = facOf(c.name), lk = locked(c.lv);
+  var rels = S.relations.filter(function(r){return r.a===c.name||r.b===c.name});
+  var arcs = S.arcs.filter(function(a){return a.who.indexOf(c.name)>=0});
+  var quotes = (p.quotes||[]).map(function(q){return [null,q]}).concat(c.lines);
   return ''+
-  '<div class="ch-hero'+(c.art?"":" noart")+'" style="--acc:'+c.accent+'">'+
-    (c.art? img(c.art,"",c.name) : '<div class="ghost">'+esc(c.name.charAt(0))+'</div>')+'<div class="ov"></div>'+
-    '<div class="ch-role"><div class="r">'+esc(c.role)+'</div><div class="rd">'+esc(c.reading||"")+'</div></div>'+
-    '<div class="ch-name"><div class="vn">'+esc(c.name)+'</div></div>'+
-  '</div>'+
-  '<div class="wrap ch-body" style="--acc:'+c.accent+'">'+
-    sealed('<p class="ch-one">「'+esc(c.oneLine)+'」</p>')+
-    (c.fields&&c.fields.length? '<div class="fields">'+c.fields.map(function(f){
-        var v = (f.spoiler && state.spoiler) ? '<span style="filter:blur(5px)">'+esc(f.v)+'</span>' : esc(f.v);
-        return '<div><div class="k">'+esc(f.k)+'</div><div class="v">'+v+'</div></div>';
-      }).join("")+'</div>':'')+
-    (c.look? '<div class="blk"><h4>外觀</h4><p>'+esc(c.look)+'</p></div>':'')+
-    (c.about? '<div class="blk"><h4>這個人是誰</h4>'+sealed('<p>'+esc(c.about)+'</p>')+'</div>':'')+
-    (c.origin&&c.origin.length? '<div class="blk"><h4>設定由來</h4><ul class="origin">'+
-        c.origin.map(function(o){return '<li>'+esc(o)+'</li>'}).join("")+
-      '</ul><div class="byline">'+esc(c.originNote||"——作者")+'</div></div>':'')+
-    (c.quotes&&c.quotes.length? '<div class="blk"><h4>語錄</h4>'+
-        c.quotes.map(function(q){return '<blockquote class="qline">「'+esc(q)+'」</blockquote>'}).join("")+'</div>':'')+
-    (rels.length? '<div class="blk"><h4>關係</h4><div class="chips">'+rels.map(function(r){
-        var o = byId(S.characters, r.a===c.id?r.b:r.a); if(!o) return "";
-        return '<button class="chip'+(r.status!=="canon"?" dim":"")+'" data-char="'+o.id+'">'+esc(o.name)+' ‧ '+esc(r.label)+'</button>';
-      }).join("")+'</div></div>':'')+
-    (terms.length? '<div class="blk"><h4>相關詞彙</h4><div class="chips">'+terms.map(function(t){
-        return '<button class="chip dim" data-term="'+t.id+'">'+esc(t.term)+'</button>';
-      }).join("")+'</div></div>':'')+
-    (c.gallery&&c.gallery.length? '<div class="blk"><h4>畫面</h4><div class="gal">'+
-        c.gallery.map(function(g){return '<img src="'+g+'" alt="" loading="lazy" data-lb="'+g+'">'}).join("")+'</div></div>':'')+
-    '<div class="chnav">'+
-      '<button class="btn ghost" data-char="'+prev.id+'">← '+esc(prev.name)+'</button>'+
-      '<button class="btn ghost" data-char="'+next.id+'">'+esc(next.name)+' →</button>'+
+  '<div class="wrap" style="--acc:'+acc(c.name)+'">'+
+    '<div class="ch2-hero"><div class="ph">'+(c.img?'<img src="'+c.img+'" alt=""'+(lk?' style="filter:blur(10px)"':'')+'>':esc(c.name.charAt(0)))+'</div>'+
+      '<div style="min-width:0"><div class="fac">'+esc(f.name)+'</div><h2>'+esc(c.name)+'</h2>'+
+        (c.aka.length? '<div class="aka">'+sealWrap(c.lv,'又名：'+esc(c.aka.join("、")))+'</div>':'')+'</div></div>'+
+    '<div class="ch-body">'+
+      sealWrap(c.lv,'<p class="ch-one">「'+esc(p.oneLine||c.role)+'」</p>')+
+      (p.look? '<div class="blk"><h4>外觀</h4><p>'+esc(p.look)+'</p></div>':'')+
+      '<div class="blk"><h4>這個人是誰</h4>'+sealWrap(c.lv,'<p>'+esc(p.about||c.role)+'</p>')+
+        (c.source? '<div class="srcnote">名字出處：'+esc(c.source)+'</div>':'')+'</div>'+
+      (p.origin&&p.origin.length? '<div class="blk"><h4>設定由來</h4><ul class="origin">'+
+          p.origin.map(function(o){return '<li>'+esc(o)+'</li>'}).join("")+'</ul><div class="byline">'+esc(p.originNote||"——作者")+'</div></div>':'')+
+      (quotes.length? '<div class="blk"><h4>台詞</h4>'+sealWrap(c.lv,'<div class="hl">'+quotes.map(function(q){
+          return '<blockquote>「'+esc(q[1])+'」'+(q[0]?'<cite>'+esc(q[0])+(EP[q[0]]?' ‧ '+esc(EP[q[0]].title):'')+'</cite>':'')+'</blockquote>';
+        }).join("")+'</div>')+'</div>':'')+
+      (c.eps.length? '<div class="blk"><h4>出場 ‧ '+c.eps.length+' 支</h4><div class="apps">'+c.eps.map(function(id){
+          var e = EP[id]; return '<button data-ep="'+id+'"'+(locked(e.lv)?' class="lk"':'')+'>'+img(e.thumb,"","")+'<span>'+esc(id)+'<br>'+esc(e.title)+'</span></button>';
+        }).join("")+'</div></div>':'')+
+      (rels.length? '<div class="blk"><h4>關係</h4><div class="cast">'+rels.map(function(r){
+          var o = r.a===c.name?r.b:r.a; var lkr = locked(r.lv);
+          return '<div style="display:flex;flex-direction:column;align-items:center">'+avatar(o)+'<span class="chip dim" style="margin-top:4px'+(lkr?';filter:blur(4px)':'')+'">'+esc(r.label)+'</span></div>';
+        }).join("")+'</div></div>':'')+
+      (arcs.length? '<div class="blk"><h4>相關故事線</h4><div class="chips">'+arcs.map(function(a){
+          return '<button class="chip" data-arc="'+a.id+'">'+esc(a.title)+'</button>';}).join("")+'</div></div>':'')+
     '</div>'+
   '</div>';
 }
@@ -715,9 +920,9 @@ function graphMarkup(){
     '<div class="gtip" id="gtip"></div>'+
     '<div class="legend">'+Object.keys(GC).map(function(k){
       return '<span><i style="background:'+GC[k]+'"></i>'+GLABEL[k]+'</span>';
-    }).join("")+'<span><i style="background:repeating-linear-gradient(90deg,var(--faint) 0 4px,transparent 4px 7px)"></i>待確認</span></div>'+
+    }).join("")+'</div>'+
   '</div>'+
-  '<p class="lede" style="margin-top:14px;font-size:13px">拖曳可平移，滾輪或雙指縮放。點角色看關係，再點空白處復原。</p>';
+  '<p class="lede" style="margin-top:14px;font-size:13px">拖曳可平移，滾輪或雙指縮放。點角色看關係，再點空白處復原。防雷模式下，超過進度的人物和關係不會出現。</p>';
 }
 var G = {nodes:[], edges:[], k:1, tx:0, ty:0, focus:null};
 function buildGraph(){
@@ -725,199 +930,123 @@ function buildGraph(){
   var box = svg.getBoundingClientRect();
   var W = Math.round(box.width) || 700, H = Math.round(box.height) || 500;
   svg.setAttribute("viewBox","0 0 "+W+" "+H);
-  var nodes = S.characters.map(function(c){return {id:c.id, c:c, x:0, y:0}});
+  var rels = S.relations.filter(function(r){ return !locked(r.lv) && CH[r.a] && CH[r.b]; });
+  var names = []; rels.forEach(function(r){ [r.a,r.b].forEach(function(n){ if(names.indexOf(n)<0) names.push(n); }); });
+  var nodes = names.map(function(n){return {id:n, c:CH[n], x:0, y:0}});
   var index = {}; nodes.forEach(function(n,i){index[n.id]=i});
-  var edges = S.relations.filter(function(r){return index[r.a]!=null && index[r.b]!=null})
-    .map(function(r){return {s:index[r.a], t:index[r.b], r:r}});
-
-  // ---- connected components get their own cluster, then we pack them ----
-  var adj = nodes.map(function(){return []});
-  edges.forEach(function(e){ adj[e.s].push(e.t); adj[e.t].push(e.s); });
-  var comp = new Array(nodes.length).fill(-1), comps = [];
-  nodes.forEach(function(n,i){
-    if(comp[i]>=0) return;
-    var id = comps.length, stack=[i], members=[];
-    comp[i]=id;
-    while(stack.length){ var k=stack.pop(); members.push(k);
-      adj[k].forEach(function(m){ if(comp[m]<0){ comp[m]=id; stack.push(m); } }); }
-    comps.push(members);
-  });
-  comps.sort(function(x,y){return y.length-x.length});
-
+  var edges = rels.map(function(r){return {s:index[r.a], t:index[r.b], r:r}});
   var L = 100;
-  function relax(members){
-    members.forEach(function(k,i){
-      var a2 = i/members.length*Math.PI*2 - Math.PI/2;
-      nodes[k].x = Math.cos(a2)*L*1.4; nodes[k].y = Math.sin(a2)*L*1.4;
+  nodes.forEach(function(n,i){ var a=i/nodes.length*Math.PI*2; n.x=Math.cos(a)*L*3; n.y=Math.sin(a)*L*3; });
+  for(var it=0; it<700; it++){
+    var fx=nodes.map(function(){return 0}), fy=nodes.map(function(){return 0});
+    for(var i=0;i<nodes.length;i++) for(var j=i+1;j<nodes.length;j++){
+      var A=nodes[i], B=nodes[j], dx=B.x-A.x, dy=B.y-A.y, d=Math.max(8,Math.hypot(dx,dy));
+      var f=(L*L*2.6)/(d*d); fx[i]-=dx/d*f; fy[i]-=dy/d*f; fx[j]+=dx/d*f; fy[j]+=dy/d*f;
+    }
+    edges.forEach(function(e){
+      var A=nodes[e.s], B=nodes[e.t], dx=B.x-A.x, dy=B.y-A.y, d=Math.max(1,Math.hypot(dx,dy));
+      var f=(d-L*1.3)*0.06; fx[e.s]+=dx/d*f; fy[e.s]+=dy/d*f; fx[e.t]-=dx/d*f; fy[e.t]-=dy/d*f;
     });
-    var local = edges.filter(function(e){return members.indexOf(e.s)>=0});
-    for(var it=0; it<600; it++){
-      var fx={}, fy={};
-      members.forEach(function(k){fx[k]=0;fy[k]=0});
-      for(var i=0;i<members.length;i++) for(var j=i+1;j<members.length;j++){
-        var A=nodes[members[i]], B=nodes[members[j]];
-        var dx=B.x-A.x, dy=B.y-A.y, d=Math.max(8,Math.hypot(dx,dy));
-        var f=(L*L*3.2)/(d*d);
-        fx[members[i]]-=dx/d*f; fy[members[i]]-=dy/d*f;
-        fx[members[j]]+=dx/d*f; fy[members[j]]+=dy/d*f;
-      }
-      local.forEach(function(e){
-        var A=nodes[e.s], B=nodes[e.t];
-        var dx=B.x-A.x, dy=B.y-A.y, d=Math.max(1,Math.hypot(dx,dy));
-        var f=(d-L*1.5)*0.05;
-        fx[e.s]+=dx/d*f; fy[e.s]+=dy/d*f; fx[e.t]-=dx/d*f; fy[e.t]-=dy/d*f;
-      });
-      members.forEach(function(k){ nodes[k].x+=fx[k]*0.8; nodes[k].y+=fy[k]*0.8; });
-    }
-    for(var pass=0; pass<220; pass++){
-      var moved=false;
-      for(var i=0;i<members.length;i++) for(var j=i+1;j<members.length;j++){
-        var A=nodes[members[i]], B=nodes[members[j]];
-        var dx=B.x-A.x, dy=B.y-A.y, d=Math.hypot(dx,dy)||0.01;
-        if(d<L*1.05){ var pu=(L*1.05-d)/2/d; A.x-=dx*pu; A.y-=dy*pu; B.x+=dx*pu; B.y+=dy*pu; moved=true; }
-      }
-      if(!moved) break;
-    }
+    nodes.forEach(function(n,k){ n.x+=fx[k]*0.6 - n.x*0.004; n.y+=fy[k]*0.6 - n.y*0.004; });
   }
-  comps.forEach(relax);
-
-  // pack the clusters into bands
-  var vertical = H >= W*1.05;
-  var total = nodes.length, cursor = 0, minSepPx = 1e9;
-  var padX = W*0.10, padY = H*0.09;
-  var innerW = W - padX*2, innerH = H - padY*2, gap = vertical? H*0.045 : W*0.045;
-  var free = (vertical? innerH : innerW) - gap*(comps.length-1);
-  comps.forEach(function(members){
-    var share = free * (members.length/total);
-    var bx, by, bw, bh;
-    if(vertical){ bx=padX; bw=innerW; by=padY+cursor; bh=share; cursor+=share+gap; }
-    else { by=padY; bh=innerH; bx=padX+cursor; bw=share; cursor+=share+gap; }
-    var xs=members.map(function(k){return nodes[k].x}), ys=members.map(function(k){return nodes[k].y});
-    var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
-    var y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
-    var spanX=Math.max(1,x1-x0), spanY=Math.max(1,y1-y0);
-    var sc = members.length===1 ? 1 : Math.min(bw/spanX, bh/spanY);
-    var offX = bx + (bw - spanX*sc)/2 - x0*sc;
-    var offY = by + (bh - spanY*sc)/2 - y0*sc;
-    members.forEach(function(k){ nodes[k].x = nodes[k].x*sc+offX; nodes[k].y = nodes[k].y*sc+offY; });
-    if(members.length>1) minSepPx = Math.min(minSepPx, L*1.05*sc);
-  });
-  if(minSepPx>1e8) minSepPx = Math.min(W,H)*0.22;
-
-  G.nodes = nodes; G.edges = edges; G.W = W; G.H = H;
-  G.r = Math.max(16, Math.min(34, minSepPx*0.38)); // keep haloes clear of each other
-  G.fs = Math.max(10, Math.min(13.5, G.r*0.62));
-  // keep names inside the frame
-  nodes.forEach(function(n){
-    var half = Math.max(G.r, n.c.name.length*G.fs*0.52);
-    n.x = Math.max(half+2, Math.min(W-half-2, n.x));
-    n.y = Math.max(G.r+6, Math.min(H-G.r-G.fs-8, n.y));
-  });
-  G.k=1; G.tx=0; G.ty=0; G.focus=null;
-  paintGraph();
+  var xs=nodes.map(function(n){return n.x}), ys=nodes.map(function(n){return n.y});
+  var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs), y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
+  var pad=46, sc=Math.min((W-pad*2)/Math.max(1,x1-x0),(H-pad*2)/Math.max(1,y1-y0));
+  nodes.forEach(function(n){ n.x=pad+(n.x-x0)*sc+((W-pad*2)-(x1-x0)*sc)/2; n.y=pad+(n.y-y0)*sc+((H-pad*2)-(y1-y0)*sc)/2; });
+  G.nodes=nodes; G.edges=edges; G.W=W; G.H=H;
+  G.r = Math.max(13, Math.min(24, L*sc*0.32)); G.fs = Math.max(9.5, Math.min(12.5, G.r*0.6));
+  G.k=1; G.tx=0; G.ty=0; G.focus=null; paintGraph();
 }
 function paintGraph(){
   var svg = $("#graph"); if(!svg) return;
-  var r = G.r, f = G.focus;
-  var conn = {};
+  var r = G.r, f = G.focus, conn = {};
   if(f!=null){ G.edges.forEach(function(e){ if(e.s===f||e.t===f){conn[e.s]=1;conn[e.t]=1;} }); }
-  var defs = '<defs>'+G.nodes.map(function(n){
-    return '<clipPath id="cp-'+n.id+'"><circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'"/></clipPath>';
+  var defs = '<defs>'+G.nodes.map(function(n,i){
+    return '<clipPath id="cp-'+i+'"><circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'"/></clipPath>';
   }).join("")+'</defs>';
-  var eh = G.edges.map(function(e,i){
-    var a=G.nodes[e.s], b=G.nodes[e.t];
-    var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
-    var dx=b.x-a.x, dy=b.y-a.y;
-    var cx=mx - dy*0.12, cy=my + dx*0.12;
-    var dim = (f!=null && e.s!==f && e.t!==f) ? " dim":"";
-    var col = GC[e.r.type]||"#E9A85C";
-    return '<g class="gedge'+dim+'">'+
-      '<path d="M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' Q'+cx.toFixed(1)+' '+cy.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1)+'" '+
-        'fill="none" stroke="'+col+'" stroke-width="'+(e.r.status==="canon"?1.9:1.3)+'" opacity=".62"'+
-        (e.r.status==="canon"?"":' stroke-dasharray="5 5"')+'/>'+
-      ((f!=null && (e.s===f||e.t===f))
-        ? '<text x="'+cx.toFixed(1)+'" y="'+(cy-6).toFixed(1)+'" text-anchor="middle" font-size="11" fill="'+col+'" style="paint-order:stroke;stroke:#06080E;stroke-width:4px">'+esc(e.r.label)+'</text>'
-        : "")+
-    '</g>';
+  var eh = G.edges.map(function(e){
+    var a=G.nodes[e.s], b=G.nodes[e.t], mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=b.x-a.x, dy=b.y-a.y;
+    var cx=mx-dy*0.1, cy=my+dx*0.1, dim=(f!=null && e.s!==f && e.t!==f)?" dim":"", col=GC[e.r.type]||"#E9A85C";
+    return '<g class="gedge'+dim+'"><path d="M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' Q'+cx.toFixed(1)+' '+cy.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1)+'" fill="none" stroke="'+col+'" stroke-width="1.7" opacity=".6"/>'+
+      ((f!=null && (e.s===f||e.t===f)) ? '<text x="'+cx.toFixed(1)+'" y="'+(cy-6).toFixed(1)+'" text-anchor="middle" font-size="11" fill="'+col+'" style="paint-order:stroke;stroke:#06080E;stroke-width:4px">'+esc(e.r.label)+'</text>' : "")+'</g>';
   }).join("");
   var nh = G.nodes.map(function(n,i){
-    var dim = (f!=null && i!==f && !conn[i]) ? " dim":"";
-    var acc = n.c.accent||"#E9A85C";
+    var dim=(f!=null && i!==f && !conn[i])?" dim":"", ac=acc(n.id);
     return '<g class="gnode'+dim+'" data-i="'+i+'">'+
-      '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+(r+5)+'" fill="'+acc+'" opacity="'+(i===f?".28":".12")+'"/>'+
-      (n.c.art? '<image href="'+n.c.art+'" x="'+(n.x-r).toFixed(1)+'" y="'+(n.y-r).toFixed(1)+'" width="'+(r*2)+'" height="'+(r*2)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#cp-'+n.id+')"/>'
-        : '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'" fill="#141A28"/>'+'<text x="'+n.x.toFixed(1)+'" y="'+(n.y+7).toFixed(1)+'" text-anchor="middle" font-size="20" fill="'+acc+'" opacity=".5" stroke="none" style="font-family:var(--serif)">'+esc(n.c.name.charAt(0))+'</text>')+
-      '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'" fill="none" stroke="'+acc+'" stroke-width="'+(i===f?2.4:1.4)+'"/>'+
-      '<text x="'+n.x.toFixed(1)+'" y="'+(n.y+r+G.fs+4).toFixed(1)+'" text-anchor="middle" font-size="'+G.fs.toFixed(1)+'">'+esc(n.c.name)+'</text>'+
-    '</g>';
+      '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+(r+4)+'" fill="'+ac+'" opacity="'+(i===f?".3":".12")+'"/>'+
+      (n.c.img? '<image href="'+n.c.img+'" x="'+(n.x-r).toFixed(1)+'" y="'+(n.y-r).toFixed(1)+'" width="'+(r*2)+'" height="'+(r*2)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#cp-'+i+')"/>'
+        : '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'" fill="#141A28"/>')+
+      '<circle cx="'+n.x.toFixed(1)+'" cy="'+n.y.toFixed(1)+'" r="'+r+'" fill="none" stroke="'+ac+'" stroke-width="'+(i===f?2.4:1.3)+'"/>'+
+      '<text x="'+n.x.toFixed(1)+'" y="'+(n.y+r+G.fs+3).toFixed(1)+'" text-anchor="middle" font-size="'+G.fs.toFixed(1)+'">'+esc(n.id)+'</text></g>';
   }).join("");
   svg.innerHTML = defs+'<g id="gview" transform="translate('+G.tx+','+G.ty+') scale('+G.k+')">'+eh+nh+'</g>';
 }
 function graphFocus(i){
-  G.focus = (G.focus===i? null : i);
-  paintGraph();
+  G.focus = (G.focus===i? null : i); paintGraph();
   var tip = $("#gtip"); if(!tip) return;
   if(G.focus==null){ tip.className="gtip"; return; }
-  var c = G.nodes[G.focus].c;
-  var rels = S.relations.filter(function(r){return r.a===c.id||r.b===c.id}).map(function(r){
-    var o = byId(S.characters, r.a===c.id?r.b:r.a); return o? o.name+"（"+r.label+"）":"";
-  }).filter(Boolean).join("、");
+  var n = G.nodes[G.focus].id;
+  var rels = G.edges.filter(function(e){return e.s===G.focus||e.t===G.focus}).map(function(e){
+    var o = G.nodes[e.s===G.focus?e.t:e.s].id; return o+"（"+e.r.label+"）"; }).join("、");
   tip.className="gtip on";
-  tip.innerHTML = '<h4>'+esc(c.name)+'</h4><p>'+esc(rels||"尚未建立關係")+'</p>'+
-    '<div class="go"><button class="btn ghost" data-char="'+c.id+'" style="padding:8px 16px;font-size:13px">前往人物頁</button></div>';
+  tip.innerHTML = '<h4>'+esc(n)+'</h4><p>'+esc(rels)+'</p><div class="go"><button class="btn ghost" data-char="'+esc(n)+'" style="padding:8px 16px;font-size:13px">前往人物頁</button></div>';
 }
 function bindGraph(){
-  var svg = $("#graph"); if(!svg || svg.__bound) return;
-  svg.__bound = 1;
+  var svg = $("#graph"); if(!svg || svg.__bound) return; svg.__bound = 1;
   var pts = {}, last=null, lastDist=0, moved=false;
-  svg.addEventListener("pointerdown", function(e){
-    svg.setPointerCapture(e.pointerId); pts[e.pointerId]={x:e.clientX,y:e.clientY};
-    last={x:e.clientX,y:e.clientY}; moved=false; svg.classList.add("drag");
-  });
+  svg.addEventListener("pointerdown", function(e){ svg.setPointerCapture(e.pointerId); pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    last={x:e.clientX,y:e.clientY}; moved=false; svg.classList.add("drag"); });
   svg.addEventListener("pointermove", function(e){
-    if(!pts[e.pointerId]) return;
-    pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    if(!pts[e.pointerId]) return; pts[e.pointerId]={x:e.clientX,y:e.clientY};
     var ids = Object.keys(pts);
-    if(ids.length>=2){
-      var a=pts[ids[0]], b=pts[ids[1]];
-      var d=Math.hypot(a.x-b.x,a.y-b.y);
-      if(lastDist){ var k=G.k*(d/lastDist); G.k=Math.max(.5,Math.min(2.6,k)); paintGraph(); }
-      lastDist=d; moved=true; return;
-    }
-    if(last){ var dx=e.clientX-last.x, dy=e.clientY-last.y;
-      if(Math.abs(dx)+Math.abs(dy)>2) moved=true;
+    if(ids.length>=2){ var a=pts[ids[0]], b=pts[ids[1]], d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(lastDist){ G.k=Math.max(.5,Math.min(3,G.k*(d/lastDist))); paintGraph(); } lastDist=d; moved=true; return; }
+    if(last){ var dx=e.clientX-last.x, dy=e.clientY-last.y; if(Math.abs(dx)+Math.abs(dy)>2) moved=true;
       G.tx+=dx; G.ty+=dy; last={x:e.clientX,y:e.clientY};
-      var v=$("#gview"); if(v) v.setAttribute("transform","translate("+G.tx+","+G.ty+") scale("+G.k+")");
-    }
+      var v=$("#gview"); if(v) v.setAttribute("transform","translate("+G.tx+","+G.ty+") scale("+G.k+")"); }
   });
   function up(e){ delete pts[e.pointerId]; if(Object.keys(pts).length<2) lastDist=0; last=null; svg.classList.remove("drag");
-    if(!moved){
-      var g = e.target.closest ? e.target.closest(".gnode") : null;
-      if(g) graphFocus(+g.getAttribute("data-i"));
-      else { G.focus=null; paintGraph(); var t=$("#gtip"); if(t) t.className="gtip"; }
-    }
-  }
+    if(!moved){ var g = e.target.closest ? e.target.closest(".gnode") : null;
+      if(g) graphFocus(+g.getAttribute("data-i")); else { G.focus=null; paintGraph(); var t=$("#gtip"); if(t) t.className="gtip"; } } }
   svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
-  svg.addEventListener("wheel", function(e){ e.preventDefault();
-    G.k = Math.max(.5, Math.min(2.6, G.k * (e.deltaY>0?0.92:1.08))); paintGraph();
-  }, {passive:false});
+  svg.addEventListener("wheel", function(e){ e.preventDefault(); G.k=Math.max(.5,Math.min(3,G.k*(e.deltaY>0?0.92:1.08))); paintGraph(); }, {passive:false});
 }
 
-/* ---------------------------------------------------------- glossary */
+/* ---------------------------------------------------------- data page */
 var CATS = [["all","全部"],["world","世界觀"],["place","場所"],["deity","神明"],["object","物件"],["theme","主題"],["meta","幕後"]];
 var gState = {cat:"all", q:""};
-function pageTerms(){
-  return '<div class="wrap"><section>'+
-    secHead("詞彙資料庫","LEXICON")+
-    '<div class="searchbar"><div class="sfield">'+
-      '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'+
-      '<input id="tq" placeholder="找一個詞…（例：奈何橋、北境、紅線）" value="'+esc(gState.q)+'" autocomplete="off">'+
-    '</div>'+
-    '<div class="seg" style="margin:12px 0 0">'+CATS.map(function(c){
-      return '<button data-cat="'+c[0]+'" aria-current="'+(gState.cat===c[0])+'">'+c[1]+'</button>';
-    }).join("")+'</div></div>'+
-    '<div id="termList"></div>'+
-  '</section>'+foot()+'</div>';
+var DTABS = [["terms","詞彙"],["notes","製作雜談"],["quotes","語錄"],["works","頻道與作品"],["about","關於本站"]];
+function pageData(){
+  var t = state.dtab, body = "";
+  if(t==="terms") body = '<div class="searchbar"><div class="sfield"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'+
+      '<input id="tq" placeholder="找一個詞…（例：文印、功德、天煞孤星）" value="'+esc(gState.q)+'" autocomplete="off"></div>'+
+      '<div class="seg" style="margin:12px 0 0">'+CATS.map(function(c){ return '<button data-cat="'+c[0]+'" aria-current="'+(gState.cat===c[0])+'">'+c[1]+'</button>'; }).join("")+'</div></div>'+
+      '<div id="termList"></div>';
+  else if(t==="notes") body = '<p class="lede">以下全部是作者本人在 IG 上寫過的話，照原文收錄。</p>'+lantern()+
+      '<div class="notes">'+ S.notes.map(function(n){ var s = seasonById(n.season);
+        return '<article class="card note"><div class="txt"><div class="sb">'+(s?esc(s.title):"")+'</div><div class="th">'+esc(n.title)+'</div><p>'+esc(n.body)+'</p></div>'+
+          (n.img? '<img src="'+n.img+'" alt="" loading="lazy" data-lb="'+n.img+'">':'')+'</article>'; }).join("") +'</div>';
+  else if(t==="quotes") body = '<div class="qgrid">'+ S.quotes.map(quoteCard).join("") +'</div>';
+  else if(t==="works") body = '<div class="works">'+ S.works.map(function(w){
+        return '<article class="card work">'+(w.art? '<img src="'+w.art+'" alt="" loading="lazy">':'<div class="ph">未收錄</div>')+'<div><h4>'+esc(w.title)+'</h4><p>'+esc(w.desc)+'</p></div></article>'; }).join("")+
+      E.episodes.filter(function(e){return e.group==="other"}).map(function(e){
+        return '<article class="card work">'+(e.thumb? '<img src="'+e.thumb+'" alt="" loading="lazy">':'')+'<div><h4>'+esc(e.title)+'</h4><p>'+esc(e.summary)+'</p></div></article>'; }).join("")+'</div>'+
+      '<div class="subhd">兩個頻道</div><div class="works">'+ S.channels.map(function(c){
+        return '<article class="card chan"><h4>'+esc(c.name)+'</h4><div class="h">'+esc(c.handle)+' ‧ '+esc(c.role)+'</div>'+
+          '<p style="font-size:13.5px;color:var(--muted)">'+esc(c.desc)+'</p>'+
+          (c.bio? '<p style="font-family:var(--serif);font-size:14px;color:var(--amber-hi);margin-top:12px;padding-left:12px;border-left:2px solid var(--line)">'+esc(c.bio)+'</p>':'')+
+          '<ul>'+c.facts.map(function(f){return '<li>'+esc(f)+'</li>'}).join("")+'</ul>'+
+          '<div style="margin-top:14px"><a class="btn ghost" style="padding:9px 16px;font-size:13px" href="'+c.url+'" target="_blank" rel="noopener">前往 Instagram ↗</a></div></article>'; }).join("") +'</div>';
+  else body = '<article class="card" style="padding:22px 20px">'+
+      '<p style="font-size:14.5px;color:var(--muted)">這是一個粉絲向的整理站。分集大綱與台詞摘錄是逐集看過正片整理的；角色名字只用劇中有出處的（字幕、輪迴許可木牌、台詞稱呼），沒有名字的角色就照外觀或身分稱呼。說話者或推論沒有把握的地方，都會在「整理備註」裡註明。作者的話則照原文收錄。</p>'+
+      '<div class="orn"></div><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">資料來源</div>'+
+      '<ul style="list-style:none;display:grid;gap:9px">'+S.meta.sources.map(function(s){return '<li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--amber);opacity:.6">—</span>'+esc(s)+'</li>'}).join("")+'</ul>'+
+      '<div class="orn"></div><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">怎麼更新</div>'+
+      '<p style="font-size:13.5px;color:var(--muted)">分集與角色資料由 <code style="color:var(--amber)">tools/gen_episodes.py</code> 從整理資料庫產生 <code style="color:var(--amber)">episodes.js</code>；季度介紹、故事線、人物側寫、關係與詞彙在 <code style="color:var(--amber)">data.js</code>。</p>'+
+      '<p style="font-size:12px;color:var(--faint);margin-top:14px">最後更新：'+esc(S.meta.updated)+'</p></article>';
+  return '<div class="wrap"><section>'+secHead("資料館","ARCHIVE")+
+    '<div class="seg">'+DTABS.map(function(d){return '<button data-dtab="'+d[0]+'" aria-current="'+(t===d[0])+'">'+d[1]+'</button>'}).join("")+'</div>'+
+    body+'</section>'+foot()+'</div>';
 }
 function paintTerms(){
   var box = $("#termList"); if(!box) return;
@@ -925,235 +1054,182 @@ function paintTerms(){
   var list = S.glossary.filter(function(t){
     if(gState.cat!=="all" && t.cat!==gState.cat) return false;
     if(!q) return true;
-    return (t.term+" "+(t.read||"")+" "+t.def+" "+(t.tags||[]).join(" ")).toLowerCase().indexOf(q)>=0;
+    return (t.term+" "+(t.read||"")+" "+t.def).toLowerCase().indexOf(q)>=0;
   });
-  box.innerHTML = '<div class="count">共 '+list.length+' 條 ‧ 資料庫持續建檔中</div>'+
-    (list.length? '<div class="tgrid">'+list.map(termCard).join("")+'</div>'
-      : '<div class="empty">找不到「'+esc(gState.q)+'」。這個詞可能還沒收錄。</div>');
+  box.innerHTML = '<div class="count">共 '+list.length+' 條</div>'+
+    (list.length? '<div class="tgrid">'+list.map(termCard).join("")+'</div>' : '<div class="empty">找不到「'+esc(gState.q)+'」。</div>');
 }
 function termCard(t){
   return '<article class="card term" id="t-'+t.id+'">'+
-    '<div class="tw">'+esc(t.term)+'</div>'+
-    (t.read? '<div class="tr">'+esc(t.read)+'</div>':'')+
-    '<p class="td">'+esc(t.def)+'</p>'+
-    '<div class="tl">'+
-      (t.tags||[]).map(function(x){return '<span class="chip dim">'+esc(x)+'</span>'}).join("")+
-      (t.link||[]).map(function(id){ var o=byId(S.glossary,id); return o? '<button data-term="'+o.id+'">→ '+esc(o.term)+'</button>':""; }).join("")+
-    '</div></article>';
+    '<div class="tw">'+esc(t.term)+'</div>'+(t.read? '<div class="tr">'+esc(t.read)+'</div>':'')+
+    sealWrap(t.lv,'<p class="td">'+esc(t.def)+'</p>')+
+    '<div class="tl">'+(t.link||[]).map(function(id){ var o=termById(id); return o? '<button data-term="'+o.id+'">→ '+esc(o.term)+'</button>':""; }).join("")+'</div></article>';
 }
 function jumpTerm(id){
-  go("terms");
+  state.dtab="terms"; go("data");
   setTimeout(function(){
-    gState.cat="all"; gState.q=""; var i=$("#tq"); if(i) i.value="";
-    paintTerms();
+    gState.cat="all"; gState.q=""; var i=$("#tq"); if(i) i.value=""; paintTerms();
+    $$("[data-cat]").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.cat==="all"))});
     var el = $("#t-"+id);
-    if(el){ el.scrollIntoView({behavior:"smooth",block:"center"}); el.classList.add("hit");
-      setTimeout(function(){el.classList.remove("hit")},2400); }
+    if(el){ el.scrollIntoView({behavior:"smooth",block:"center"}); el.classList.add("hit"); setTimeout(function(){el.classList.remove("hit")},2400); }
   },60);
-}
-
-/* ---------------------------------------------------------- more */
-function pageMore(){
-  return '<div class="wrap">'+
-    '<section>'+secHead("製作雜談","BEHIND")+
-      '<p class="lede">以下全部是作者本人在 IG 上寫過的話，照原文收錄。</p>'+lantern()+
-      '<div class="notes">'+ S.notes.map(function(n){
-        var s = byId(S.seasons, n.season);
-        return '<article class="card note">'+
-          '<div class="txt"><div class="sb">'+(s?esc(s.title):"")+'</div>'+
-          '<div class="th">'+esc(n.title)+'</div><p>'+esc(n.body)+'</p></div>'+
-          (n.img? '<img src="'+n.img+'" alt="" loading="lazy" data-lb="'+n.img+'">':'')+
-        '</article>';
-      }).join("") +'</div>'+
-    '</section>'+
-    '<section>'+secHead("語錄牆","WORDS")+
-      '<div class="qgrid">'+ S.quotes.map(quoteCard).join("") +'</div>'+
-    '</section>'+
-    '<section>'+secHead("其他系列","OTHER WORKS")+
-      '<div class="works">'+ S.works.map(function(w){
-        return '<article class="card work">'+
-          (w.art? '<img src="'+w.art+'" alt="" loading="lazy">':'<div class="ph">未收錄</div>')+
-          '<div><h4>'+esc(w.title)+'</h4><p>'+esc(w.desc)+'</p></div>'+
-        '</article>';
-      }).join("") +'</div>'+
-    '</section>'+
-    '<section>'+secHead("兩個頻道","CHANNELS")+
-      '<div class="works">'+ S.channels.map(function(c){
-        return '<article class="card chan">'+
-          '<h4>'+esc(c.name)+'</h4><div class="h">'+esc(c.handle)+' ‧ '+esc(c.role)+'</div>'+
-          '<p style="font-size:13.5px;color:var(--muted)">'+esc(c.desc)+'</p>'+
-          (c.bio? '<p style="font-family:var(--serif);font-size:14px;color:var(--amber-hi);margin-top:12px;padding-left:12px;border-left:2px solid var(--line)">'+esc(c.bio)+'</p>':'')+
-          '<ul>'+c.facts.map(function(f){return '<li>'+esc(f)+'</li>'}).join("")+'</ul>'+
-          '<div style="margin-top:14px"><a class="btn ghost" style="padding:9px 16px;font-size:13px" href="'+c.url+'" target="_blank" rel="noopener">前往 Instagram ↗</a></div>'+
-        '</article>';
-      }).join("") +'</div>'+
-    '</section>'+
-    '<section>'+secHead("關於本站","ABOUT")+
-      '<article class="card" style="padding:22px 20px">'+
-        '<p style="font-size:14.5px;color:var(--muted)">這是一個粉絲向的整理站。所有標為「已確認情報」的內容，都來自《棲渺拾光》官方 IG 的製作雜談與心得圖文；沒有出處的劇情一律不寫，寧可留白，也不編造。</p>'+
-        '<div class="orn"></div>'+
-        '<div class="sb" style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">資料來源</div>'+
-        '<ul style="list-style:none;display:grid;gap:9px">'+S.meta.sources.map(function(s){return '<li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--amber);opacity:.6">—</span>'+esc(s)+'</li>'}).join("")+'</ul>'+
-        '<div class="orn"></div>'+
-        '<div class="sb" style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">怎麼補資料</div>'+
-        '<p style="font-size:13.5px;color:var(--muted)">編輯同資料夾的 <code style="color:var(--amber)">data.js</code>：seasons 裡的 episodes 補分集、characters 補人物、glossary 補詞條、relations 補關係線。存檔重整就更新，不需要任何建置流程。</p>'+
-        '<p style="font-size:12px;color:var(--faint);margin-top:14px">最後更新：'+esc(S.meta.updated)+'</p>'+
-      '</article>'+
-    '</section>'+
-    foot()+
-  '</div>';
 }
 function foot(){
   return '<footer><p>'+esc(S.meta.siteName)+' ‧ 非官方粉絲整理站<br>'+
-    '劇集《黃泉燒肉店》與所有角色、圖像著作權屬於 '+esc(S.meta.channel)+'（'+esc(S.meta.channelHandle)+'）。<br>'+
+    '劇集《黃泉燒肉店》與所有角色、圖像著作權屬於 '+esc(S.meta.channel)+'（@'+esc(S.meta.channelHandle)+'）。<br>'+
     '本站只做整理與導覽，不做商業用途。</p></footer>';
 }
 
-/* ---------------------------------------------------------- render */
+/* ---------------------------------------------------------- render & routing */
 function render(){
   paintNav();
-  var m = $("#main"), html;
+  var html;
   if(state.page==="story") html = pageStory();
+  else if(state.page==="arcs") html = pageArcs();
   else if(state.page==="chars") html = pageChars();
-  else if(state.page==="terms") html = pageTerms();
-  else if(state.page==="more") html = pageMore();
+  else if(state.page==="data") html = pageData();
   else html = pageHome();
-  m.innerHTML = '<div class="page on">'+html+'</div>';
-  if(state.page==="terms"){ paintTerms(); }
+  $("#main").innerHTML = '<div class="page on">'+html+'</div>';
+  if(state.page==="data" && state.dtab==="terms") paintTerms();
+  if(state.page==="chars" && state.cmode==="list") paintChars();
   if(state.page==="chars" && state.cmode==="graph"){ buildGraph(); bindGraph(); }
 }
-function go(page, arg){
-  state.page = page;
-  if(page==="story" && arg) state.season = arg;
-  location.hash = page + (page==="story"&&state.season? "/"+state.season : "") + (page==="chars"&&state.cmode==="graph"?"/graph":"");
+function hashFor(){
+  var p = state.page;
+  if(p==="story") return "story/"+state.season;
+  if(p==="arcs") return "arcs"+(state.arc?"/"+state.arc:"");
+  if(p==="chars") return "chars"+(state.cmode==="graph"?"/graph":"");
+  if(p==="data") return "data/"+state.dtab;
+  return p;
+}
+function go(page){
+  state.page = page; closeSheet(true);
+  history.replaceState(null,"","#"+hashFor());
   render(); window.scrollTo({top:0,behavior:"instant"});
 }
-function openChar(id){
-  var c = byId(S.characters,id); if(!c) return;
-  $("#sheetBody").innerHTML = charSheet(c);
-  $("#sheet").classList.add("on");
-  document.body.style.overflow="hidden";
-  $("#sheet").scrollTop = 0;
+function openSheet(html, hash){
+  $("#sheetBody").innerHTML = html; $("#sheet").classList.add("on");
+  document.body.style.overflow="hidden"; $("#sheet").scrollTop = 0;
+  history.replaceState(null,"","#"+hash);
 }
-function closeSheet(){ $("#sheet").classList.remove("on"); document.body.style.overflow=""; }
+function openEp(id){ var e = EP[id]; if(e) openSheet(epSheet(e), "ep/"+encodeURIComponent(id)); }
+function openChar(n){ var c = CH[n]; if(c) openSheet(charSheet(c), "char/"+encodeURIComponent(n)); }
+function closeSheet(silent){
+  if(!$("#sheet").classList.contains("on")) return;
+  $("#sheet").classList.remove("on"); document.body.style.overflow="";
+  if(!silent) history.replaceState(null,"","#"+hashFor());
+}
+function route(){
+  var h = decodeURIComponent(location.hash.replace(/^#/,"")).split("/");
+  var p = h[0]||"home";
+  if(p==="ep"){ render(); openEp(h.slice(1).join("/")); return; }
+  if(p==="char"){ render(); openChar(h.slice(1).join("/")); return; }
+  if(["home","story","arcs","chars","data"].indexOf(p)<0) p="home";
+  closeSheet(true);
+  state.page = p;
+  if(p==="story" && h[1] && seasonById(h[1])) state.season = h[1];
+  if(p==="arcs") state.arc = h[1]||null;
+  if(p==="chars") state.cmode = (h[1]==="graph"?"graph":"list");
+  if(p==="data" && h[1]) state.dtab = h[1];
+  render();
+}
 
 /* ---------------------------------------------------------- search */
 function searchAll(q){
   q = q.trim().toLowerCase(); if(!q) return [];
   var out = [];
-  S.characters.forEach(function(c){
-    if((c.name+" "+(c.reading||"")+" "+c.role+" "+c.oneLine+" "+(c.about||"")).toLowerCase().indexOf(q)>=0)
-      out.push({k:"人物", t:c.name, d:c.oneLine, act:function(){closeOv(); openChar(c.id)}});
+  E.characters.forEach(function(c){
+    if((c.name+" "+c.aka.join(" ")+" "+c.role).toLowerCase().indexOf(q)>=0)
+      out.push({k:"人物", t:c.name, d:locked(c.lv)?"（超過閱讀進度）":(prof(c.name).oneLine||c.role), act:function(){closeOv(); openChar(c.name)}});
+  });
+  E.episodes.forEach(function(e){
+    if(e.group==="other") return;
+    if((e.id+" EP"+(e.no||"")+" "+e.title+" "+e.summary).toLowerCase().indexOf(q)>=0)
+      out.push({k:"劇集 ‧ "+e.id, t:e.title, d:locked(e.lv)?"（超過閱讀進度）":firstSentence(e.summary,70), act:function(){closeOv(); openEp(e.id)}});
+  });
+  S.arcs.forEach(function(a){
+    if((a.title+" "+a.kanji+" "+a.lead).toLowerCase().indexOf(q)>=0)
+      out.push({k:"故事線", t:a.title, d:a.lead, act:function(){closeOv(); state.arc=a.id; go("arcs")}});
   });
   S.glossary.forEach(function(t){
     if((t.term+" "+(t.read||"")+" "+t.def).toLowerCase().indexOf(q)>=0)
-      out.push({k:"詞彙", t:t.term, d:t.def, act:function(){closeOv(); jumpTerm(t.id)}});
-  });
-  S.seasons.forEach(function(s){
-    if((s.title+" "+s.kanji+" "+(s.logline||"")+" "+(s.known||[]).join(" ")).toLowerCase().indexOf(q)>=0)
-      out.push({k:"季度", t:s.title+" ‧ "+s.kanji, d:s.logline||"資料建檔中", act:function(){closeOv(); go("story",s.id)}});
+      out.push({k:"詞彙", t:t.term, d:locked(t.lv)?"（超過閱讀進度）":t.def, act:function(){closeOv(); jumpTerm(t.id)}});
   });
   S.notes.forEach(function(n){
     if((n.title+" "+n.body).toLowerCase().indexOf(q)>=0)
-      out.push({k:"雜談", t:n.title, d:n.body, act:function(){closeOv(); go("more")}});
+      out.push({k:"雜談", t:n.title, d:n.body, act:function(){closeOv(); state.dtab="notes"; go("data")}});
   });
-  return out.slice(0,30);
+  return out.slice(0,40);
 }
 var qActs = [];
 function paintSearch(){
   var q = $("#q").value, res = searchAll(q); qActs = res;
   $("#qres").innerHTML = q.trim()===""
-    ? '<div class="empty">輸入關鍵字，會一次找人物、詞彙、季度與雜談。</div>'
+    ? '<div class="empty">輸入關鍵字，會一次找劇集、人物、故事線、詞彙與雜談。</div>'
     : (res.length? res.map(function(r,i){
-        return '<button class="res" data-qi="'+i+'"><div class="rk">'+r.k+'</div><div class="rt">'+esc(r.t)+'</div><div class="rd">'+esc(r.d)+'</div></button>';
+        return '<button class="res" data-qi="'+i+'"><div class="rk">'+esc(r.k)+'</div><div class="rt">'+esc(r.t)+'</div><div class="rd">'+esc(r.d)+'</div></button>';
       }).join("") : '<div class="empty">找不到「'+esc(q)+'」。</div>');
 }
-function closeOv(){ $$(".ov-panel").forEach(function(o){o.classList.remove("on")}); document.body.style.overflow=""; }
+function closeOv(){ $$(".ov-panel").forEach(function(o){o.classList.remove("on")}); if(!$("#sheet").classList.contains("on")) document.body.style.overflow=""; }
 
 /* ---------------------------------------------------------- settings */
 function paintSet(){
-  var labels = [[0,"還沒開始"],[1,"第一季"],[2,"第二季"],[3,"第三季"],[4,"全部"]];
-  $("#pgPill").innerHTML = labels.map(function(l){
-    return '<button data-pg="'+l[0]+'" aria-pressed="'+(state.progress===l[0])+'">'+l[1]+'</button>';
+  $("#pgPill").innerHTML = S.meta.progressLabels.map(function(l,i){
+    return '<button data-pg="'+i+'" aria-pressed="'+(state.progress===i)+'">'+l+'</button>';
   }).join("");
   $$("#spPill button").forEach(function(b){ b.setAttribute("aria-pressed", String(+b.dataset.sp===state.spoiler)); });
 }
 
 /* ---------------------------------------------------------- events */
 document.addEventListener("click", function(e){
-  var t = e.target.closest("[data-go],[data-season],[data-char],[data-term],[data-cmode],[data-cat],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],.seal[data-locked]");
+  var t = e.target.closest("[data-go],[data-season],[data-ep],[data-char],[data-arc],[data-term],[data-cmode],[data-cfac],[data-cat],[data-dtab],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],.seal[data-locked]");
   if(!t) return;
-  if(t.dataset.go){ closeSheet(); go(t.dataset.go); return; }
-  if(t.dataset.newbie){ state.progress=0; state.spoiler=1; save(); paintSet();
-    var el=$("#quick"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); return; }
-  if(t.dataset.season){ closeSheet(); go("story", t.dataset.season); return; }
+  if(t.classList.contains("seal") && t.dataset.locked){ t.removeAttribute("data-locked"); e.stopPropagation(); return; }
+  if(t.dataset.go){ go(t.dataset.go); return; }
+  if(t.dataset.newbie){ state.progress=0; state.spoiler=1; save(); paintSet(); state.season="s1"; go("story"); return; }
+  if(t.dataset.season!=null && t.dataset.season!==""){ state.season=t.dataset.season; go("story"); return; }
+  if(t.dataset.ep){ openEp(t.dataset.ep); return; }
   if(t.dataset.char){ openChar(t.dataset.char); return; }
-  if(t.dataset.term){ closeSheet(); jumpTerm(t.dataset.term); return; }
+  if(t.dataset.arc!=null){ state.arc=t.dataset.arc||null; go("arcs"); return; }
+  if(t.dataset.term){ jumpTerm(t.dataset.term); return; }
   if(t.dataset.cmode){ state.cmode=t.dataset.cmode; go("chars"); return; }
-  if(t.dataset.cat){ gState.cat=t.dataset.cat;
-    $$("[data-cat]").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.cat===gState.cat))});
-    paintTerms(); return; }
+  if(t.dataset.cfac){ state.cfac=t.dataset.cfac; state.cq=""; var ci=$("#cq"); if(ci) ci.value="";
+    $$("[data-cfac]").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.cfac===state.cfac))}); paintChars(); return; }
+  if(t.dataset.cat){ gState.cat=t.dataset.cat; $$("[data-cat]").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.cat===gState.cat))}); paintTerms(); return; }
+  if(t.dataset.dtab){ state.dtab=t.dataset.dtab; go("data"); return; }
   if(t.dataset.lb){ $("#lbImg").src=t.dataset.lb; $("#lb").classList.add("on"); return; }
   if(t.dataset.close){ closeOv(); return; }
   if(t.dataset.qi!=null){ var a=qActs[+t.dataset.qi]; if(a) a.act(); return; }
   if(t.dataset.pg!=null){ state.progress=+t.dataset.pg; save(); paintSet(); render(); return; }
   if(t.dataset.sp!=null){ state.spoiler=+t.dataset.sp; save(); paintSet(); render(); return; }
-  if(t.classList.contains("seal")){ t.removeAttribute("data-locked"); return; }
 });
-$("#btnSearch").addEventListener("click", function(){
-  $("#ovSearch").classList.add("on"); document.body.style.overflow="hidden";
-  paintSearch(); setTimeout(function(){$("#q").focus()},60);
-});
+$("#btnSearch").addEventListener("click", function(){ $("#ovSearch").classList.add("on"); document.body.style.overflow="hidden"; paintSearch(); setTimeout(function(){$("#q").focus()},60); });
 $("#btnSet").addEventListener("click", function(){ paintSet(); $("#ovSet").classList.add("on"); document.body.style.overflow="hidden"; });
 $("#q").addEventListener("input", paintSearch);
-$("#sheetClose").addEventListener("click", closeSheet);
+$("#sheetClose").addEventListener("click", function(){ closeSheet(); });
 $("#lb").addEventListener("click", function(){ this.classList.remove("on"); });
 $$(".ov-panel").forEach(function(o){ o.addEventListener("click", function(e){ if(e.target===o) closeOv(); }); });
 document.addEventListener("keydown", function(e){
-  if(e.key==="Escape"){ closeSheet(); closeOv(); $("#lb").classList.remove("on"); }
+  if(e.key==="Escape"){ if($("#lb").classList.contains("on")) $("#lb").classList.remove("on"); else if($$(".ov-panel.on").length) closeOv(); else closeSheet(); }
   if((e.key==="k"||e.key==="K") && (e.metaKey||e.ctrlKey)){ e.preventDefault(); $("#btnSearch").click(); }
 });
 document.addEventListener("input", function(e){
   if(e.target && e.target.id==="tq"){ gState.q=e.target.value; paintTerms(); }
+  if(e.target && e.target.id==="cq"){ state.cq=e.target.value; paintChars(); }
 });
-window.addEventListener("hashchange", function(){
-  var h = location.hash.replace(/^#/,"").split("/");
-  var p = h[0]||"home";
-  if(["home","story","chars","terms","more"].indexOf(p)<0) p="home";
-  state.page = p;
-  if(p==="story" && h[1]) state.season = h[1];
-  if(p==="chars") state.cmode = (h[1]==="graph"?"graph":"list");
-  render();
-});
-var _rt;
-window.addEventListener("resize", function(){
-  if(state.page!=="chars"||state.cmode!=="graph") return;
-  clearTimeout(_rt); _rt=setTimeout(function(){ buildGraph(); },220);
-});
+window.addEventListener("hashchange", route);
+var _rt; window.addEventListener("resize", function(){ if(state.page!=="chars"||state.cmode!=="graph") return; clearTimeout(_rt); _rt=setTimeout(buildGraph,220); });
 
-/* ---------------------------------------------------------- petals */
-(function(){
-  var box = $("#petals"), n = window.innerWidth<680?10:16, h="";
-  for(var i=0;i<n;i++){
-    var l = Math.random()*100, d = 16+Math.random()*20, dl = -Math.random()*30, sc=.6+Math.random()*.9;
-    h += '<span class="petal" style="left:'+l.toFixed(1)+'%;animation-duration:'+d.toFixed(1)+'s;animation-delay:'+dl.toFixed(1)+'s;transform:scale('+sc.toFixed(2)+')"></span>';
-  }
-  box.innerHTML = h;
-})();
+/* petals */
+(function(){ var box = $("#petals"), n = window.innerWidth<680?10:16, h="";
+  for(var i=0;i<n;i++){ var l=Math.random()*100, d=16+Math.random()*20, dl=-Math.random()*30, sc=.6+Math.random()*.9;
+    h += '<span class="petal" style="left:'+l.toFixed(1)+'%;animation-duration:'+d.toFixed(1)+'s;animation-delay:'+dl.toFixed(1)+'s;transform:scale('+sc.toFixed(2)+')"></span>'; }
+  box.innerHTML = h; })();
 
-/* ---------------------------------------------------------- boot */
-(function(){
-  var h = location.hash.replace(/^#/,"").split("/");
-  var p = h[0]||"home";
-  if(["home","story","chars","terms","more"].indexOf(p)>=0){
-    state.page=p;
-    if(p==="story"&&h[1]) state.season=h[1];
-    if(p==="chars") state.cmode=(h[1]==="graph"?"graph":"list");
-  }
-  render();
-})();
+route();
 window.go = go;
 })();
+
 </script>
 </body>
 </html>
