@@ -633,6 +633,40 @@ nav.tab{grid-template-columns:repeat(5,1fr)}
 .tl2 li{opacity:.25;transform:translateX(-8px);transition:opacity .7s,transform .7s}
 .tl2 li.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv,.tl2 li{opacity:1!important;transform:none!important}.lan,.ember{display:none}.typeq span{opacity:1;transform:none;filter:none}}
+
+/* ============================ 閱讀性 v3 ============================ */
+body{letter-spacing:.02em}
+.ep-hero{min-height:min(54svh,440px)}
+.ep-hero .in{padding-block:56px 22px}
+.ep-hero .poster{width:min(32vw,180px)}
+.ep-sum{max-width:36em}
+.ep-sum p{font-size:16px;line-height:2.05;color:var(--paper);opacity:.92;margin:0 0 1.1em;text-align:justify}
+.ep-sum p:first-child{font-size:17px;opacity:1}
+.ep-sum p:last-child{margin-bottom:0}
+.blk{margin-bottom:34px}
+.hl blockquote{font-size:15.5px;line-height:1.85}
+.notesl li{line-height:1.9}
+.igbtn{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:8px 14px;border-radius:99px;font-size:12.5px;letter-spacing:.1em;
+  color:#20140A;background:linear-gradient(135deg,#F7DCAE,#E9A85C);box-shadow:0 6px 20px -8px rgba(233,168,92,.7);text-decoration:none;transition:.25s}
+.igbtn:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px rgba(233,168,92,.9)}
+.igfoot{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:18px 0 4px;border-top:1px solid var(--line-soft);margin-top:6px}
+.igfoot .igbtn{margin-top:0}
+.igfoot span{font-size:11.5px;color:var(--faint);letter-spacing:.06em}
+.vrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vsw{display:inline-flex;border:1px solid var(--line-soft);border-radius:99px;padding:2px;font-size:11.5px;letter-spacing:.12em}
+.vsw button{padding:5px 12px;border-radius:99px;color:var(--faint)}
+.vsw button[aria-current="true"]{background:rgba(233,168,92,.16);color:var(--amber-hi,#F7DCAE)}
+.elist{display:grid;gap:10px}
+@media(min-width:820px){.elist{grid-template-columns:1fr 1fr}}
+.erow{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;text-align:left;padding:10px;border-radius:12px;
+  border:1px solid var(--line-soft);background:rgba(10,14,23,.6);transition:.25s}
+.erow:hover{border-color:var(--line);background:rgba(233,168,92,.05)}
+.erow .th{aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:#111622}
+.erow .th img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.erow .m{font-size:10.5px;letter-spacing:.14em;color:var(--amber)}
+.erow .t{font-family:var(--serif);font-weight:700;font-size:15.5px;letter-spacing:.04em;margin-top:2px;line-height:1.45}
+.erow .p{font-size:12.5px;line-height:1.7;color:var(--muted);margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.erow.lk .th img{filter:blur(8px) saturate(.4)} .erow.lk .p{filter:blur(4px)}
 </style>
 </head>
 <body>
@@ -692,8 +726,8 @@ nav.tab{grid-template-columns:repeat(5,1fr)}
 </div>
 
 <div class="lb" id="lb"><img id="lbImg" alt=""></div>
-<script src="data.js?v=20261005c"></script>
-<script src="episodes.js?v=20261005c"></script>
+<script src="data.js?v=20261006a"></script>
+<script src="episodes.js?v=20261006a"></script>
 <script>
 (function(){
 "use strict";
@@ -724,11 +758,12 @@ function epShort(e){ return e.no ? "EP"+e.no : (e.special? "番外" : e.arc||"")
 
 /* ---------------------------------------------------------- state */
 var LS = "qimiao.v2";
-var state = {page:"home", season:"s1", arc:null, cmode:"list", cfac:"main", cq:"", dtab:"terms", progress:MAXLV, spoiler:1};
+var state = {page:"home", season:"s1", arc:null, eview:"grid", cmode:"list", cfac:"main", cq:"", dtab:"terms", progress:MAXLV, spoiler:1};
 try{ var raw = localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw);
   if(typeof o.progress==="number") state.progress=Math.min(MAXLV,o.progress);
-  if(typeof o.spoiler==="number") state.spoiler=o.spoiler; } }catch(e){}
-function save(){ try{ localStorage.setItem(LS, JSON.stringify({progress:state.progress, spoiler:state.spoiler})); }catch(e){} }
+  if(typeof o.spoiler==="number") state.spoiler=o.spoiler;
+  if(o.eview==="list") state.eview="list"; } }catch(e){}
+function save(){ try{ localStorage.setItem(LS, JSON.stringify({progress:state.progress, spoiler:state.spoiler, eview:state.eview})); }catch(e){} }
 function locked(lv){ return !!(state.spoiler && lv && lv > state.progress); }
 function sealWrap(lv, inner, note){
   if(!locked(lv)) return inner;
@@ -768,6 +803,22 @@ function avatar(n, size){
 function firstSentence(t, n){
   var s = String(t||""); var m = (s.match(/^[^。！？]*[。！？]?/)||[s])[0];
   return (m.length > (n||60) ? m.slice(0,n||60)+"…" : m);
+}
+
+/* 長段大綱切成好讀的小段：約 70 字一段，只在句號處斷 */
+function paras(t){
+  var ss = String(t||"").match(/[^。！？]+[。！？]+」?|[^。！？]+$/g) || [];
+  var out = [], cur = "";
+  ss.forEach(function(x){ cur += x; if(cur.length >= 70){ out.push(cur); cur = ""; } });
+  if(cur){ if(out.length && cur.length < 24) out[out.length-1] += cur; else out.push(cur); }
+  return out;
+}
+var IG_REELS = "https://www.instagram.com/baoandrain0428/reels/";
+function igLink(e){
+  var u = e.ig ? "https://www.instagram.com/reel/"+e.ig+"/" : IG_REELS;
+  return '<a class="igbtn" href="'+u+'" target="_blank" rel="noopener">'+
+    '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor"/></svg>'+
+    (e.ig ? '在 IG 看這集' : '到 IG 找這集')+' <span aria-hidden="true">↗</span></a>';
 }
 
 /* ---------------------------------------------------------- home */
@@ -894,6 +945,17 @@ function epCard(e){
     '<div class="bd"><div class="t">'+esc(e.title)+'</div><div class="p">'+esc(firstSentence(e.summary,40))+'</div></div>'+
   '</button>';
 }
+function epRow(e){
+  var lk = locked(e.lv);
+  return '<button class="erow'+(lk?" lk":"")+'" data-ep="'+e.id+'">'+
+    '<div class="th">'+img(e.thumb,"",e.title)+'</div>'+
+    '<div class="bd"><div class="m">'+esc(e.id)+(e.no?' ‧ EP'+e.no:'')+(e.dur?' ‧ '+Math.floor(e.dur/60)+':'+String(e.dur%60).padStart(2,"0"):'')+'</div>'+
+    '<div class="t">'+esc(e.title)+'</div><div class="p">'+esc(firstSentence(e.summary,90))+'</div></div>'+
+  '</button>';
+}
+function epList(list){
+  return state.eview==="list" ? '<div class="elist">'+list.map(epRow).join("")+'</div>' : '<div class="egrid">'+list.map(epCard).join("")+'</div>';
+}
 function pageStory(){
   var s = seasonById(state.season) || S.seasons[0];
   var lk = locked(s.lv);
@@ -912,9 +974,12 @@ function pageStory(){
     (s.quote? sealWrap(s.lv,'<div class="sq">「'+esc(s.quote)+'」</div>'):'')+
     (s.known&&s.known.length? '<div class="subhd">已確認情報</div><ul class="known">'+ s.known.map(function(k){return '<li>'+esc(k)+'</li>';}).join("") +'</ul>':'')+
     (s.note? '<div class="card" style="padding:20px 18px;margin-top:22px"><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">作者說</div><p style="font-size:14px;color:var(--muted)">'+esc(s.note)+'</p></div>':"")+
-    '<div class="subhd">'+(s.id==="extra"?"影片":"分集")+' ‧ '+mains.length+'</div>'+
-    '<div class="egrid">'+ mains.map(epCard).join("") +'</div>'+
-    (sps.length? '<div class="subhd">番外 ‧ '+sps.length+'</div><div class="egrid">'+ sps.map(epCard).join("") +'</div>':'')+
+    '<div class="subhd vrow"><span>'+(s.id==="extra"?"影片":"分集")+' ‧ '+mains.length+'</span>'+
+      '<span class="vsw" role="group" aria-label="顯示方式">'+
+        '<button data-eview="grid" aria-current="'+(state.eview==="grid")+'">海報</button>'+
+        '<button data-eview="list" aria-current="'+(state.eview==="list")+'">列表</button></span></div>'+
+    epList(mains)+
+    (sps.length? '<div class="subhd">番外 ‧ '+sps.length+'</div>'+epList(sps):'')+
   '</section>'+foot()+'</div>';
 }
 function epSheet(e){
@@ -933,10 +998,11 @@ function epSheet(e){
         '<div class="chips">'+(s?'<button class="chip" data-season="'+s.id+'">'+esc(s.title)+'</button>':'')+
           (e.dur?'<span class="chip dim">'+Math.floor(e.dur/60)+':'+String(e.dur%60).padStart(2,"0")+'</span>':'')+
           '<span class="chip dim">'+esc(e.id)+'</span></div>'+
+        igLink(e)+
       '</div>'+
     '</div></div>'+
   '<div class="wrap ep-body">'+
-    '<div class="blk"><h4>故事大綱</h4>'+sealWrap(e.lv,'<p class="ep-sum">'+esc(e.summary)+'</p>')+'</div>'+
+    '<div class="blk"><h4>故事大綱</h4>'+sealWrap(e.lv,'<div class="ep-sum">'+paras(e.summary).map(function(x){return '<p>'+esc(x)+'</p>'}).join("")+'</div>')+'</div>'+
     (e.hl.length? '<div class="blk"><h4>台詞摘錄</h4>'+sealWrap(e.lv,'<div class="hl">'+e.hl.map(function(h){
         return '<blockquote>「'+esc(h[1])+'」<cite>'+esc(h[0])+'</cite></blockquote>';
       }).join("")+'</div>')+'</div>':'')+
@@ -944,6 +1010,7 @@ function epSheet(e){
     (arcs.length? '<div class="blk"><h4>收錄在故事線</h4><div class="chips">'+arcs.map(function(a){
         return '<button class="chip" data-arc="'+a.id+'">'+esc(a.title)+'</button>';}).join("")+'</div></div>':'')+
     (e.notes.length? '<div class="blk"><h4>整理備註</h4>'+sealWrap(e.lv,'<ul class="notesl">'+e.notes.map(function(n){return '<li>'+esc(n)+'</li>'}).join("")+'</ul>')+'</div>':'')+
+    '<div class="igfoot">'+igLink(e)+'<span>影片版權屬於《棲渺拾光》，本站只整理文字。</span></div>'+
     '<div class="chnav">'+
       (prev? '<button class="btn ghost" data-ep="'+prev.id+'">← '+esc(prev.id)+'</button>' : '<span></span>')+
       (next? '<button class="btn ghost" data-ep="'+next.id+'">'+esc(next.id)+' →</button>' : '<span></span>')+
@@ -1334,10 +1401,11 @@ function paintSet(){
 
 /* ---------------------------------------------------------- events */
 document.addEventListener("click", function(e){
-  var t = e.target.closest("[data-go],[data-season],[data-ep],[data-char],[data-arc],[data-term],[data-cmode],[data-cfac],[data-cat],[data-dtab],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],.seal[data-locked]");
+  var t = e.target.closest("[data-go],[data-season],[data-ep],[data-char],[data-arc],[data-term],[data-cmode],[data-cfac],[data-cat],[data-dtab],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],[data-eview],.seal[data-locked]");
   if(!t) return;
   if(t.classList.contains("seal") && t.dataset.locked){ t.removeAttribute("data-locked"); e.stopPropagation(); return; }
   if(t.dataset.go){ go(t.dataset.go); return; }
+  if(t.dataset.eview){ state.eview=t.dataset.eview; save(); var y=scrollY; render(); scrollTo(0,y); return; }
   if(t.dataset.newbie){ state.progress=0; state.spoiler=1; save(); paintSet(); state.season="s1"; go("story"); return; }
   if(t.dataset.season!=null && t.dataset.season!==""){ state.season=t.dataset.season; go("story"); return; }
   if(t.dataset.ep){ openEp(t.dataset.ep); return; }
@@ -1379,7 +1447,7 @@ var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(
   es.forEach(function(en){ if(!en.isIntersecting) return; var t=en.target; t.classList.add("in"); io.unobserve(t);
     if(t.dataset.count!=null) countUp(t); });
 },{rootMargin:"0px 0px -8% 0px",threshold:.08}) : null;
-var REVEAL = ".sec-head,.card,.season,.epc,.arc,.fc,.cc2,.rstep,.orbit,.curse,.sbanner,.known li,.hl blockquote,.av,.apps button";
+var REVEAL = ".sec-head,.card,.season,.epc,.arc,.fc,.cc2,.rstep,.orbit,.curse,.sbanner,.known li,.hl blockquote,.av,.apps button,.erow";
 function afterRender(root){
   if(!root) return;
   var groups = new Map();

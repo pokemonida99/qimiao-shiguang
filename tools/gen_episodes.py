@@ -54,6 +54,11 @@ def video(e):
     return f[0] if f else None
 
 
+# IG 對照：1005/data/ig.json 為 {"EP2-13": "reel 代碼", ...}；1005/covers/<id>.jpg 為 IG 官方封面（有就優先當縮圖）
+IG_P = os.path.join(SRC, "data/ig.json")
+IG = json.load(open(IG_P)) if os.path.exists(IG_P) else {}
+COVERS = os.path.join(SRC, "covers")
+
 # 自動取 1/3 處的畫面不理想時，手動指定秒數
 THUMB_AT = {"ep3-16": 31, "ep4-08": 44}
 os.makedirs("assets/ep", exist_ok=True)
@@ -64,7 +69,11 @@ for e in eps:
         continue
     s = slug(e)
     thumb = "assets/ep/%s.jpg" % s
-    if (not os.path.exists(thumb) or s in THUMB_AT) and video(e):
+    cover = os.path.join(COVERS, e["id"] + ".jpg")
+    if os.path.exists(cover):
+        if not os.path.exists(thumb) or os.path.getmtime(cover) > os.path.getmtime(thumb):
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", cover, "-vf", "scale=360:-2", "-q:v", "5", thumb], check=True)
+    elif (not os.path.exists(thumb) or s in THUMB_AT) and video(e):
         t = THUMB_AT.get(s) or (max(1.0, e["duration"] * 0.33) if e["duration"] else 5)
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", video(e), "-frames:v", "1",
                         "-vf", "scale=360:-2", "-q:v", "5", thumb], check=True)
@@ -74,7 +83,7 @@ for e in eps:
         "no": e.get("global"), "local": e["local"], "title": e["title"] or "（片頭無副標題）",
         "dur": round(e["duration"] or 0), "summary": e["summary"], "notes": e.get("notes", []),
         "cast": e["cast"], "hl": highlights(e), "thumb": thumb if os.path.exists(thumb) else "",
-        "nlines": len(e["lines"]),
+        "nlines": len(e["lines"]), "ig": IG.get(e["id"], ""),
     })
 
 ep_by_id = {e["id"]: e for e in out_eps}
