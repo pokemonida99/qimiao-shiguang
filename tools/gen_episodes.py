@@ -43,7 +43,14 @@ def group(e):
 SKIP_SPK = {"字卡", "歌詞", "旁白", "畫外音"}
 
 
+QP = os.path.join(SRC, "data/quotes.json")
+_q = json.load(open(QP)) if os.path.exists(QP) else {}
+QUOTES, CHAR_QUOTES = _q.get("episodes", {}), _q.get("characters", {})
+
+
 def highlights(e, n=3):
+    if e["id"] in QUOTES:                      # 人工挑選的台詞優先
+        return [[w, t] for w, t, _ in QUOTES[e["id"]]]
     cand = [l for l in e["lines"] if l[3] and l[1] not in SKIP_SPK and 9 <= len(l[2].replace("　", "")) <= 48]
     pick = sorted(cand, key=lambda l: -len(l[2]))[:n]
     return [[l[1], l[2]] for l in sorted(pick, key=lambda l: l[0])]
@@ -63,6 +70,7 @@ COVERS = os.path.join(SRC, "covers")
 THUMB_AT = {"ep3-16": 31, "ep4-08": 44}
 os.makedirs("assets/ep", exist_ok=True)
 os.makedirs("assets/c", exist_ok=True)
+os.makedirs("assets/g", exist_ok=True)
 out_eps = []
 for e in eps:
     if e.get("arc") == "粉絲影片":
@@ -98,20 +106,37 @@ for i, c in enumerate(chars):
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-vf", "scale=320:320", "-q:v", "4", img], check=True)
     apps = [x for x in c.get("episodes", []) if x in ep_by_id]
     lv = min([ep_by_id[x]["lv"] for x in apps if ep_by_id[x]["lv"]] or [0])
+    # 人物台詞：先從各集精選台詞裡找他說的（每集一句、依集數順序），不夠再用最長的台詞補
+    picked = []
+    for x in apps:
+        for w, t, _ in QUOTES.get(x, []):
+            if w == c["name"] and len(t) >= 6:
+                picked.append([x, t]); break
     lines = []
     for x in apps:
         for t, w, txt, sure in next(e for e in eps if e["id"] == x)["lines"]:
             if w == c["name"] and sure and 10 <= len(txt.replace("　", "")) <= 44:
                 lines.append([x, txt])
-    seen, best = set(), []
+    if c["name"] in CHAR_QUOTES:               # 主要角色：人工挑的代表台詞
+        picked = [q for q in CHAR_QUOTES[c["name"]] if q[0] in ep_by_id]
+    if len(picked) > 4:                        # 集數多的角色：平均挑 4 集
+        picked = [picked[int(k * len(picked) / 4)] for k in range(4)]
+    seen, best = {x for x, _ in picked}, list(picked)
     for x, txt in sorted(lines, key=lambda l: -len(l[1])):
+        if len(best) >= 3:
+            break
         if x in seen:
             continue
-        seen.add(x); best.append([x, txt])
-        if len(best) == 3:
-            break
+        seen.add(x); best.append([x, txt.replace("　", "，")])
+    gal = []
+    for k, (g, gep, gt) in enumerate(c.get("gallery", [])):
+        src, dst = os.path.join(SRC, g), "assets/g/c%03d-%d.jpg" % (i, k + 1)
+        if os.path.exists(src) and gep in ep_by_id:
+            if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-q:v", "5", dst], check=True)
+            gal.append([dst, gep])
     out_chars.append({"name": c["name"], "aka": c.get("aka", []), "role": c.get("role", ""),
-                      "source": c.get("source", ""), "img": img, "eps": apps, "lv": lv, "lines": best})
+                      "source": c.get("source", ""), "img": img, "eps": apps, "lv": lv, "lines": best, "gal": gal})
 
 js = "/* 由 tools/gen_episodes.py 產生，請勿手改。資料來源：1005/data */\nwindow.EPI = " + \
      json.dumps({"episodes": out_eps, "characters": out_chars}, ensure_ascii=False, separators=(",", ":")) + ";\n"
