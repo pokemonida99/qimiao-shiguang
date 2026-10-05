@@ -523,11 +523,122 @@ nav.tab{grid-template-columns:repeat(5,1fr)}
 .sbanner .rg2{font-size:11.5px;letter-spacing:.22em;color:var(--amber);margin-top:6px}
 .sfield.small{padding:9px 13px}
 .sfield.small input{font-size:14px}
+
+/* ============================ motion & 大寶篇 ============================ */
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);transition-delay:var(--rd,0s)}
+.rv.in{opacity:1;transform:none}
+/* floating lanterns */
+.lanterns{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.lan{position:absolute;bottom:-60px;width:14px;height:19px;border-radius:46% 46% 40% 40%;
+  background:radial-gradient(circle at 50% 38%,#FFE2B0,#E9A85C 55%,#B4682A);
+  box-shadow:0 0 18px 6px rgba(233,168,92,.35),0 0 46px 14px rgba(233,168,92,.12);
+  animation:rise linear infinite;opacity:0}
+.lan::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:7px;background:rgba(233,168,92,.5)}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(var(--s,1));opacity:0}10%{opacity:.8}
+  50%{transform:translate3d(var(--dx,20px),-55vh,0) scale(var(--s,1))}90%{opacity:.55}
+  100%{transform:translate3d(calc(var(--dx,20px)*-.6),-112vh,0) scale(var(--s,1));opacity:0}}
+/* card tilt */
+.tilt{transform-style:preserve-3d;will-change:transform}
+/* gold shimmer */
+.shimmer{background:linear-gradient(100deg,#F7DCAE 0%,#E9A85C 30%,#FFF3D6 45%,#E9A85C 60%,#F7DCAE 100%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;animation:shine 6s ease-in-out infinite}
+@keyframes shine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+
+/* 大寶篇 hero */
+.dbhero{min-height:min(96svh,820px)}
+.slides{position:absolute;inset:0;background:#05070C;overflow:hidden}
+.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;opacity:0;
+  transition:opacity 1.6s ease;transform:scale(1.08)}
+.slides img.on{opacity:.78;animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.16) translate3d(1.5%,1%,0)}to{transform:scale(1.02) translate3d(-1%,-1%,0)}}
+.dbhero .hero-img::after{display:none}
+.slides::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,8,14,.75) 0%,rgba(6,8,14,.05) 30%,rgba(6,8,14,.55) 62%,#06080E 99%),
+             linear-gradient(90deg,rgba(6,8,14,.85),rgba(6,8,14,0) 70%)}
+.embers{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ember{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:#FFB86B;
+  box-shadow:0 0 8px 2px rgba(255,150,70,.7);animation:ember linear infinite;opacity:0}
+@keyframes ember{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:1}100%{transform:translate3d(var(--dx,30px),-80vh,0);opacity:0}}
+.dbhero h1{font-size:clamp(54px,17vw,120px);letter-spacing:.12em}
+.dbhero .kicker2{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.26em;color:#FFD9A0;
+  padding:6px 12px;border:1px solid rgba(233,168,92,.4);border-radius:99px;background:rgba(6,8,14,.5);margin-bottom:16px}
+.dbhero .kicker2 i{width:7px;height:7px;border-radius:50%;background:#FF6B4A;box-shadow:0 0 10px #FF6B4A;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+.dbhero .lead{margin-top:16px;max-width:30em;font-size:clamp(14px,3.8vw,16px);color:rgba(239,231,218,.86);line-height:1.95}
+.dots{display:flex;gap:7px;margin-top:22px}
+.dots button{width:22px;height:3px;border-radius:2px;background:rgba(239,231,218,.25);transition:.3s}
+.dots button.on{width:40px;background:var(--amber)}
+.hero-in .wrap{position:relative;z-index:2}
+
+/* typed quote */
+.typeq{font-family:var(--serif);font-weight:700;font-size:clamp(24px,7vw,44px);letter-spacing:.12em;line-height:1.5;color:var(--paper);text-align:center;margin:10px auto 6px;max-width:16em}
+.typeq span{opacity:0;display:inline-block;transform:translateY(8px);filter:blur(6px);transition:opacity .5s,transform .5s,filter .5s}
+.typeq.in span{opacity:1;transform:none;filter:none;transition-delay:calc(var(--i)*70ms)}
+.typeq-src{text-align:center;font-size:11.5px;letter-spacing:.24em;color:var(--amber);margin-bottom:26px}
+
+/* horizontal arc rail */
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+  mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 30px),transparent)}
+.rail::-webkit-scrollbar{height:4px}.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.rstep{flex:none;width:min(66vw,230px);scroll-snap-align:start;text-align:left;position:relative;border-radius:14px;overflow:hidden;
+  border:1px solid var(--line-soft);background:#0A0E17;transition:.3s}
+.rstep:hover{border-color:var(--amber);transform:translateY(-4px)}
+.rstep img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;transition:.6s}
+.rstep:hover img{transform:scale(1.06)}
+.rstep .n{position:absolute;top:10px;left:10px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--serif);font-size:14px;color:#20140A;background:linear-gradient(135deg,#F7DCAE,#E9A85C);box-shadow:0 0 16px rgba(233,168,92,.6)}
+.rstep .b{padding:12px 13px 14px}
+.rstep .e{font-size:10.5px;letter-spacing:.16em;color:var(--amber)}
+.rstep p{font-size:13px;line-height:1.75;color:var(--paper);opacity:.9;margin-top:4px}
+.rstep.lk img{filter:blur(9px)} .rstep.lk p{filter:blur(5px)}
+.railhint{font-size:11px;letter-spacing:.2em;color:var(--faint);text-align:right;margin-top:-6px}
+
+/* family orbit */
+.orbitwrap{display:grid;gap:22px;align-items:center;margin-top:30px}
+@media(min-width:820px){.orbitwrap{grid-template-columns:1fr 1fr}}
+.orbit{position:relative;width:min(84vw,380px);aspect-ratio:1;margin:0 auto}
+.orbit .ring{position:absolute;inset:12%;border-radius:50%;border:1px dashed rgba(233,168,92,.35);animation:spin 60s linear infinite}
+.orbit .ring2{position:absolute;inset:2%;border-radius:50%;border:1px solid rgba(233,168,92,.12)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.orbit .core{position:absolute;left:50%;top:50%;width:38%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden;
+  border:3px solid #E9A85C;box-shadow:0 0 0 0 rgba(233,168,92,.6);animation:pulse 2.8s ease-out infinite}
+.orbit .core img{width:100%;height:100%;object-fit:cover}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,168,92,.55)}80%{box-shadow:0 0 0 26px rgba(233,168,92,0)}100%{box-shadow:0 0 0 0 rgba(233,168,92,0)}}
+.orbit .sat{position:absolute;width:23%;transform:translate(-50%,-50%);text-align:center;animation:bob 5s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes bob{50%{transform:translate(-50%,calc(-50% - 7px))}}
+.orbit .sat .ph{display:block;aspect-ratio:1;border-radius:50%;overflow:hidden;border:2px solid var(--acc,#E9A85C);background:#141A28;transition:.3s}
+.orbit .sat:hover .ph{transform:scale(1.08);box-shadow:0 0 22px var(--acc,#E9A85C)}
+.orbit .sat .ph img{width:100%;height:100%;object-fit:cover}
+.orbit .sat span{display:block;font-family:var(--serif);font-size:13px;letter-spacing:.1em;margin-top:5px}
+.orbit .sat em{display:block;font-style:normal;font-size:10px;letter-spacing:.12em;color:var(--faint)}
+.orbit .sat.lk .ph img{filter:blur(8px)}
+.curse{position:relative;overflow:hidden;padding:24px 22px;border-radius:var(--r);border:1px solid rgba(192,90,90,.35);
+  background:radial-gradient(80% 60% at 50% 110%,rgba(192,90,90,.28),transparent 70%),linear-gradient(180deg,rgba(20,10,14,.9),rgba(10,8,14,.9))}
+.curse h3{font-family:var(--serif);font-size:24px;letter-spacing:.24em;color:#FFB9A8;text-shadow:0 0 18px rgba(255,107,74,.5)}
+.curse .k{font-size:10.5px;letter-spacing:.3em;color:rgba(255,185,168,.6);margin-bottom:8px}
+.curse p{font-size:14px;color:var(--paper);opacity:.88;margin-top:12px;line-height:1.95}
+.curse .embers .ember{background:#FF8A5C}
+.foreshadow{list-style:none;display:grid;gap:10px;margin-top:16px}
+.foreshadow li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:13px;color:var(--muted)}
+.foreshadow b{font-family:var(--serif);font-weight:600;color:#FFD9A0;font-size:12px;letter-spacing:.1em;white-space:nowrap}
+
+/* stat count */
+.stats b{font-variant-numeric:tabular-nums}
+/* featured arc badge */
+.arc.main{border-color:rgba(233,168,92,.45);box-shadow:0 0 0 1px rgba(233,168,92,.15),0 20px 50px -30px rgba(233,168,92,.6)}
+.arc .badge2{position:absolute;top:10px;right:10px;font-size:10px;letter-spacing:.18em;padding:3px 9px;border-radius:99px;color:#20140A;background:linear-gradient(135deg,#F7DCAE,#E9A85C)}
+/* timeline draw */
+.tl2{position:relative}
+.tl2 li{opacity:.25;transform:translateX(-8px);transition:opacity .7s,transform .7s}
+.tl2 li.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv,.tl2 li{opacity:1!important;transform:none!important}.lan,.ember{display:none}.typeq span{opacity:1;transform:none;filter:none}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="petals" id="petals" aria-hidden="true"></div>
+<div class="lanterns" id="lanterns" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap" style="display:flex;align-items:center;gap:14px;width:100%">
@@ -581,8 +692,8 @@ nav.tab{grid-template-columns:repeat(5,1fr)}
 </div>
 
 <div class="lb" id="lb"><img id="lbImg" alt=""></div>
-<script src="data.js?v=20261005"></script>
-<script src="episodes.js?v=20261005"></script>
+<script src="data.js?v=20261005b"></script>
+<script src="episodes.js?v=20261005b"></script>
 <script>
 (function(){
 "use strict";
@@ -666,41 +777,81 @@ var STEPS = [
   {n:"其三", h:"主題怎麼走", p:"第一季「遺憾」、第二季「犧牲」、第三季「恨之歌」，之後的故事走進魔界與另一個時空，第六季回到大寶身上。"},
   {n:"其四", h:"怕被雷？", p:"右上角的「閱讀設定」可以選你看到第幾季，超過進度的劇情、角色和詞彙都會先封起來，點一下才顯示。"}
 ];
+var DB_SLIDES = ["assets/dabao/h1.jpg","assets/dabao/h2.jpg","assets/dabao/h3.jpg","assets/dabao/h4.jpg","assets/dabao/h5.jpg","assets/dabao/h6.jpg"];
+var DB_FAMILY = [["小雨","戀人"],["咪咪","貓女兒"],["黑糖","慰靈犬"],["阿副","兄弟"],["老闆","燒肉店"],["白妹","碧落髮廊"]];
+function embers(n){ var h=""; for(var i=0;i<n;i++){ h+='<i class="ember" style="left:'+(Math.random()*100).toFixed(1)+'%;--dx:'+(Math.random()*80-40).toFixed(0)+'px;animation-duration:'+(6+Math.random()*7).toFixed(1)+'s;animation-delay:'+(-Math.random()*10).toFixed(1)+'s"></i>'; } return '<div class="embers">'+h+'</div>'; }
 function pageHome(){
   var main = E.episodes.filter(function(e){return /^s\d|yl/.test(e.group)});
   var lastEp = main.filter(function(e){return e.no}).slice(-1)[0];
+  var arc = arcById("dabao");
+  var curse = termById("tianshagu-curse");
+  var lkS6 = locked(7);
+  var pos = [[50,8],[90,32],[88,74],[50,94],[12,74],[10,32]];
   return ''+
-  '<div class="hero">'+
-    '<div class="hero-img">'+img("assets/hero-shop.jpg","","黃泉燒肉店")+'</div>'+
-    '<div class="hero-strip"><span>'+esc(S.meta.tagline)+'</span></div>'+
+  '<div class="hero dbhero">'+
+    '<div class="slides" id="slides">'+DB_SLIDES.map(function(u,i){return '<img src="'+u+'" alt=""'+(i===0?' class="on"':'')+(lkS6?' style="filter:blur(14px)"':'')+'>'}).join("")+'</div>'+
+    embers(26)+
+    '<div class="hero-strip"><span>不要又讓我失去你們</span></div>'+
     '<div class="hero-in"><div class="wrap">'+
-      '<div class="hero-kicker">'+esc(S.meta.channel)+' ‧ 燈下資料館</div>'+
-      '<h1>黃泉<span>燒肉店</span></h1>'+
-      '<div class="sub">照 顧 你 生 前 的 遺 憾</div>'+
-      '<div class="stats">'+
-        '<div><b>6</b><span>季</span></div>'+
-        '<div><b>'+lastEp.no+'</b><span>集</span></div>'+
-        '<div><b>'+E.characters.length+'</b><span>角色</span></div>'+
-        '<div><b>'+S.arcs.length+'</b><span>故事線</span></div>'+
-      '</div>'+
+      '<div class="kicker2"><i></i>黃泉燒肉店 ‧ 第六季連載中</div>'+
+      '<h1><span class="shimmer">大寶篇</span></h1>'+
+      '<div class="sub">天 煞 孤 星</div>'+
+      '<p class="lead">'+esc(arc.lead)+'</p>'+
       '<div class="hero-cta">'+
-        '<button class="btn primary" data-newbie="1">我是新觀眾，從頭開始</button>'+
+        '<button class="btn primary" data-arc="dabao">走進大寶線</button>'+
         '<button class="btn ghost" data-ep="'+lastEp.id+'">最新一集 ‧ EP'+lastEp.no+'</button>'+
       '</div>'+
+      '<div class="dots" id="dots">'+DB_SLIDES.map(function(u,i){return '<button data-slide="'+i+'"'+(i===0?' class="on"':'')+' aria-label="第'+(i+1)+'張"></button>'}).join("")+'</div>'+
     '</div></div>'+
   '</div>'+
   '<div class="wrap">'+
-    '<section id="quick">'+secHead("三分鐘看懂","START HERE")+
+    '<section>'+
+      '<div class="typeq" id="typeq">'+Array.from("不要又讓我失去你們").map(function(c,i){return '<span style="--i:'+i+'">'+c+'</span>'}).join("")+'</div>'+
+      '<div class="typeq-src">EP102 ‧ 神也好，魔也好</div>'+
+      secHead("大寶線","THE DABAO LINE")+
+      '<p class="lede">從第一季的算命攤到第六季的詛咒，大寶的故事散在六季裡。依劇中時間串起來：</p>'+
+      '<div class="rail" id="rail">'+arc.steps.map(function(st,i){
+        var e=EP[st.ep], lk=locked(e.lv);
+        return '<button class="rstep'+(lk?" lk":"")+'" data-ep="'+e.id+'"><span class="n">'+(i+1)+'</span>'+img(e.thumb,"",e.title)+
+          '<div class="b"><div class="e">'+esc(e.id)+(e.no?' ‧ EP'+e.no:'')+'</div><p>'+esc(st.t)+'</p></div></button>';
+      }).join("")+'</div>'+
+      '<div class="railhint">← 左右滑動 →</div>'+
+      '<div class="orbitwrap">'+
+        '<div class="orbit"><div class="ring2"></div><div class="ring"></div>'+
+          '<button class="core" data-char="大寶">'+img(CH["大寶"].img,"","大寶")+'</button>'+
+          DB_FAMILY.map(function(f,i){ var c=CH[f[0]], lk=locked(c.lv);
+            return '<button class="sat'+(lk?" lk":"")+'" data-char="'+f[0]+'" style="left:'+pos[i][0]+'%;top:'+pos[i][1]+'%;--acc:'+acc(f[0])+';--dl:'+(i*-0.8)+'s">'+
+              '<span class="ph">'+img(c.img,"",f[0])+'</span><span>'+esc(f[0])+'</span><em>'+f[1]+'</em></button>'; }).join("")+
+        '</div>'+
+        '<div class="curse">'+embers(12)+
+          '<div class="k">'+(lkS6?'第六季設定':'EP8 ‧ EP98 ‧ EP103')+'</div><h3>天煞孤星</h3>'+
+          sealWrap(7,'<p>'+esc(curse.def)+'</p>')+
+          '<ul class="foreshadow">'+
+            '<li><b>EP8 埋下</b><span>算命阿婆：會剋死身邊最親的人，包括寵物；還好你的職業救死扶傷，未來一定會有好的結局。</span></li>'+
+            '<li><b>EP96 回收</b><span>'+(locked(7)?'（超過閱讀進度）':'小時候在大地震前，也夢過同一場遠古大戰。')+'</span></li>'+
+            '<li><b>尚未回收</b><span>「未來一定會有好的結局」</span></li>'+
+          '</ul>'+
+          '<div style="margin-top:18px"><button class="btn ghost" data-season="s6">第六季全部分集 →</button></div>'+
+        '</div>'+
+      '</div>'+
+    '</section>'+
+    '<section>'+secHead("黃泉燒肉店","ABOUT THE SHOW")+
+      '<div class="stats" style="margin:0 0 26px">'+
+        '<div><b data-count="6">0</b><span>季</span></div>'+
+        '<div><b data-count="'+lastEp.no+'">0</b><span>集</span></div>'+
+        '<div><b data-count="'+E.characters.length+'">0</b><span>角色</span></div>'+
+        '<div><b data-count="'+S.arcs.length+'">0</b><span>故事線</span></div>'+
+      '</div>'+
       '<div class="pillars">'+ STEPS.map(function(s){
         return '<article class="card pillar"><span class="no">'+s.n+'</span><h3>'+s.h+'</h3><p>'+s.p+'</p></article>';
       }).join("") +'</div>'+
+      '<div style="margin-top:16px"><button class="btn ghost" data-newbie="1">我是新觀眾，從第一季開始</button></div>'+
     '</section>'+
     '<section>'+secHead("季度","SEASONS")+
       '<div class="seasons">'+ S.seasons.map(seasonCard).join("") +'</div>'+
     '</section>'+
-    '<section>'+secHead("故事線","STORYLINES")+
-      '<p class="lede">跨季的主線，按時間串起來。</p>'+lantern()+
-      '<div class="arcs">'+ S.arcs.slice(0,4).map(arcCard).join("") +'</div>'+
+    '<section>'+secHead("其他故事線","STORYLINES")+
+      '<div class="arcs">'+ S.arcs.slice(1,5).map(arcCard).join("") +'</div>'+
       '<div style="margin-top:16px"><button class="btn ghost" data-go="arcs">全部故事線 →</button></div>'+
     '</section>'+
     '<section>'+secHead("世界觀","THE WORLD")+
@@ -804,7 +955,7 @@ function epSheet(e){
 function arcCard(a){
   var lk = locked(a.lv);
   var faces = a.who.slice(0,3).map(function(n){ var c=CH[n]; return c&&c.img? '<img src="'+c.img+'" alt="" loading="lazy"'+(locked(c.lv)?' style="filter:blur(8px)"':'')+'>':''; }).join("");
-  return '<button class="arc" data-arc="'+a.id+'" style="--acc:'+a.accent+'">'+
+  return '<button class="arc'+(a.id==="dabao"?" main":"")+'" data-arc="'+a.id+'" style="--acc:'+a.accent+'">'+(a.id==="dabao"?'<span class="badge2">第六季主線</span>':'')+
     '<div class="faces">'+faces+'</div>'+
     '<div class="tx"><div class="kj">'+esc(a.kanji)+'</div><h3>'+esc(a.title)+'</h3>'+
       '<p'+(lk?' style="filter:blur(4px)"':'')+'>'+esc(a.lead)+'</p>'+
@@ -1093,6 +1244,7 @@ function render(){
   if(state.page==="data" && state.dtab==="terms") paintTerms();
   if(state.page==="chars" && state.cmode==="list") paintChars();
   if(state.page==="chars" && state.cmode==="graph"){ buildGraph(); bindGraph(); }
+  afterRender($("#main"));
 }
 function hashFor(){
   var p = state.page;
@@ -1108,7 +1260,7 @@ function go(page){
   render(); window.scrollTo({top:0,behavior:"instant"});
 }
 function openSheet(html, hash){
-  $("#sheetBody").innerHTML = html; $("#sheet").classList.add("on");
+  $("#sheetBody").innerHTML = html; $("#sheet").classList.add("on"); setTimeout(function(){ afterRender($("#sheetBody")); },0);
   document.body.style.overflow="hidden"; $("#sheet").scrollTop = 0;
   history.replaceState(null,"","#"+hash);
 }
@@ -1219,6 +1371,53 @@ document.addEventListener("input", function(e){
 });
 window.addEventListener("hashchange", route);
 var _rt; window.addEventListener("resize", function(){ if(state.page!=="chars"||state.cmode!=="graph") return; clearTimeout(_rt); _rt=setTimeout(buildGraph,220); });
+
+
+/* ---------------------------------------------------------- motion */
+var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(es){
+  es.forEach(function(en){ if(!en.isIntersecting) return; var t=en.target; t.classList.add("in"); io.unobserve(t);
+    if(t.dataset.count!=null) countUp(t); });
+},{rootMargin:"0px 0px -8% 0px",threshold:.08}) : null;
+var REVEAL = ".sec-head,.card,.season,.epc,.arc,.fc,.cc2,.rstep,.orbit,.curse,.sbanner,.known li,.hl blockquote,.av,.apps button";
+function afterRender(root){
+  if(!root) return;
+  var groups = new Map();
+  $$(REVEAL, root).forEach(function(el){
+    if(el.closest(".rv")===el) return;
+    var par = el.parentElement, k = groups.get(par)||0; groups.set(par,k+1);
+    el.classList.add("rv"); el.style.setProperty("--rd", Math.min(k,8)*0.06+"s");
+    if(io && !RM) io.observe(el); else el.classList.add("in");
+  });
+  $$(".tl2 li,[data-count],#typeq", root).forEach(function(el){ if(io && !RM) io.observe(el); else { el.classList.add("in"); if(el.dataset.count!=null) el.textContent=el.dataset.count; } });
+  bindTilt(root);
+  startSlides();
+}
+function countUp(el){
+  var to=+el.dataset.count, t0=performance.now(), d=1300;
+  (function f(t){ var k=Math.min(1,(t-t0)/d); el.textContent=Math.round(to*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(f); })(t0);
+}
+function bindTilt(root){
+  if(RM || !window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  $$(".season,.fc,.arc,.rstep,.epc", root).forEach(function(el){
+    el.classList.add("tilt");
+    el.addEventListener("pointermove", function(e){ var r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform="perspective(900px) rotateX("+(-y*6).toFixed(2)+"deg) rotateY("+(x*8).toFixed(2)+"deg) translateY(-3px)"; });
+    el.addEventListener("pointerleave", function(){ el.style.transform=""; });
+  });
+}
+var slideT=null, slideI=0;
+function showSlide(i){ var imgs=$$("#slides img"), dots=$$("#dots button"); if(!imgs.length) return;
+  slideI=(i+imgs.length)%imgs.length;
+  imgs.forEach(function(im,k){ if(k===slideI){ im.classList.remove("on"); void im.offsetWidth; im.classList.add("on"); } else im.classList.remove("on"); });
+  dots.forEach(function(d,k){ d.classList.toggle("on",k===slideI); }); }
+function startSlides(){ clearInterval(slideT); slideI=0; if(!$("#slides") || RM) return;
+  slideT=setInterval(function(){ if(!document.hidden) showSlide(slideI+1); }, 6000); }
+document.addEventListener("click", function(e){ var b=e.target.closest("[data-slide]"); if(!b) return; showSlide(+b.dataset.slide); startSlidesFrom(+b.dataset.slide); });
+function startSlidesFrom(i){ clearInterval(slideT); slideT=setInterval(function(){ if(!document.hidden) showSlide(slideI+1); }, 6000); }
+(function(){ if(RM) return; var box=$("#lanterns"), n=window.innerWidth<680?6:11, h="";
+  for(var i=0;i<n;i++){ h+='<span class="lan" style="left:'+(Math.random()*96).toFixed(1)+'%;--s:'+(.5+Math.random()*.8).toFixed(2)+';--dx:'+(Math.random()*90-45).toFixed(0)+'px;animation-duration:'+(26+Math.random()*24).toFixed(1)+'s;animation-delay:'+(-Math.random()*40).toFixed(1)+'s"></span>'; }
+  box.innerHTML=h; })();
 
 /* petals */
 (function(){ var box = $("#petals"), n = window.innerWidth<680?10:16, h="";
