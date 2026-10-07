@@ -398,7 +398,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line-soft);margin-top:30px
 footer p{font-size:12px;color:var(--faint);line-height:2}
 
 /* ============================ v2 additions ============================ */
-nav.tab{grid-template-columns:repeat(5,1fr)}
+nav.tab{grid-template-columns:repeat(6,1fr)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;margin-top:26px;max-width:560px}
 .stats div{background:rgba(8,11,19,.78);padding:12px 10px;text-align:center}
 .stats b{display:block;font-family:var(--serif);font-size:clamp(20px,5.6vw,26px);color:var(--amber-hi);letter-spacing:.04em;line-height:1.2}
@@ -675,6 +675,50 @@ body{letter-spacing:.02em}
 .gal figcaption{font-size:10.5px;letter-spacing:.06em;color:var(--faint);padding:5px 7px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
 .gal figcaption:hover{color:var(--amber)}
 .gal.lk img{filter:blur(10px) saturate(.4)}
+
+/* 狂粉測驗 */
+.quiz .lede{max-width:36em}
+.stars{display:inline-flex;gap:1px;font-size:13px;letter-spacing:0}
+.stars i{font-style:normal;color:rgba(239,231,218,.18)}
+.stars i.on{color:#F2B861;text-shadow:0 0 6px rgba(242,184,97,.5)}
+.qz-dist{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:18px 0 22px;max-width:560px}
+.qz-dist div{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;border:1px solid var(--line-soft);border-radius:12px;font-size:12px;color:var(--muted)}
+.qz-dist .stars{font-size:9px}
+.qz-dist b{font-family:var(--serif);font-size:22px;color:var(--paper)}
+.qz-note{font-size:13px;color:var(--faint);margin:-6px 0 18px}
+.qz-bar{display:flex;justify-content:space-between;align-items:center;font-size:13px;letter-spacing:.1em;color:var(--muted);max-width:640px}
+.qz-track{height:4px;border-radius:4px;background:rgba(239,231,218,.1);margin:10px 0 18px;max-width:640px;overflow:hidden}
+.qz-track i{display:block;height:100%;background:linear-gradient(90deg,#E9A85C,#F7DCAE);transition:width .4s}
+.qz-card{max-width:640px;padding:22px 18px;border:1px solid var(--line-soft);border-radius:var(--r);background:rgba(10,14,23,.6)}
+.qz-card h3{font-family:var(--serif);font-size:clamp(18px,4.8vw,22px);line-height:1.6;margin:0 0 18px;letter-spacing:.04em}
+.qz-opts{display:grid;gap:10px}
+.qz-opt{display:flex;align-items:center;gap:12px;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font-size:15.5px;transition:.2s;color:var(--paper)}
+.qz-opt i{font-style:normal;flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1px solid var(--line);color:var(--muted)}
+.qz-opt:not([disabled]):hover{border-color:var(--amber);background:rgba(233,168,92,.08)}
+.qz-opt.right{border-color:#7FD6A0;background:rgba(127,214,160,.12)}
+.qz-opt.right i{background:#7FD6A0;color:#0b1a12;border-color:#7FD6A0}
+.qz-opt.wrong{border-color:#E07A6A;background:rgba(224,122,106,.12)}
+.qz-opt.wrong i{background:#E07A6A;color:#1a0b08;border-color:#E07A6A}
+.qz-opt.dim{opacity:.45}
+.qz-why{margin:18px 0;padding:14px 16px;border-radius:12px;border-left:3px solid #7FD6A0;background:rgba(127,214,160,.07)}
+.qz-why.ng{border-left-color:#E07A6A;background:rgba(224,122,106,.07)}
+.qz-why b{font-family:var(--serif);font-size:16px}
+.qz-why p{font-size:14px;color:var(--muted);margin:6px 0 8px;line-height:1.85}
+.qz-src{font-size:12.5px;color:var(--amber);letter-spacing:.06em;padding:0}
+.qz-src:hover{text-decoration:underline}
+.qz-result{text-align:center;padding:26px 16px;border:1px solid var(--line-soft);border-radius:var(--r);max-width:640px;
+  background:radial-gradient(70% 60% at 50% 0%,rgba(233,168,92,.18),transparent 70%),rgba(10,14,23,.6)}
+.qz-score b{font-family:var(--serif);font-size:72px;line-height:1;color:#F7DCAE;text-shadow:0 0 30px rgba(233,168,92,.5)}
+.qz-score span{font-size:20px;color:var(--muted);margin-left:6px}
+.qz-result h3{font-family:var(--serif);font-size:24px;letter-spacing:.14em;margin:12px 0 4px;color:var(--amber-hi,#F7DCAE)}
+.qz-result p{color:var(--muted);font-size:14px}
+.qz-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.qz-review{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px;max-width:640px}
+.qz-review li{padding:12px 14px;border-radius:12px;border:1px solid var(--line-soft);border-left:3px solid #7FD6A0}
+.qz-review li.ng{border-left-color:#E07A6A}
+.qz-review p{margin:4px 0;font-size:14.5px}
+.qz-ans{font-size:13px;color:var(--muted);margin-bottom:4px}
+.qz-ans b{color:var(--paper)}
 </style>
 </head>
 <body>
@@ -734,8 +778,8 @@ body{letter-spacing:.02em}
 </div>
 
 <div class="lb" id="lb"><img id="lbImg" alt=""></div>
-<script src="data.js?v=20261006c"></script>
-<script src="episodes.js?v=20261006c"></script>
+<script src="data.js?v=20261007a"></script>
+<script src="episodes.js?v=20261007a"></script>
 <script>
 (function(){
 "use strict";
@@ -784,6 +828,7 @@ var NAV = [
   {id:"story", label:"劇集", icon:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/>'},
   {id:"arcs",  label:"故事線", icon:'<path d="M4 18c3-8 6 2 9-6s5-4 7-6"/><circle cx="4" cy="18" r="1.6"/><circle cx="20" cy="6" r="1.6"/>'},
   {id:"chars", label:"人物", icon:'<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c1.4-4 4-6 7-6s5.6 2 7 6"/>'},
+  {id:"quiz",  label:"測驗", icon:'<circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6"/><circle cx="12" cy="16.6" r=".6" fill="currentColor"/>'},
   {id:"data",  label:"資料", icon:'<path d="M5 5h6a3 3 0 0 1 3 3v11a2.5 2.5 0 0 0-2.5-2.5H5z"/><path d="M19 5h-2a3 3 0 0 0-3 3v11a2.5 2.5 0 0 1 2.5-2.5H19z"/>'}
 ];
 function paintNav(){
@@ -1310,6 +1355,69 @@ function foot(){
     '本站只做整理與導覽，不做商業用途。</p></footer>';
 }
 
+
+/* ---------------------------------------------------------- 狂粉測驗 */
+var QZ = {run:null};   // run = {qs:[...], i, picked:[...], done}
+function stars(n){ var h=""; for(var k=1;k<=5;k++) h+='<i class="'+(k<=n?"on":"")+'">★</i>'; return '<span class="stars" aria-label="難度 '+n+' 顆星">'+h+'</span>'; }
+function quizPool(){ return S.quiz.filter(function(q){ return !locked(q.lv); }); }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function quizStart(){
+  var pool = quizPool();
+  var qs = shuffle(pool).slice(0,10).sort(function(a,b){ return a.star-b.star; })   // 由易到難
+    .map(function(q){ return {q:q, opts:shuffle(q.opts)}; });
+  QZ.run = {qs:qs, i:0, picked:[], done:false};
+}
+var QRANK = [[10,"三途川榮譽居民","業鏡羅漢親自發給你一面令旗。"],[8,"燒肉店常客","老闆記得你愛吃什麼。"],[6,"北境觀光客","功德還差一點，再刷一輪吧。"],[3,"剛下車的新靈魂","先跟引渡貓去報到。"],[0,"還在奈何橋上排隊","孟婆湯先喝一口，從 EP1 開始補。"]];
+function pageQuiz(){
+  var r = QZ.run, pool = quizPool();
+  var head = '<div class="wrap"><section class="quiz">'+secHead("狂粉測驗","FAN QUIZ");
+  if(!r){
+    var cnt = [0,0,0,0,0]; S.quiz.forEach(function(q){ cnt[q.star-1]++; });
+    return head+
+      '<p class="lede">題庫共 '+S.quiz.length+' 題，每次隨機抽 10 題，由易到難。每題都出自劇中台詞，答完會告訴你是哪一集。</p>'+
+      '<div class="qz-dist">'+cnt.map(function(c,k){ return '<div>'+stars(k+1)+'<b>'+c+'</b> 題</div>'; }).join("")+'</div>'+
+      (state.spoiler && state.progress<MAXLV ? '<p class="qz-note">已開啟防雷：只會從你看過的進度出題（目前可出 '+pool.length+' 題）。可在右上角設定改變進度。</p>':'')+
+      (pool.length<10 && pool.length? '<p class="qz-note">可出的題目不到 10 題，這次會全部出完。</p>':'')+
+      (pool.length? '<button class="btn" data-qz="start">開始測驗</button>' : '<p class="qz-note">目前的閱讀進度還沒有可以出的題目。</p>')+
+    '</section>'+foot()+'</div>';
+  }
+  if(r.done){
+    var score = r.picked.filter(function(p,k){ return p===r.qs[k].q.opts[0]; }).length, n = r.qs.length;
+    var rk = QRANK.filter(function(x){ return score*10/n >= x[0]; })[0];
+    return head+
+      '<div class="qz-result"><div class="qz-score"><b>'+score+'</b><span>/ '+n+'</span></div>'+
+        '<h3>'+rk[1]+'</h3><p>'+rk[2]+'</p>'+
+        '<div class="qz-btns"><button class="btn" data-qz="start">再測一次</button><button class="btn ghost" data-qz="home">回到說明</button></div></div>'+
+      '<ol class="qz-review">'+r.qs.map(function(x,k){
+        var ok = r.picked[k]===x.q.opts[0];
+        return '<li class="'+(ok?"ok":"ng")+'"><div class="qz-meta">'+stars(x.q.star)+'</div><p>'+esc(x.q.q)+'</p>'+
+          '<div class="qz-ans">'+(ok?'答對：':'你選「'+esc(r.picked[k])+'」，正解：')+'<b>'+esc(x.q.opts[0])+'</b></div>'+
+          '<button class="qz-src" data-ep="'+x.q.ep+'">'+esc(x.q.ep)+(EP[x.q.ep]?' ‧ '+esc(EP[x.q.ep].title):'')+' →</button></li>';
+      }).join("")+'</ol>'+
+    '</section>'+foot()+'</div>';
+  }
+  var x = r.qs[r.i], picked = r.picked[r.i], ans = picked!=null;
+  return head+
+    '<div class="qz-bar"><span>第 '+(r.i+1)+' / '+r.qs.length+' 題</span>'+stars(x.q.star)+'</div>'+
+    '<div class="qz-track"><i style="width:'+((r.i+(ans?1:0))/r.qs.length*100)+'%"></i></div>'+
+    '<div class="qz-card"><h3>'+esc(x.q.q)+'</h3><div class="qz-opts">'+x.opts.map(function(o,k){
+      var cls = !ans ? "" : (o===x.q.opts[0] ? " right" : (o===picked ? " wrong" : " dim"));
+      return '<button class="qz-opt'+cls+'" data-qa="'+k+'"'+(ans?' disabled':'')+'><i>'+"ABCD".charAt(k)+'</i>'+esc(o)+'</button>';
+    }).join("")+'</div>'+
+    (ans? '<div class="qz-why '+(picked===x.q.opts[0]?"ok":"ng")+'"><b>'+(picked===x.q.opts[0]?"答對了！":"可惜，正解是「"+esc(x.q.opts[0])+"」")+'</b>'+
+      '<p>'+esc(x.q.note)+'</p><button class="qz-src" data-ep="'+x.q.ep+'">出處：'+esc(x.q.ep)+(EP[x.q.ep]?' ‧ '+esc(EP[x.q.ep].title):'')+' →</button></div>'+
+      '<button class="btn" data-qz="next">'+(r.i+1<r.qs.length?"下一題 →":"看結果")+'</button>' : '')+
+    '</div>'+
+  '</section>'+foot()+'</div>';
+}
+function quizAct(t){
+  if(t.dataset.qz==="start"){ quizStart(); }
+  else if(t.dataset.qz==="home"){ QZ.run=null; }
+  else if(t.dataset.qz==="next"){ var r=QZ.run; if(r.i+1<r.qs.length) r.i++; else r.done=true; }
+  else if(t.dataset.qa!=null){ var r2=QZ.run; if(r2.picked[r2.i]==null) r2.picked[r2.i]=r2.qs[r2.i].opts[+t.dataset.qa]; render(); var w=$(".qz-why"); if(w) w.scrollIntoView({block:"nearest",behavior:"smooth"}); return; }
+  render(); window.scrollTo({top:0,behavior:"instant"});
+}
+
 /* ---------------------------------------------------------- render & routing */
 function render(){
   paintNav();
@@ -1318,6 +1426,7 @@ function render(){
   else if(state.page==="arcs") html = pageArcs();
   else if(state.page==="chars") html = pageChars();
   else if(state.page==="data") html = pageData();
+  else if(state.page==="quiz") html = pageQuiz();
   else html = pageHome();
   $("#main").innerHTML = '<div class="page on">'+html+'</div>';
   if(state.page==="data" && state.dtab==="terms") paintTerms();
@@ -1355,7 +1464,7 @@ function route(){
   var p = h[0]||"home";
   if(p==="ep"){ render(); openEp(h.slice(1).join("/")); return; }
   if(p==="char"){ render(); openChar(h.slice(1).join("/")); return; }
-  if(["home","story","arcs","chars","data"].indexOf(p)<0) p="home";
+  if(["home","story","arcs","chars","data","quiz"].indexOf(p)<0) p="home";
   closeSheet(true);
   state.page = p;
   if(p==="story" && h[1] && seasonById(h[1])) state.season = h[1];
@@ -1413,10 +1522,11 @@ function paintSet(){
 
 /* ---------------------------------------------------------- events */
 document.addEventListener("click", function(e){
-  var t = e.target.closest("[data-go],[data-season],[data-ep],[data-char],[data-arc],[data-term],[data-cmode],[data-cfac],[data-cat],[data-dtab],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],[data-eview],.seal[data-locked]");
+  var t = e.target.closest("[data-go],[data-season],[data-ep],[data-char],[data-arc],[data-term],[data-cmode],[data-cfac],[data-cat],[data-dtab],[data-lb],[data-close],[data-qi],[data-pg],[data-sp],[data-newbie],[data-eview],[data-qz],[data-qa],.seal[data-locked]");
   if(!t) return;
   if(t.classList.contains("seal") && t.dataset.locked){ t.removeAttribute("data-locked"); e.stopPropagation(); return; }
   if(t.dataset.go){ go(t.dataset.go); return; }
+  if(t.dataset.qz||t.dataset.qa!=null){ quizAct(t); return; }
   if(t.dataset.eview){ state.eview=t.dataset.eview; save(); var y=scrollY; render(); scrollTo(0,y); return; }
   if(t.dataset.newbie){ state.progress=0; state.spoiler=1; save(); paintSet(); state.season="s1"; go("story"); return; }
   if(t.dataset.season!=null && t.dataset.season!==""){ state.season=t.dataset.season; go("story"); return; }
