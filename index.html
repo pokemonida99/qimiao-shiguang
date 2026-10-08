@@ -89,7 +89,7 @@ nav.tab button[aria-current="true"]{color:var(--amber-hi)}
 nav.tab button[aria-current="true"] svg{filter:drop-shadow(0 0 6px rgba(233,168,92,.55))}
 
 /* ============================ common bits ============================ */
-.page{display:none;animation:rise .5s cubic-bezier(.2,.7,.3,1)}
+.page{display:none}
 .page.on{display:block}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 section{padding-block:44px}
@@ -546,8 +546,8 @@ nav.tab{grid-template-columns:repeat(7,1fr)}
 
 /* ============================ motion & 大寶篇 ============================ */
 /* scroll reveal */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);transition-delay:var(--rd,0s)}
-.rv.in{opacity:1;transform:none}
+.rv{opacity:0;transition:opacity .5s ease;transition-delay:var(--rd,0s)}
+.rv.in{opacity:1}
 /* floating lanterns */
 .lanterns{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .lan{position:absolute;bottom:-60px;width:14px;height:19px;border-radius:46% 46% 40% 40%;
@@ -650,7 +650,7 @@ nav.tab{grid-template-columns:repeat(7,1fr)}
 .arc .badge2{position:absolute;top:10px;right:10px;font-size:10px;letter-spacing:.18em;padding:3px 9px;border-radius:99px;color:#20140A;background:linear-gradient(135deg,#F7DCAE,#E9A85C)}
 /* timeline draw */
 .tl2{position:relative}
-.tl2 li{opacity:.25;transform:translateX(-8px);transition:opacity .7s,transform .7s}
+.tl2 li{opacity:.25;transition:opacity .7s}
 .tl2 li.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv,.tl2 li{opacity:1!important;transform:none!important}.lan,.ember{display:none}.typeq span{opacity:1;transform:none;filter:none}}
 
@@ -805,9 +805,9 @@ body{letter-spacing:.02em}
   <figure><img id="slImg" alt=""><figcaption><b id="slCap"></b><small id="slSub"></small><button class="btn ghost" id="slEp">看這一集 →</button></figcaption></figure>
   <button class="nv n" data-sl="1" aria-label="下一張">›</button>
 </div>
-<script src="data.js?v=20261008b"></script>
-<script src="episodes.js?v=20261008b"></script>
-<script src="stills.js?v=20261008b"></script>
+<script src="data.js?v=20261008c"></script>
+<script src="episodes.js?v=20261008c"></script>
+<script src="stills.js?v=20261008c"></script>
 <script>
 (function(){
 "use strict";
