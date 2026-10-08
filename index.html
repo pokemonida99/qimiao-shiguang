@@ -812,9 +812,9 @@ body{letter-spacing:.02em}
   <figure><img id="slImg" alt=""><figcaption><b id="slCap"></b><small id="slSub"></small><button class="btn ghost" id="slEp">看這一集 →</button></figcaption></figure>
   <button class="nv n" data-sl="1" aria-label="下一張">›</button>
 </div>
-<script src="data.js?v=20261008e"></script>
-<script src="episodes.js?v=20261008e"></script>
-<script src="stills.js?v=20261008e"></script>
+<script src="data.js?v=15"></script>
+<script src="episodes.js?v=15"></script>
+<script src="stills.js?v=15"></script>
 <script>
 (function(){
 "use strict";
@@ -1113,7 +1113,6 @@ function epSheet(e){
     (e.cast.length? '<div class="blk"><h4>出場角色</h4><div class="cast">'+e.cast.filter(function(n){return CH[n]}).map(function(n){return avatar(n)}).join("")+'</div></div>':'')+
     (arcs.length? '<div class="blk"><h4>收錄在故事線</h4><div class="chips">'+arcs.map(function(a){
         return '<button class="chip" data-arc="'+a.id+'">'+esc(a.title)+'</button>';}).join("")+'</div></div>':'')+
-    (e.notes.length? '<div class="blk"><h4>整理備註</h4>'+sealWrap(e.lv,'<ul class="notesl">'+e.notes.map(function(n){return '<li>'+esc(n)+'</li>'}).join("")+'</ul>')+'</div>':'')+
     '<div class="igfoot">'+igLink(e)+'<span>影片版權屬於《棲渺拾光》，本站只整理文字。</span></div>'+
     '<div class="chnav">'+
       (prev? '<button class="btn ghost" data-ep="'+prev.id+'">← '+esc(prev.id)+'</button>' : '<span></span>')+
@@ -1219,7 +1218,7 @@ function charSheet(c){
         }).join("")+'</div></div>':'')+
       (p.look? '<div class="blk"><h4>外觀</h4><p>'+esc(p.look)+'</p></div>':'')+
       '<div class="blk"><h4>這個人是誰</h4>'+sealWrap(c.lv,'<p>'+esc(p.about||c.role)+'</p>')+
-        (c.source? '<div class="srcnote">名字出處：'+esc(c.source)+'</div>':'')+'</div>'+
+        '</div>'+
       (p.origin&&p.origin.length? '<div class="blk"><h4>設定由來</h4><ul class="origin">'+
           p.origin.map(function(o){return '<li>'+esc(o)+'</li>'}).join("")+'</ul><div class="byline">'+esc(p.originNote||"——作者")+'</div></div>':'')+
       (quotes.length? '<div class="blk"><h4>台詞</h4>'+sealWrap(c.lv,'<div class="hl">'+quotes.map(function(q){
@@ -1364,12 +1363,10 @@ function pageData(){
           '<ul>'+c.facts.map(function(f){return '<li>'+esc(f)+'</li>'}).join("")+'</ul>'+
           '<div style="margin-top:14px"><a class="btn ghost" style="padding:9px 16px;font-size:13px" href="'+c.url+'" target="_blank" rel="noopener">前往 Instagram ↗</a></div></article>'; }).join("") +'</div>';
   else body = '<article class="card" style="padding:22px 20px">'+
-      '<p style="font-size:14.5px;color:var(--muted)">這是一個粉絲向的整理站。分集大綱與台詞摘錄是逐集看過正片整理的；角色名字只用劇中有出處的（字幕、輪迴許可木牌、台詞稱呼），沒有名字的角色就照外觀或身分稱呼。說話者或推論沒有把握的地方，都會在「整理備註」裡註明。作者的話則照原文收錄。</p>'+
-      '<div class="orn"></div><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">資料來源</div>'+
+      '<p style="font-size:14.5px;color:var(--muted)">燈下資料館收錄《黃泉燒肉店》的分集大綱、故事線、人物誌、詞彙與劇照。角色名字以劇中出現的稱呼為準，沒有名字的角色依外觀或身分稱呼；作者的話照原文收錄。</p>'+
+      '<div class="orn"></div><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">參考資料</div>'+
       '<ul style="list-style:none;display:grid;gap:9px">'+S.meta.sources.map(function(s){return '<li style="font-size:13px;color:var(--muted);padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--amber);opacity:.6">—</span>'+esc(s)+'</li>'}).join("")+'</ul>'+
-      '<div class="orn"></div><div style="font-size:10px;letter-spacing:.2em;color:var(--faint);margin-bottom:8px">怎麼更新</div>'+
-      '<p style="font-size:13.5px;color:var(--muted)">分集與角色資料由 <code style="color:var(--amber)">tools/gen_episodes.py</code> 從整理資料庫產生 <code style="color:var(--amber)">episodes.js</code>；季度介紹、故事線、人物側寫、關係與詞彙在 <code style="color:var(--amber)">data.js</code>。</p>'+
-      '<p style="font-size:12px;color:var(--faint);margin-top:14px">最後更新：'+esc(S.meta.updated)+'</p></article>';
+      '<p style="font-size:12px;color:var(--faint);margin-top:14px">版本 '+esc(S.meta.version)+' ‧ 更新於 '+esc(S.meta.updated)+'</p></article>';
   return '<div class="wrap"><section>'+secHead("資料館","ARCHIVE")+
     '<div class="seg">'+DTABS.map(function(d){return '<button data-dtab="'+d[0]+'" aria-current="'+(t===d[0])+'">'+d[1]+'</button>'}).join("")+'</div>'+
     body+'</section>'+foot()+'</div>';
@@ -1401,7 +1398,7 @@ function jumpTerm(id){
   },60);
 }
 function foot(){
-  return '<footer><p>'+esc(S.meta.siteName)+' ‧ 非官方粉絲整理站<br>'+
+  return '<footer><p>'+esc(S.meta.siteName)+' ‧ 非官方粉絲站 ‧ '+esc(S.meta.version)+'<br>'+
     '劇集《黃泉燒肉店》與所有角色、圖像著作權屬於 '+esc(S.meta.channel)+'（@'+esc(S.meta.channelHandle)+'）。<br>'+
     '本站只做整理與導覽，不做商業用途。<br>'+
     '姊妹站：<a href="'+NOVEL_URL+'" target="_blank" rel="noopener" style="color:var(--amber)">黃泉燒肉店｜小說文庫</a>（依劇情改寫的小說，可線上分章閱讀）</p></footer>';
@@ -1488,7 +1485,7 @@ function pageStills(){
   SL.list = shown;
   return '<div class="wrap"><section>'+secHead("劇照","STILLS")+
     '<p class="lede">依原作集數排列的 '+all.length+' 張橫式劇照，點圖片看大圖，可以左右切換、直接跳到那一集。</p>'+
-    '<p class="st-note">劇照由 AI 依原作影片畫面重製成橫式，人物造型與場景以當下原片為準，不是原片截圖。</p>'+
+    '<p class="st-note">劇照依原作場景重製為橫式畫面，非原片截圖。</p>'+
     '<div class="st-links"><a class="btn ghost" href="'+NOVEL_URL+'" target="_blank" rel="noopener">讀小說文庫 →</a></div>'+
     html+'</section>'+foot()+'</div>';
 }
