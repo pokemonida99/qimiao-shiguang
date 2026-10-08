@@ -17,6 +17,8 @@ episodes = io.open("episodes.js", encoding="utf-8").read()
 # 1) 內嵌 data.js、episodes.js（script 標籤帶 ?v= 版本號）
 html = re.sub(r'<script src="data\.js(\?[^"]*)?"></script>', lambda m: "<script>\n" + data + "\n</script>", html)
 html = re.sub(r'<script src="episodes\.js(\?[^"]*)?"></script>', lambda m: "<script>\n" + episodes + "\n</script>", html)
+stills = io.open("stills.js", encoding="utf-8").read()
+html = re.sub(r'<script src="stills\.js(\?[^"]*)?"></script>', lambda m: "<script>\n" + stills + "\n</script>", html)
 
 # 2) 圖片 → data URI（重新壓一次，縮小單檔體積）
 tmp = tempfile.mkdtemp()

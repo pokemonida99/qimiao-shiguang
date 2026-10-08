@@ -2,7 +2,7 @@
 
 《黃泉燒肉店》的粉絲整理站。手機優先，深色燈籠夜色。五個主要區塊：
 
-**首頁 / 劇集（逐集大綱）/ 故事線 / 人物（含關係圖）/ 資料（詞彙、雜談、語錄、頻道、關於）**
+**首頁 / 劇集（逐集大綱）/ 故事線 / 人物（含關係圖）/ 劇照 / 測驗 / 資料（詞彙、雜談、語錄、頻道、關於）**
 
 ## 檔案
 
@@ -12,6 +12,8 @@
 | `data.js` | **手寫的內容**：季度介紹、故事線、人物側寫、陣營、關係、詞彙、作者雜談、語錄。 |
 | `episodes.js` | **自動產生，不要手改**：每集的大綱、台詞摘錄、出場角色、角色頭像。 |
 | `tools/gen_episodes.py` | 從 `../1005/data`（逐集整理資料庫）產生 `episodes.js`、`assets/ep/` 縮圖、`assets/c/` 頭像。 |
+| `stills.js` | **自動產生，不要手改**：劇照清單（200 張，依集數排序）。 |
+| `tools/gen_stills.py` | 從 `../1005/小說文庫/劇照版本_*` 產生 `stills.js` 與 `assets/stills/` WebP（需要 Pillow，用 `../xihuan-mv/.venv/bin/python`）。 |
 | `assets/` | 圖片：`season/` 季封面、`ep/` 分集縮圖、`c/` 角色頭像，以及早期從官方圖文卡裁的畫面。 |
 | `build.py` | 打包成單一 HTML（圖片內嵌）。 |
 | `棲渺拾光-燈下資料館.html` | 打包好的單檔版，可直接雙擊開啟。 |
@@ -30,6 +32,12 @@ python3 -m http.server 4173 --directory .
 3. 需要的話改 `data.js`：季度的 `logline`、故事線的 `steps`、人物 `profiles`、`relations`、`glossary`
 4. 改 `index.html` 裡 script 標籤的 `?v=` 版本號，避免讀者瀏覽器吃到舊快取
 5. `python3 build.py` 重新打包單檔版
+
+## 劇照與小說
+
+劇照是 AI 依原片畫面重製的橫式圖，頁面上要保留「不是原片截圖」的說明。新增劇照批次時，把資料夾名加進 `tools/gen_stills.py` 的 `DIRS` 再重跑。單檔版不內嵌劇照圖片（WebP 太大），需和 `assets/stills/` 放在一起。
+
+姊妹站小說文庫：https://pokemonida99.github.io/huangquan-novel/（首頁、劇照頁、頁尾都有連結）。
 
 ## 防雷
 
