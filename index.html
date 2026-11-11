@@ -812,9 +812,9 @@ body{letter-spacing:.02em}
   <figure><img id="slImg" alt=""><figcaption><b id="slCap"></b><small id="slSub"></small><button class="btn ghost" id="slEp">看這一集 →</button></figcaption></figure>
   <button class="nv n" data-sl="1" aria-label="下一張">›</button>
 </div>
-<script src="data.js?v=16"></script>
-<script src="episodes.js?v=16"></script>
-<script src="stills.js?v=16"></script>
+<script src="data.js?v=20"></script>
+<script src="episodes.js?v=20"></script>
+<script src="stills.js?v=20"></script>
 <script>
 (function(){
 "use strict";
@@ -824,7 +824,7 @@ var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySele
 var esc = function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
 
 /* ---------------------------------------------------------- data index */
-var EP = {}, CH = {}, FAC = {}, MAXLV = 7;
+var EP = {}, CH = {}, FAC = {}, MAXLV = S.meta.progressLabels.length - 1;
 E.episodes.forEach(function(e,i){ e.i=i; EP[e.id]=e; });
 E.characters.forEach(function(c){ CH[c.name]=c; });
 S.factions.forEach(function(f){ f.members.forEach(function(n){ FAC[n]=f; }); });
@@ -933,7 +933,7 @@ function pageHome(){
     embers(26)+
     '<div class="hero-strip"><span>不要又讓我失去你們</span></div>'+
     '<div class="hero-in"><div class="wrap">'+
-      '<div class="kicker2"><i></i>黃泉燒肉店 ‧ 第六季連載中</div>'+
+      '<div class="kicker2"><i></i>黃泉燒肉店 ‧ 第七季〈聖母願〉連載中</div>'+
       '<h1><span class="shimmer">大寶篇</span></h1>'+
       '<div class="sub">天 煞 孤 星</div>'+
       '<p class="lead">'+esc(arc.lead)+'</p>'+
@@ -969,7 +969,7 @@ function pageHome(){
           '<ul class="foreshadow">'+
             '<li><b>EP8 埋下</b><span>算命阿婆：會剋死身邊最親的人，包括寵物；還好你的職業救死扶傷，未來一定會有好的結局。</span></li>'+
             '<li><b>EP96 回收</b><span>'+(locked(7)?'（超過閱讀進度）':'小時候在大地震前，也夢過同一場遠古大戰。')+'</span></li>'+
-            '<li><b>尚未回收</b><span>「未來一定會有好的結局」</span></li>'+
+            '<li><b>EP120 回收</b><span>'+(locked(7)?'（超過閱讀進度）':'基路伯：我們已經破解天煞孤星。——「未來一定會有好的結局」')+'</span></li>'+
           '</ul>'+
           '<div style="margin-top:18px"><button class="btn ghost" data-season="s6">第六季全部分集 →</button></div>'+
         '</div>'+
@@ -978,15 +978,15 @@ function pageHome(){
     '<section>'+secHead("小說文庫","NEW ‧ NOVEL")+
       '<a class="card novel-promo" href="'+NOVEL_URL+'" target="_blank" rel="noopener">'+
         '<img src="assets/novel-cover.jpg" alt="黃泉燒肉店小說文庫封面" loading="lazy">'+
-        '<div><span class="np-tag">新上線</span>'+
-          '<h3>把六季劇情寫成小說</h3>'+
-          '<p>依劇中台詞改寫原作第 1–104 話，七卷、二十三章、十萬字，附 237 張插畫，可以線上分章閱讀。</p>'+
+        '<div><span class="np-tag">v2.0 更新</span>'+
+          '<h3>把七季劇情寫成小說</h3>'+
+          '<p>'+NOVEL_BLURB+'</p>'+
           '<span class="btn primary">開始閱讀 →</span></div>'+
       '</a>'+
     '</section>'+
     '<section>'+secHead("黃泉燒肉店","ABOUT THE SHOW")+
       '<div class="stats" style="margin:0 0 26px">'+
-        '<div><b data-count="6">0</b><span>季</span></div>'+
+        '<div><b data-count="7">0</b><span>季</span></div>'+
         '<div><b data-count="'+lastEp.no+'">0</b><span>集</span></div>'+
         '<div><b data-count="'+E.characters.length+'">0</b><span>角色</span></div>'+
         '<div><b data-count="'+S.arcs.length+'">0</b><span>故事線</span></div>'+
@@ -1218,6 +1218,7 @@ function charSheet(c){
         }).join("")+'</div></div>':'')+
       (p.look? '<div class="blk"><h4>外觀</h4><p>'+esc(p.look)+'</p></div>':'')+
       '<div class="blk"><h4>這個人是誰</h4>'+sealWrap(c.lv,'<p>'+esc(p.about||c.role)+'</p>')+
+        (p.later||[]).map(function(x){return sealWrap(Math.max(x.lv,c.lv),'<p>'+esc(x.t)+'</p>')}).join("")+
         '</div>'+
       (p.origin&&p.origin.length? '<div class="blk"><h4>設定由來</h4><ul class="origin">'+
           p.origin.map(function(o){return '<li>'+esc(o)+'</li>'}).join("")+'</ul><div class="byline">'+esc(p.originNote||"——作者")+'</div></div>':'')+
@@ -1469,6 +1470,7 @@ function quizAct(t){
 
 /* ---------------------------------------------------------- 劇照 */
 var NOVEL_URL = "https://pokemonida99.github.io/huangquan-novel/";
+var NOVEL_BLURB = "依劇中台詞改寫原作第 1–130 話，八卷、二十九章，附插畫，可以線上分章閱讀。";   // 小說改版時一起改
 var SL = {list:[], i:0};
 function pageStills(){
   var all = window.STILLS || [], shown = [];

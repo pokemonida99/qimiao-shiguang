@@ -12,8 +12,8 @@ eps = json.load(open(os.path.join(SRC, "data/episodes.json")))["episodes"]
 chars = json.load(open(os.path.join(SRC, "data/characters.json")))["characters"]
 
 ARC_SLUG = {"月老外傳": "yl", "角色短片": "cs", "MV": "mv", "預告": "pv", "粉絲影片": "fan", "其他短劇": "ot"}
-# 閱讀進度的順序（防雷用）：0 還沒看、1–3 第一～三季、4 月老外傳、5–7 第四～六季
-LEVEL = {1: 1, 2: 2, 3: 3, "外傳": 4, 4: 5, 5: 6, 6: 7}
+# 閱讀進度的順序（防雷用）：0 還沒看、1–3 第一～三季、4 月老外傳、5–8 第四～七季
+LEVEL = {1: 1, 2: 2, 3: 3, "外傳": 4, 4: 5, 5: 6, 6: 7, 7: 8}
 
 
 def slug(e):
