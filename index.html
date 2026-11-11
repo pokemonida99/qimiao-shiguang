@@ -588,6 +588,7 @@ nav.tab{grid-template-columns:repeat(7,1fr)}
   box-shadow:0 0 8px 2px rgba(255,150,70,.7);animation:ember linear infinite;opacity:0}
 @keyframes ember{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:1}100%{transform:translate3d(var(--dx,30px),-80vh,0);opacity:0}}
 .dbhero h1{font-size:clamp(54px,17vw,120px);letter-spacing:.12em}
+.mzhero h1{font-size:clamp(40px,12.5vw,104px);letter-spacing:.08em}
 .dbhero .kicker2{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.26em;color:#FFD9A0;
   padding:6px 12px;border:1px solid rgba(233,168,92,.4);border-radius:99px;background:rgba(6,8,14,.5);margin-bottom:16px}
 .dbhero .kicker2 i{width:7px;height:7px;border-radius:50%;background:#FF6B4A;box-shadow:0 0 10px #FF6B4A;animation:blink 1.6s ease-in-out infinite}
@@ -598,6 +599,10 @@ nav.tab{grid-template-columns:repeat(7,1fr)}
 .dots button.on{width:40px;background:var(--amber)}
 .hero-in .wrap{position:relative;z-index:2}
 
+.prevseason{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;margin-top:26px;padding:14px;text-decoration:none;color:inherit}
+.prevseason img{width:96px;height:112px;object-fit:cover;border-radius:6px}
+.prevseason h3{margin:6px 0 4px}
+.prevseason p{font-size:13.5px;line-height:1.8;color:var(--muted,#bdb3a3);margin:0 0 10px}
 /* typed quote */
 .typeq{font-family:var(--serif);font-weight:700;font-size:clamp(24px,7vw,44px);letter-spacing:.12em;line-height:1.5;color:var(--paper);text-align:center;margin:10px auto 6px;max-width:16em}
 .typeq span{opacity:0;display:inline-block;transform:translateY(8px);filter:blur(6px);transition:opacity .5s,transform .5s,filter .5s}
@@ -812,9 +817,9 @@ body{letter-spacing:.02em}
   <figure><img id="slImg" alt=""><figcaption><b id="slCap"></b><small id="slSub"></small><button class="btn ghost" id="slEp">看這一集 →</button></figcaption></figure>
   <button class="nv n" data-sl="1" aria-label="下一張">›</button>
 </div>
-<script src="data.js?v=20"></script>
-<script src="episodes.js?v=20"></script>
-<script src="stills.js?v=20"></script>
+<script src="data.js?v=21"></script>
+<script src="episodes.js?v=21"></script>
+<script src="stills.js?v=21"></script>
 <script>
 (function(){
 "use strict";
@@ -918,38 +923,40 @@ var STEPS = [
   {n:"其四", h:"怕被雷？", p:"右上角的「閱讀設定」可以選你看到第幾季，超過進度的劇情、角色和詞彙都會先封起來，點一下才顯示。"}
 ];
 var DB_SLIDES = ["assets/dabao/h1.jpg","assets/dabao/h2.jpg","assets/dabao/h3.jpg","assets/dabao/h4.jpg","assets/dabao/h5.jpg","assets/dabao/h6.jpg"];
+var MZ_SLIDES = ["assets/mazu/h1.jpg","assets/mazu/h2.jpg","assets/mazu/h3.jpg","assets/mazu/h4.jpg","assets/mazu/h5.jpg","assets/mazu/h6.jpg"];
+var MZ_FAMILY = [["順風耳","小風"],["千里眼","千千"],["謝守","華佗弟子"],["紅衣小女孩","魔神仔領袖"],["白府千歲","陽間戰神"],["人面魚","魚仔"]];
 var DB_FAMILY = [["小雨","戀人"],["咪咪","貓女兒"],["黑糖","慰靈犬"],["阿副","兄弟"],["老闆","燒肉店"],["白妹","碧落髮廊"]];
 function embers(n){ var h=""; for(var i=0;i<n;i++){ h+='<i class="ember" style="left:'+(Math.random()*100).toFixed(1)+'%;--dx:'+(Math.random()*80-40).toFixed(0)+'px;animation-duration:'+(6+Math.random()*7).toFixed(1)+'s;animation-delay:'+(-Math.random()*10).toFixed(1)+'s"></i>'; } return '<div class="embers">'+h+'</div>'; }
 function pageHome(){
   var main = E.episodes.filter(function(e){return /^s\d|yl/.test(e.group)});
   var lastEp = main.filter(function(e){return e.no}).slice(-1)[0];
-  var arc = arcById("dabao");
-  var curse = termById("tianshagu-curse");
-  var lkS6 = locked(7);
+  var arc = arcById("mazu"), dbArc = arcById("dabao");
+  var contest = termById("god-contest");
+  var lkS7 = locked(8);
   var pos = [[50,8],[90,32],[88,74],[50,94],[12,74],[10,32]];
   return ''+
-  '<div class="hero dbhero">'+
-    '<div class="slides" id="slides">'+DB_SLIDES.map(function(u,i){return '<img src="'+u+'" alt=""'+(i===0?' class="on"':'')+(lkS6?' style="filter:blur(14px)"':'')+'>'}).join("")+'</div>'+
-    embers(26)+
-    '<div class="hero-strip"><span>不要又讓我失去你們</span></div>'+
+  '<div class="hero dbhero mzhero">'+
+    '<div class="slides" id="slides">'+MZ_SLIDES.map(function(u,i){return '<img src="'+u+'" alt=""'+(i===0?' class="on"':'')+(lkS7?' style="filter:blur(14px)"':'')+'>'}).join("")+'</div>'+
+    embers(22)+
+    '<div class="hero-strip"><span>'+(lkS7?'第七季 ‧ 慈悲聖母篇':'陪我看野球，好不？')+'</span></div>'+
     '<div class="hero-in"><div class="wrap">'+
       '<div class="kicker2"><i></i>黃泉燒肉店 ‧ 第七季〈慈悲聖母篇〉連載中</div>'+
-      '<h1><span class="shimmer">大寶篇</span></h1>'+
-      '<div class="sub">天 煞 孤 星</div>'+
-      '<p class="lead">'+esc(arc.lead)+'</p>'+
+      '<h1><span class="shimmer">慈悲聖母篇</span></h1>'+
+      '<div class="sub">安 瀾 天 后 宮</div>'+
+      sealWrap(8,'<p class="lead">'+esc(arc.lead)+'</p>')+
       '<div class="hero-cta">'+
-        '<button class="btn primary" data-arc="dabao">走進大寶線</button>'+
+        '<button class="btn primary" data-arc="mazu">走進媽祖線</button>'+
         '<button class="btn ghost" data-ep="'+lastEp.id+'">最新一集 ‧ EP'+lastEp.no+'</button>'+
       '</div>'+
-      '<div class="dots" id="dots">'+DB_SLIDES.map(function(u,i){return '<button data-slide="'+i+'"'+(i===0?' class="on"':'')+' aria-label="第'+(i+1)+'張"></button>'}).join("")+'</div>'+
+      '<div class="dots" id="dots">'+MZ_SLIDES.map(function(u,i){return '<button data-slide="'+i+'"'+(i===0?' class="on"':'')+' aria-label="第'+(i+1)+'張"></button>'}).join("")+'</div>'+
     '</div></div>'+
   '</div>'+
   '<div class="wrap">'+
     '<section>'+
-      '<div class="typeq" id="typeq">'+Array.from("不要又讓我失去你們").map(function(c,i){return '<span style="--i:'+i+'">'+c+'</span>'}).join("")+'</div>'+
-      '<div class="typeq-src">EP102 ‧ 神也好，魔也好</div>'+
-      secHead("大寶線","THE DABAO LINE")+
-      '<p class="lede">從第一季的算命攤到第六季的詛咒，大寶的故事散在六季裡。依劇中時間串起來：</p>'+
+      sealWrap(8,'<div class="typeq" id="typeq">'+Array.from("神明不能改變命運").map(function(c,i){return '<span style="--i:'+i+'">'+c+'</span>'}).join("")+'</div>'+
+      '<div class="typeq-src">EP123 ‧ 若是你能夠知影 ‧ 媽祖</div>')+
+      secHead("媽祖線","THE MAZU LINE")+
+      '<p class="lede">第七季回到陽間。從遶境途中劈開的海嘯，到湖上和白府千歲的一戰，依劇中順序串起來：</p>'+
       '<div class="rail" id="rail">'+arc.steps.map(function(st,i){
         var e=EP[st.ep], lk=locked(e.lv);
         return '<button class="rstep'+(lk?" lk":"")+'" data-ep="'+e.id+'"><span class="n">'+(i+1)+'</span>'+img(e.thumb,"",e.title)+
@@ -958,22 +965,27 @@ function pageHome(){
       '<div class="railhint">← 左右滑動 →</div>'+
       '<div class="orbitwrap">'+
         '<div class="orbit"><div class="ring2"></div><div class="ring"></div>'+
-          '<button class="core" data-char="大寶">'+img(CH["大寶"].img,"","大寶")+'</button>'+
-          DB_FAMILY.map(function(f,i){ var c=CH[f[0]], lk=locked(c.lv);
+          '<button class="core'+(lkS7?" lk":"")+'" data-char="媽祖">'+img(CH["媽祖"].img,"","媽祖")+'</button>'+
+          MZ_FAMILY.map(function(f,i){ var c=CH[f[0]], lk=locked(c.lv);
             return '<button class="sat'+(lk?" lk":"")+'" data-char="'+f[0]+'" style="left:'+pos[i][0]+'%;top:'+pos[i][1]+'%;--acc:'+acc(f[0])+';--dl:'+(i*-0.8)+'s">'+
-              '<span class="ph">'+img(c.img,"",f[0])+'</span><span>'+esc(f[0])+'</span><em>'+f[1]+'</em></button>'; }).join("")+
+              '<span class="ph">'+img(c.img,"",f[0])+'</span><span>'+esc(lk?"？？？":f[0])+'</span><em>'+(lk?"":f[1])+'</em></button>'; }).join("")+
         '</div>'+
         '<div class="curse">'+embers(12)+
-          '<div class="k">'+(lkS6?'第六季設定':'EP8 ‧ EP98 ‧ EP103')+'</div><h3>天煞孤星</h3>'+
-          sealWrap(7,'<p>'+esc(curse.def)+'</p>')+
+          '<div class="k">'+(lkS7?'第七季設定':'EP121 ‧ EP130')+'</div><h3>神鬥會</h3>'+
+          sealWrap(8,'<p>'+esc(contest.def)+'</p>')+
           '<ul class="foreshadow">'+
-            '<li><b>EP8 埋下</b><span>算命阿婆：會剋死身邊最親的人，包括寵物；還好你的職業救死扶傷，未來一定會有好的結局。</span></li>'+
-            '<li><b>EP96 回收</b><span>'+(locked(7)?'（超過閱讀進度）':'小時候在大地震前，也夢過同一場遠古大戰。')+'</span></li>'+
-            '<li><b>EP120 回收</b><span>'+(locked(7)?'（超過閱讀進度）':'基路伯：我們已經破解天煞孤星。——「未來一定會有好的結局」')+'</span></li>'+
+            '<li><b>EP121 安瀾</b><span>'+(lkS7?'（超過閱讀進度）':'遶境途中，一掌劈開迎面而來的海嘯。')+'</span></li>'+
+            '<li><b>EP130 無瀾</b><span>'+(lkS7?'（超過閱讀進度）':'張開光罩擋下雷光，身邊飛起滿天金色光蝶。')+'</span></li>'+
+            '<li><b>尚未揭曉</b><span>'+(lkS7?'（超過閱讀進度）':'水元素為什麼喊紅衣小女孩「媽媽」')+'</span></li>'+
           '</ul>'+
-          '<div style="margin-top:18px"><button class="btn ghost" data-season="s6">第六季全部分集 →</button></div>'+
+          '<div style="margin-top:18px"><button class="btn ghost" data-season="s7">第七季全部分集 →</button></div>'+
         '</div>'+
       '</div>'+
+      '<a class="card prevseason" href="#arcs/dabao" data-arc="dabao">'+
+        '<img src="'+DB_SLIDES[0]+'" alt="" loading="lazy"'+(locked(7)?' style="filter:blur(10px)"':'')+'>'+
+        '<div><span class="np-tag">上一季 ‧ 第六季</span><h3>大寶篇 ‧ 天煞孤星</h3>'+
+          '<p>'+esc(dbArc.lead)+'</p><span class="btn ghost">走進大寶線 →</span></div>'+
+      '</a>'+
     '</section>'+
     '<section>'+secHead("小說文庫","NEW ‧ NOVEL")+
       '<a class="card novel-promo" href="'+NOVEL_URL+'" target="_blank" rel="noopener">'+
