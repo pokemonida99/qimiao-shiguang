@@ -70,10 +70,20 @@ header.top{position:sticky;top:0;z-index:60;height:var(--head-h);
 .iconbtn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
 nav.desk{display:none}
+nav.ext{display:flex;gap:2px;align-items:center;flex:none}
+nav.ext a{font-family:var(--serif);font-weight:600;font-size:12.5px;letter-spacing:.1em;padding:7px 8px;border-radius:10px;color:var(--muted);text-decoration:none;white-space:nowrap;transition:.2s}
+nav.ext a:hover{color:var(--paper);background:rgba(255,255,255,.05)}
+nav.ext a i{font-style:normal;font-size:10px;margin-left:2px;opacity:.7}
+@media(max-width:380px){header.top .brand small{display:none}}
+header.top .iconbtn{flex:none}
+@media(max-width:360px){header.top .wrap{gap:8px!important} nav.ext a{padding:7px 5px;letter-spacing:.02em} nav.ext a i{display:none}}
+nav.desk button{white-space:nowrap}
+@media(min-width:820px) and (max-width:1080px){nav.desk button{padding:9px 9px!important;letter-spacing:.06em!important} nav.ext a{padding:9px 7px!important;letter-spacing:.06em!important}}
 @media(min-width:820px){
   body{padding-bottom:0}
   nav.desk{display:flex;gap:2px;align-items:center}
   nav.desk button{font-size:13.5px;letter-spacing:.14em;padding:9px 15px;border-radius:10px;color:var(--muted);transition:.2s;font-family:var(--serif);font-weight:600}
+  nav.ext a{font-size:13.5px;letter-spacing:.14em;padding:9px 12px}
   nav.desk button:hover{color:var(--paper);background:rgba(255,255,255,.05)}
   nav.desk button[aria-current="true"]{color:var(--amber-hi);background:var(--amber-dim)}
 }
@@ -764,6 +774,10 @@ body{letter-spacing:.02em}
     <button class="brand" onclick="go('home')">棲渺拾光<small>QIMIAO</small></button>
     <nav class="desk" id="navDesk"></nav>
     <span class="sp"></span>
+    <nav class="ext" aria-label="姊妹站">
+      <a href="https://pokemonida99.github.io/huangquan-novel/" target="_blank" rel="noopener">小說<i aria-hidden="true">↗</i></a>
+      <a href="https://pokemonida99.github.io/huangquan-puzzle/" target="_blank" rel="noopener">遊戲<i aria-hidden="true">↗</i></a>
+    </nav>
     <button class="iconbtn" id="btnSearch" aria-label="搜尋">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <button class="iconbtn" id="btnSet" aria-label="閱讀設定">
@@ -817,9 +831,9 @@ body{letter-spacing:.02em}
   <figure><img id="slImg" alt=""><figcaption><b id="slCap"></b><small id="slSub"></small><button class="btn ghost" id="slEp">看這一集 →</button></figcaption></figure>
   <button class="nv n" data-sl="1" aria-label="下一張">›</button>
 </div>
-<script src="data.js?v=21"></script>
-<script src="episodes.js?v=21"></script>
-<script src="stills.js?v=21"></script>
+<script src="data.js?v=22"></script>
+<script src="episodes.js?v=22"></script>
+<script src="stills.js?v=22"></script>
 <script>
 (function(){
 "use strict";
